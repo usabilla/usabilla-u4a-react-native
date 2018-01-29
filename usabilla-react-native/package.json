@@ -1,0 +1,19 @@
+{
+  "name": "react-native-rifinio-static-library-final",
+  "version": "2.0.0",
+  "description": "included in devApp, index has methods to call SDKs both iOS & Android",
+  "files": [
+    "src",
+    "ios",
+    "android"
+  ],
+  "peerDependencies": {
+    "react": "16.2.0",
+    "react-native": "0.52.0"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  }
+}
