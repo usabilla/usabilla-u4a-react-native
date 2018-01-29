@@ -1,5 +1,9 @@
 import { NativeModules, Platform } from 'react-native';
 
+function sum(a, b) {
+    return a + b;
+}
+
 function initialize(appId) {
     console.log("initialize")
     if (Platform.OS == 'ios') {
@@ -39,5 +43,6 @@ module.exports = {
     loadFeedbackForm,
     updateFragmentManager,
     reset,
-    sendEvent
+    sendEvent,
+    sum
 }
