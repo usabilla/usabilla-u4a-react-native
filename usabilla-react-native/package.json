@@ -1,7 +1,7 @@
 {
-  "name": "react-native-rifinio-static-library-final",
-  "version": "2.0.0",
-  "description": "included in devApp, index has methods to call SDKs both iOS & Android",
+  "name": "usabilla-react-native",
+  "version": "1.0.0",
+  "description": "included in DevApp, index has methods to call SDKs both iOS & Android",
   "files": [
     "src",
     "ios",

@@ -12,6 +12,8 @@ import {
   View
 } from 'react-native';
 
+var usabilla = require('./usabilla-react-native')
+
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
     'Cmd+D or shake for dev menu',
@@ -21,6 +23,9 @@ const instructions = Platform.select({
 
 export default class App extends Component<{}> {
   render() {
+    console.log("requireed :", usabilla);
+    // usabilla.initialize("");
+    
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
