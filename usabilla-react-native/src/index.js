@@ -7,34 +7,35 @@ function sum(a, b) {
 function initialize(appId) {
     console.log("initialize")
     if (Platform.OS == 'ios') {
-        NativeModules.RNUsabilla.initialize(appId)
+        console.log(NativeModules);
+        NativeModules.UsabillaBridge.initialize(appId)
     }
 }
 
 function loadFeedbackForm(formId) {
     if (Platform.OS == 'ios') {
-        NativeModules.RNUsabilla.loadFeedbackForm(formId)
+        NativeModules.UsabillaBridge.loadFeedbackForm(formId)
     }
 }
 
 function updateFragmentManager() {
     console.log("updateFragmentManager")
     if (Platform.OS == 'android') {
-        NativeModules.RNUsabilla.updateFragmentManager()
+        NativeModules.UsabillaBridge.updateFragmentManager()
     }
 }
 
 function reset() {
     console.log("reset")
     if (Platform.OS == 'android') {
-        NativeModules.RNUsabilla.resetCampaignData()
+        NativeModules.UsabillaBridge.resetCampaignData()
     }
 }
 
 function sendEvent(event) {
     console.log("sendEvent")
     if (Platform.OS == 'android') {
-        NativeModules.RNUsabilla.sendEvent(event)
+        NativeModules.UsabillaBridge.sendEvent(event)
     }
 }
 
