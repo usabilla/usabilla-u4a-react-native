@@ -9,15 +9,15 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.usabilla.sdk.ubform.Usabilla;
 
-public class BridgeModule extends ReactContextBaseJavaModule {
+public class UsabillaBridge extends ReactContextBaseJavaModule {
 
-    public BridgeModule(ReactApplicationContext context) {
+    public UsabillaBridge(ReactApplicationContext context) {
         super(context);
     }
 
     @Override
     public String getName() {
-        return "BridgeModule";
+        return "UsabillaBridge";
     }
 
     @ReactMethod

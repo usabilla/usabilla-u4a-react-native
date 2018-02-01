@@ -14,7 +14,7 @@ public class BridgePackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         final List<NativeModule> modules = new ArrayList<>();
-        modules.add(new BridgeModule(reactContext));
+        modules.add(new UsabillaBridge(reactContext));
         return modules;
     }
 
