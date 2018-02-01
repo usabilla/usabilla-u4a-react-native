@@ -1,3 +1,5 @@
 rootProject.name = 'RNUsabilla'
+include ':usabilla-react-native'
+project(':usabilla-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/usabilla-react-native/android')
 
 include ':app'
