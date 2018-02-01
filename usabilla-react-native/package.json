@@ -7,10 +7,6 @@
     "ios",
     "android"
   ],
-  "peerDependencies": {
-    "react": "16.2.0",
-    "react-native": "0.52.0"
-  },
   "main": "src/index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",

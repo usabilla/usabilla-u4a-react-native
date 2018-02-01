@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C5BA04692017354C00AED3A3 /* RNUsabilla.m in Sources */ = {isa = PBXBuildFile; fileRef = C5BA04682017354C00AED3A3 /* RNUsabilla.m */; };
-		C5BA046F201738FB00AED3A3 /* UsabillaBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BA046E201738FB00AED3A3 /* UsabillaBridge.swift */; };
-		C5BA047320173A6100AED3A3 /* Usabilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5BA047220173A6100AED3A3 /* Usabilla.framework */; };
+		C5E2234320234D76006A570D /* ReactNativeUsabilla.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E2234220234D76006A570D /* ReactNativeUsabilla.m */; };
+		C5E2234620234DA7006A570D /* Usabilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E2234520234DA7006A570D /* Usabilla.framework */; };
+		C5E2234920234DC2006A570D /* UsabillaInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E2234820234DC2006A570D /* UsabillaInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C5BA04592017350900AED3A3 /* CopyFiles */ = {
+		C5E2232F2023452C006A570D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
@@ -25,58 +25,58 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C5BA045B2017350900AED3A3 /* libRNUsabilla.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNUsabilla.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5BA04672017354C00AED3A3 /* RNUsabilla.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNUsabilla.h; sourceTree = "<group>"; };
-		C5BA04682017354C00AED3A3 /* RNUsabilla.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNUsabilla.m; sourceTree = "<group>"; };
-		C5BA046D201738FB00AED3A3 /* RNUsabilla-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNUsabilla-Bridging-Header.h"; sourceTree = "<group>"; };
-		C5BA046E201738FB00AED3A3 /* UsabillaBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsabillaBridge.swift; sourceTree = "<group>"; };
-		C5BA047220173A6100AED3A3 /* Usabilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Usabilla.framework; sourceTree = "<group>"; };
+		C5E223312023452C006A570D /* libReactNativeUsabilla.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReactNativeUsabilla.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5E2234120234D76006A570D /* ReactNativeUsabilla.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactNativeUsabilla.h; sourceTree = "<group>"; };
+		C5E2234220234D76006A570D /* ReactNativeUsabilla.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeUsabilla.m; sourceTree = "<group>"; };
+		C5E2234520234DA7006A570D /* Usabilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Usabilla.framework; sourceTree = "<group>"; };
+		C5E2234720234DC1006A570D /* ReactNativeUsabilla-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactNativeUsabilla-Bridging-Header.h"; sourceTree = "<group>"; };
+		C5E2234820234DC2006A570D /* UsabillaInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsabillaInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C5BA04582017350900AED3A3 /* Frameworks */ = {
+		C5E2232E2023452C006A570D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5BA047320173A6100AED3A3 /* Usabilla.framework in Frameworks */,
+				C5E2234620234DA7006A570D /* Usabilla.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C5BA04522017350900AED3A3 = {
+		C5E223282023452C006A570D = {
 			isa = PBXGroup;
 			children = (
-				C5BA045D2017350900AED3A3 /* RNUsabilla */,
-				C5BA045C2017350900AED3A3 /* Products */,
-				C5BA046A201738D400AED3A3 /* Frameworks */,
+				C5E2234020234D76006A570D /* ReactNativeUsabilla */,
+				C5E223322023452C006A570D /* Products */,
+				C5E2234420234DA7006A570D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		C5BA045C2017350900AED3A3 /* Products */ = {
+		C5E223322023452C006A570D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C5BA045B2017350900AED3A3 /* libRNUsabilla.a */,
+				C5E223312023452C006A570D /* libReactNativeUsabilla.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C5BA045D2017350900AED3A3 /* RNUsabilla */ = {
+		C5E2234020234D76006A570D /* ReactNativeUsabilla */ = {
 			isa = PBXGroup;
 			children = (
-				C5BA04672017354C00AED3A3 /* RNUsabilla.h */,
-				C5BA04682017354C00AED3A3 /* RNUsabilla.m */,
-				C5BA046E201738FB00AED3A3 /* UsabillaBridge.swift */,
-				C5BA046D201738FB00AED3A3 /* RNUsabilla-Bridging-Header.h */,
+				C5E2234120234D76006A570D /* ReactNativeUsabilla.h */,
+				C5E2234220234D76006A570D /* ReactNativeUsabilla.m */,
+				C5E2234820234DC2006A570D /* UsabillaInterface.swift */,
+				C5E2234720234DC1006A570D /* ReactNativeUsabilla-Bridging-Header.h */,
 			);
-			path = RNUsabilla;
+			path = ReactNativeUsabilla;
 			sourceTree = "<group>";
 		};
-		C5BA046A201738D400AED3A3 /* Frameworks */ = {
+		C5E2234420234DA7006A570D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C5BA047220173A6100AED3A3 /* Usabilla.framework */,
+				C5E2234520234DA7006A570D /* Usabilla.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -84,70 +84,70 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C5BA045A2017350900AED3A3 /* RNUsabilla */ = {
+		C5E223302023452C006A570D /* ReactNativeUsabilla */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C5BA04642017350900AED3A3 /* Build configuration list for PBXNativeTarget "RNUsabilla" */;
+			buildConfigurationList = C5E2233A2023452C006A570D /* Build configuration list for PBXNativeTarget "ReactNativeUsabilla" */;
 			buildPhases = (
-				C5BA04572017350900AED3A3 /* Sources */,
-				C5BA04582017350900AED3A3 /* Frameworks */,
-				C5BA04592017350900AED3A3 /* CopyFiles */,
+				C5E2232D2023452C006A570D /* Sources */,
+				C5E2232E2023452C006A570D /* Frameworks */,
+				C5E2232F2023452C006A570D /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = RNUsabilla;
-			productName = RNUsabilla;
-			productReference = C5BA045B2017350900AED3A3 /* libRNUsabilla.a */;
+			name = ReactNativeUsabilla;
+			productName = ReactNativeUsabilla;
+			productReference = C5E223312023452C006A570D /* libReactNativeUsabilla.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		C5BA04532017350900AED3A3 /* Project object */ = {
+		C5E223292023452C006A570D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = Usabilla;
 				TargetAttributes = {
-					C5BA045A2017350900AED3A3 = {
+					C5E223302023452C006A570D = {
 						CreatedOnToolsVersion = 9.1;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = C5BA04562017350900AED3A3 /* Build configuration list for PBXProject "RNUsabilla" */;
+			buildConfigurationList = C5E2232C2023452C006A570D /* Build configuration list for PBXProject "ReactNativeUsabilla" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = C5BA04522017350900AED3A3;
-			productRefGroup = C5BA045C2017350900AED3A3 /* Products */;
+			mainGroup = C5E223282023452C006A570D;
+			productRefGroup = C5E223322023452C006A570D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C5BA045A2017350900AED3A3 /* RNUsabilla */,
+				C5E223302023452C006A570D /* ReactNativeUsabilla */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C5BA04572017350900AED3A3 /* Sources */ = {
+		C5E2232D2023452C006A570D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5BA04692017354C00AED3A3 /* RNUsabilla.m in Sources */,
-				C5BA046F201738FB00AED3A3 /* UsabillaBridge.swift in Sources */,
+				C5E2234920234DC2006A570D /* UsabillaInterface.swift in Sources */,
+				C5E2234320234D76006A570D /* ReactNativeUsabilla.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		C5BA04622017350900AED3A3 /* Debug */ = {
+		C5E223382023452C006A570D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -195,22 +195,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../../React/**",
-					"$(SRCROOT)/../node_modules/react-native/Libraries/**",
-					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../../../node_modules/react-native/React/**",
-					"$(SRCROOT)/../react-native/React/**",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LIBRARY_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
-		C5BA04632017350900AED3A3 /* Release */ = {
+		C5E223392023452C006A570D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -252,73 +244,65 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../../React/**",
-					"$(SRCROOT)/../node_modules/react-native/Libraries/**",
-					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../../../node_modules/react-native/React/**",
-					"$(SRCROOT)/../react-native/React/**",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LIBRARY_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		C5BA04652017350900AED3A3 /* Debug */ = {
+		C5E2233B2023452C006A570D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24ZZS38JW5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/../../../ios/Frameworks",
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				LD_RUNPATH_SEARCH_PATHS = "";
-				LIBRARY_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../react-native/React/**",
+					"$(SRCROOT)/../../../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/**",
+					"$(SRCROOT)/../../React/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "RNUsabilla/RNUsabilla-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "ReactNativeUsabilla/ReactNativeUsabilla-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		C5BA04662017350900AED3A3 /* Release */ = {
+		C5E2233C2023452C006A570D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 24ZZS38JW5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/../../../ios/Frameworks",
 				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				LD_RUNPATH_SEARCH_PATHS = "";
-				LIBRARY_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../react-native/React/**",
+					"$(SRCROOT)/../../../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/**",
+					"$(SRCROOT)/../../React/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "RNUsabilla/RNUsabilla-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "ReactNativeUsabilla/ReactNativeUsabilla-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -327,25 +311,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C5BA04562017350900AED3A3 /* Build configuration list for PBXProject "RNUsabilla" */ = {
+		C5E2232C2023452C006A570D /* Build configuration list for PBXProject "ReactNativeUsabilla" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C5BA04622017350900AED3A3 /* Debug */,
-				C5BA04632017350900AED3A3 /* Release */,
+				C5E223382023452C006A570D /* Debug */,
+				C5E223392023452C006A570D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C5BA04642017350900AED3A3 /* Build configuration list for PBXNativeTarget "RNUsabilla" */ = {
+		C5E2233A2023452C006A570D /* Build configuration list for PBXNativeTarget "ReactNativeUsabilla" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C5BA04652017350900AED3A3 /* Debug */,
-				C5BA04662017350900AED3A3 /* Release */,
+				C5E2233B2023452C006A570D /* Debug */,
+				C5E2233C2023452C006A570D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = C5BA04532017350900AED3A3 /* Project object */;
+	rootObject = C5E223292023452C006A570D /* Project object */;
 }

@@ -9,10 +9,11 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
 
-var usabilla = require('./usabilla-react-native')
+var usabilla = require('usabilla-react-native')
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -22,10 +23,11 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
+
   render() {
+
     console.log("requireed :", usabilla);
-    // usabilla.initialize("");
-    
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
