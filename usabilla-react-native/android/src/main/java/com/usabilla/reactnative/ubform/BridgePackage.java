@@ -1,4 +1,4 @@
-package com.reactnativepoc;
+package com.usabilla.reactnative.ubform;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

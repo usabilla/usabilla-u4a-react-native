@@ -1,51 +1,39 @@
-import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
-let {UsabillaBridge} = NativeModules;
-const UsabillaEventEmitter = new NativeEventEmitter(UsabillaBridge);
 
-function sum(a, b) {
-    return a + b;
-}
+import { NativeEventEmitter, NativeModules, Platform, DeviceEventEmitter } from 'react-native'
+let {UsabillaBridge} = NativeModules
+const usabillaEventEmitter = (Platform.OS == 'android') ? DeviceEventEmitter : new NativeEventEmitter(UsabillaBridge)
 
 /* Usabilla Sdk Functions */
 function initialize(appId) {
-    console.log("initialize")
-    if (Platform.OS == 'ios') {
-        console.log(NativeModules);
-        UsabillaBridge.initialize(appId)
+    if (Platform.OS == 'android') {
+        usabillaEventEmitter.addListener(
+            'UBFormNotFoundFragmentActivity', 
+            () => console.log("The Activity does not extend FragmentActivity and cannot call getSupportFragmentManager()")
+        )
     }
+    UsabillaBridge.initialize(appId)
 }
 
 function loadFeedbackForm(formId) {
-    if (Platform.OS == 'ios') {
-        UsabillaBridge.loadFeedbackForm(formId)
-    }
+    UsabillaBridge.loadFeedbackForm(formId)
 }
 
 function showLoadedForm(event) {
-    console.log("showLoadedForm")
     UsabillaBridge.showLoadedFrom()
 }
 
-/* Delegate functions */
 function setFormDidLoadSuccessfully(callback) {
-    UsabillaEventEmitter.addListener(
-        'UBFormLoadedSuccessfully',
-        callback
-    );
+    usabillaEventEmitter.addListener('UBFormLoadingSucceeded', callback)
 }
 
 function setFormDidFailLoading(callback) {
-    UsabillaEventEmitter.addListener(
-        'UBFormFailedLoading',
-        callback
-    );
+    usabillaEventEmitter.addListener('UBFormLoadingFailed', callback)
 }
 
 function setFormDidClose(callback) {
-    UsabillaEventEmitter.addListener(
-        'UBFormDidClose',
-        callback    
-    );
+    if (Platform.OS == 'ios') {
+        usabillaEventEmitter.addListener('UBFormDidClose', callback)
+    }
 }
 
 module.exports = {
@@ -54,6 +42,5 @@ module.exports = {
     showLoadedForm,
     setFormDidLoadSuccessfully,
     setFormDidFailLoading,
-    setFormDidClose,
-    sum
+    setFormDidClose
 }
