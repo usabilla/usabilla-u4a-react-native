@@ -10,10 +10,30 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  NativeModules,
+  NativeEventEmitter
 } from 'react-native';
 
 var usabilla = require('usabilla-react-native')
+
+/* Event emitters */
+const UsabillaEventEmitter = new NativeEventEmitter(NativeModules.UsabillaBridge);
+
+UsabillaEventEmitter.addListener(
+  'UBFormLoadedSuccessfully',
+  (reminder) => usabilla.showLoadedForm()
+);
+
+UsabillaEventEmitter.addListener(
+  'UBFormFailedLoading',
+  (reminder) => console.log("Emitted event: formFailedLoading", reminder.error)
+);
+
+UsabillaEventEmitter.addListener(
+  'UBFormDidClose',
+  (reminder) => console.log("Emitted event: formDidClose", reminder.formId)
+);
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -23,11 +43,14 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
+  onShowForm() {
+      usabilla.loadFeedbackForm("5a744ccd8753b708620f8dd6");
+  }
 
   render() {
-
-    console.log("requireed :", usabilla);
-
+    console.log("required :", usabilla);
+    usabilla.initialize(null);
+    
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -39,6 +62,10 @@ export default class App extends Component<{}> {
         <Text style={styles.instructions}>
           {instructions}
         </Text>
+        <Button
+        onPress={this.onShowForm}
+        title="Show form"
+        />
       </View>
     );
   }
