@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
+let {UsabillaBridge} = NativeModules;
 
 function sum(a, b) {
     return a + b;
@@ -18,32 +19,14 @@ function loadFeedbackForm(formId) {
     }
 }
 
-function updateFragmentManager() {
-    console.log("updateFragmentManager")
-    if (Platform.OS == 'android') {
-        NativeModules.UsabillaBridge.updateFragmentManager()
-    }
-}
-
-function reset() {
-    console.log("reset")
-    if (Platform.OS == 'android') {
-        NativeModules.UsabillaBridge.resetCampaignData()
-    }
-}
-
-function sendEvent(event) {
-    console.log("sendEvent")
-    if (Platform.OS == 'android') {
-        NativeModules.UsabillaBridge.sendEvent(event)
-    }
+function showLoadedForm(event) {
+    console.log("showLoadedForm")
+    NativeModules.UsabillaBridge.showLoadedFrom()
 }
 
 module.exports = {
     initialize,
     loadFeedbackForm,
-    updateFragmentManager,
-    reset,
-    sendEvent,
+    showLoadedForm,
     sum
 }
