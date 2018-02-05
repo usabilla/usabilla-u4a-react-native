@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 #import "ReactNativeUsabilla-Swift.h"
 
-@interface ReactNativeUsabilla : NSObject <RCTBridgeModule>
+@interface ReactNativeUsabilla : RCTEventEmitter <RCTBridgeModule, UsabillaInterfaceDelegate>
 
 @property UsabillaInterface* usabillaInterface;
 

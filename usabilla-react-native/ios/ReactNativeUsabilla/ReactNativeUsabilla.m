@@ -8,29 +8,60 @@
 
 #import "ReactNativeUsabilla.h"
 
-@implementation ReactNativeUsabilla
+@implementation ReactNativeUsabilla {
+    UINavigationController *loadedViewController;
+}
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         _usabillaInterface = [[UsabillaInterface alloc] init];
+        _usabillaInterface.delegate = self;
     }
     return self;
 }
 
 RCT_EXPORT_MODULE(UsabillaBridge);
 
+- (NSArray<NSString *> *)supportedEvents
+{
+    return @[@"UBFormLoadedSuccessfully",
+             @"UBFormFailedLoading",
+             @"UBFormDidClose"];
+}
+
 RCT_EXPORT_METHOD(loadFeedbackForm:(NSString *)formID)
 {
-    NSLog(@"-loadFeedbackForm");
     [self.usabillaInterface loadFeedbackForm:formID];
 }
 
 RCT_EXPORT_METHOD(initialize:(NSString *)appID)
 {
-    NSLog(@"-initialize");
     [self.usabillaInterface initialize:appID];
+}
+
+RCT_EXPORT_METHOD(showLoadedFrom)
+{
+    UIViewController *rootController = (UIViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    [rootController presentViewController:self->loadedViewController animated:true completion:nil];
+}
+
+#pragma mark UsabillaInterfaceDelegate Methods
+
+-(void)formLoadedSucessfullyWithForm:(UINavigationController *)form {
+    self->loadedViewController = form;
+    [self sendEventWithName:@"UBFormLoadedSuccessfully" body:@{@"success": @YES}];
+}
+
+-(void)formFailedLoadingWithError:(NSError *)error {
+    self->loadedViewController = nil;
+    [self sendEventWithName:@"UBFormFailedLoading" body:@{@"error": error.description}];
+}
+
+-(void)formDidCloseWithFormID:(NSString *)formID withFeedbackResults:(NSArray<RNUsabillaFeedbackResult *> *)results isRedirectToAppStoreEnabled:(BOOL)isRedirectToAppStoreEnabled {
+    self->loadedViewController = nil;
+    [self sendEventWithName:@"UBFormDidClose" body:@{@"formId": formID, @"results": results, @"isRedirectToAppStoreEnabled": @(isRedirectToAppStoreEnabled)}];
 }
 
 @end
