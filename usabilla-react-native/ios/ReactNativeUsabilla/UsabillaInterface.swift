@@ -40,13 +40,11 @@ class UsabillaInterface: NSObject {
 
     @objc(loadFeedbackForm:)
     func loadFeedbackForm(formID: String) {
-        print("f: loadFeedbackForm")
         Usabilla.loadFeedbackForm(formID)
     }
 
     @objc(initialize:)
     func initialize(appID: String) {
-        print("f: initialize")
         Usabilla.initialize(appID: nil)
         Usabilla.debugEnabled = true
     }

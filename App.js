@@ -11,29 +11,10 @@ import {
   Text,
   View,
   Button,
-  NativeModules,
-  NativeEventEmitter
+  NativeModules
 } from 'react-native';
 
 var usabilla = require('usabilla-react-native')
-
-/* Event emitters */
-const UsabillaEventEmitter = new NativeEventEmitter(NativeModules.UsabillaBridge);
-
-UsabillaEventEmitter.addListener(
-  'UBFormLoadedSuccessfully',
-  (reminder) => usabilla.showLoadedForm()
-);
-
-UsabillaEventEmitter.addListener(
-  'UBFormFailedLoading',
-  (reminder) => console.log("Emitted event: formFailedLoading", reminder.error)
-);
-
-UsabillaEventEmitter.addListener(
-  'UBFormDidClose',
-  (reminder) => console.log("Emitted event: formDidClose", reminder.formId)
-);
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -43,14 +24,24 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component<{}> {
-  onShowForm() {
-      usabilla.loadFeedbackForm("5a744ccd8753b708620f8dd6");
+
+  constructor() {
+    super();
+    usabilla.initialize(null);
+    usabilla.setFormDidLoadSuccessfully(this.onFormLoaded);
+    usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form:", reminder));
+    usabilla.setFormDidCloase((reminder) => console.log(reminder.formId));
   }
 
-  render() {
-    console.log("required :", usabilla);
-    usabilla.initialize(null);
-    
+  onFormLoaded() {
+    usabilla.showLoadedForm();
+  }
+
+  onShowForm() {
+    usabilla.loadFeedbackForm("5a744ccd8753b708620f8dd6")
+  }
+
+  render() {    
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
