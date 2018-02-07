@@ -26,8 +26,8 @@ RCT_EXPORT_MODULE(UsabillaBridge);
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"UBFormLoadedSuccessfully",
-             @"UBFormFailedLoading",
+    return @[@"UBFormLoadingSucceeded",
+             @"UBFormLoadingFailed",
              @"UBFormDidClose"];
 }
 
@@ -51,12 +51,12 @@ RCT_EXPORT_METHOD(showLoadedFrom)
 
 -(void)formLoadedSucessfullyWithForm:(UINavigationController *)form {
     self->loadedViewController = form;
-    [self sendEventWithName:@"UBFormLoadedSuccessfully" body:@{@"success": @YES}];
+    [self sendEventWithName:@"UBFormLoadingSucceeded" body:@{@"success": @YES}];
 }
 
 -(void)formFailedLoadingWithError:(NSError *)error {
     self->loadedViewController = nil;
-    [self sendEventWithName:@"UBFormFailedLoading" body:@{@"error": error.description}];
+    [self sendEventWithName:@"UBFormLoadingFailed" body:@{@"error": error.description}];
 }
 
 -(void)formDidCloseWithFormID:(NSString *)formID withFeedbackResults:(NSArray<RNUsabillaFeedbackResult *> *)results isRedirectToAppStoreEnabled:(BOOL)isRedirectToAppStoreEnabled {
