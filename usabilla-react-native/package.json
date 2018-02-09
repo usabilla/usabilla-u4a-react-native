@@ -1,12 +1,18 @@
 {
   "name": "usabilla-react-native",
-  "version": "1.0.0",
-  "description": "included in DevApp, index has methods to call SDKs both iOS & Android",
-  "files": [
-    "src",
-    "ios",
-    "android"
-  ],
+  "version": "0.1.0",
+  "description": "Usabilla SDK for React Native",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usabilla/usabilla-u4a-react-native.git"
+  },
+  "keywords": [
+    "usabilla",
+    "react-native",
+    "feedback",
+    "sdk"
+    ],
+  "license": "MIT",
   "main": "src/index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
