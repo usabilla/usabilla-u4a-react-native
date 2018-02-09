@@ -17,7 +17,7 @@ const instructions = Platform.select({
 export default class App extends Component<{}> {
   constructor() {
     super()
-    usabilla.initialize(null)
+    usabilla.initialize("YOUR_APP_ID_HERE")
     usabilla.setFormDidLoadSuccessfully(this.onFormLoaded)
     usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form:", reminder))
     usabilla.setFormDidClose((reminder) => console.log(reminder.formId))
@@ -26,7 +26,7 @@ export default class App extends Component<{}> {
     usabilla.showLoadedForm()
   }
   requestForm() {
-    usabilla.loadFeedbackForm("5a744ccd8753b708620f8dd6")
+    usabilla.loadFeedbackForm("YOUR_FORM_ID_HERE")
   }
   render() {
     return (
