@@ -1,9 +1,9 @@
 # Usabilla for React Native
 Usabilla for Apps allows you to collect feedback from your users with great ease and flexibility.
-This React Native bridge to the Native Usabilla SDK allows you to load passive feedback forms and submit results.
+This React Native bridge to the Native Usabilla SDK allows you to load passive feedback forms and submit results from a React Native app.
 
 ## Installation
-To install Usabilla SDK into your React Native Application.
+To install the Usabilla SDK into your React Native Application:
 1. In a terminal window, navigate to the root directory of your project and run :
 
 ```
@@ -35,14 +35,14 @@ To use this Bridge, please make sure you are using XCode 9.1 or above.
 
 ## Features
 The first version of Usabilla for React Native `0.1.0` allows you to :
-- Load and show a passive feedback form.
+- Load and show a Passive Feedback form.
 - Submit the results of the form.
 
 ### Upcoming features
-- Add a screenshot to the passive feedback form.
+- Pre-fill a Passive Feedback form with a custom screenshot.
 - Add support for custom variables.
-- Add support for Usabilla Campaigns.
+- Add support for Campaigns (active surveys).
 
 ## Support
 
-The Usabilla For React Native is maintained by Usabilla Development Team. Everyone is encouraged to file bug reports, feature requests, and pull requests through GitHub. This input is critical and will be carefully considered, but we can’t promise a specific resolution or time frame for any request. For more information please email our Support Team at support@usabilla.com
+The Usabilla For React Native is maintained by the Usabilla Development Team. Everyone is encouraged to file bug reports, feature requests, and pull requests through GitHub. This input is critical and will be carefully considered, but we cannot promise a specific resolution or time frame for your request. For more information please email our Support Team at support@usabilla.com
