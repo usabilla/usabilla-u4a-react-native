@@ -8,7 +8,7 @@ After checking out the project :
 run `npm install` this will install the React Native packages along with `usabilla-react-native` package from the local repository.
 
 ## How to run ?
-You can run this App using the IDE or using terminal :
+you can run this App using the IDE or using terminal :
 
 For iOS : `react-native run-ios`
 
