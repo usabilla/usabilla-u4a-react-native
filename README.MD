@@ -1,18 +1,18 @@
-## React Native Example App:
-This app uses the actual Usabilla for React Native package located in `./usabilla-react-native` as a dependency.
+## React Native Sample App:
+This app uses the Usabilla for React Native package located in `./usabilla-react-native` as a dependency.
 
 You can use this app to check and verify the changes made in `usabilla-react-native`.
 
 ## Installation
-After checking out the project :
-run `npm install` this will install the React Native packages along with `usabilla-react-native` package from the local repository.
+After cloning the project repository go to its root directory and run `npm install`.
+This will install all the necessary React Native packages along with the `usabilla-react-native` package.
 
 ## How to run ?
-you can run this App using the IDE or using terminal :
+You can run this sample App using the IDE (XCode or Android Studio) or using the terminal:
 
-For iOS : `react-native run-ios`
+For iOS run command: `react-native run-ios`
 
-For Android : `react-native run-android`
+For Android run command: `react-native run-android`
 
 ## Support
 
