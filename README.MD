@@ -4,7 +4,7 @@ This app uses the Usabilla for React Native package located in `./usabilla-react
 You can use this app to check and verify the changes made in `usabilla-react-native`.
 
 ## Installation
-After cloning the project repository go to its root directory and run `npm install`.
+After cloning the project repository, go to its root directory and run `npm install`.
 This will install all the necessary React Native packages along with the `usabilla-react-native` package.
 
 ## How to run ?
