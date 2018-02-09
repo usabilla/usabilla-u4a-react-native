@@ -1,6 +1,6 @@
 # Usabilla for React Native
 Usabilla for Apps allows you to collect feedback from your users with great ease and flexibility.
-This React Native bridge to the Native Usabilla SDK allows you to load passive feedback forms and submit results.
+This React Native bridge to the Native Usabilla SDK allows you to load passive feedback forms and submit results from a React Native app.
 
 ## Installation
 To install Usabilla SDK into your React Native Application.

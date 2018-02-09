@@ -7,7 +7,7 @@ You can use this app to check and verify the changes made in `usabilla-react-nat
 After checking out the project :
 run `npm install` this will install the React Native packages along with `usabilla-react-native` package from the local repository.
 
-## how to run ?
+## How to run ?
 you can run this App using the IDE or using terminal :
 
 For iOS : `react-native run-ios`
