@@ -31,7 +31,7 @@ react-native link usabilla-react-native
 - Drag and drop the `Usabilla.framework` from `ReactNativeUsabilla/Frameworks` and check the `code sign on copy`.
 
 #### Android
-1. To make sure that the linking happened properly go chec kthat the following modification took place:
+1. To make sure that the linking happened properly, check that the following modifications took place:
 - In `android/app/build.gradle` the line `compile project(':usabilla-react-native')` is added
 - In `android/settings.gradle` the lines `include ':usabilla-react-native'` and `project(':usabilla-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/usabilla-react-native/android')` are added
 - In your `MainApplication.java` the `UsabillaBridgePackage` has been added to the list of packages returned by the method `getPackages()` 
@@ -51,4 +51,4 @@ The first version of Usabilla for React Native `0.1.0` allows you to :
 
 ## Support
 
-The Usabilla For React Native is maintained by the Usabilla Development Team. Everyone is encouraged to file bug reports, feature requests, and pull requests through GitHub. This input is critical and will be carefully considered, but we cannot promise a specific resolution or time frame for your request. For more information please email our Support Team at support@usabilla.com
+Usabilla For React Native is maintained by the Usabilla Development Team. Everyone is encouraged to file bug reports, feature requests, and pull requests through GitHub. This input is critical and will be carefully considered, but we cannot promise a specific resolution or time frame for your request. For more information please email our Support Team at support@usabilla.com
