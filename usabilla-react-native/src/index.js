@@ -36,6 +36,10 @@ function resetCampaignData(callback) {
     }
 }
 
+function loadFeedbackFormWithCurrentViewScreenshot(formId) {
+    UsabillaBridge.loadFeedbackFormWithCurrentViewScreenshot(formId)
+}
+
 function showLoadedForm() {
     UsabillaBridge.showLoadedFrom()
 }
@@ -61,6 +65,7 @@ function setFormDidClose(callback) {
 module.exports = {
     initialize,
     loadFeedbackForm,
+    loadFeedbackFormWithCurrentScreenshot,
     resetCampaignData,
     sendEvent,
     setCustomVariables,
