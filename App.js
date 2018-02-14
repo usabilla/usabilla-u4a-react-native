@@ -3,6 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  TextInput,
   View,
   Button
 } from 'react-native'
@@ -17,17 +18,29 @@ const instructions = Platform.select({
 export default class App extends Component<{}> {
   constructor() {
     super()
+    this.state = {text: ''}
     usabilla.initialize("YOUR_APP_ID_HERE")
     usabilla.setFormDidLoadSuccessfully(this.onFormLoaded)
     usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form:", reminder))
     usabilla.setFormDidClose((reminder) => console.log(reminder.formId))
   }
+
   onFormLoaded() {
     usabilla.showLoadedForm()
   }
+
   requestForm() {
     usabilla.loadFeedbackForm("YOUR_FORM_ID_HERE")
   }
+
+  resetCampaignData() {
+    usabilla.resetCampaignData()
+  }
+
+  sendEvent(event) {
+    usabilla.sendEvent(event)
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -35,6 +48,13 @@ export default class App extends Component<{}> {
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
         <Button onPress={this.requestForm} title="Form" />
+        <TextInput
+          style={{height: 40, width: 150}}
+          placeholder="Event"
+          onChangeText={(text) => this.setState({text})} />
+        <Button onPress={() => this.sendEvent(this.state.text)} title="Send event" />
+        <Text />
+        <Button onPress={this.resetCampaignData} title="Reset" />
       </View>
     )
   }

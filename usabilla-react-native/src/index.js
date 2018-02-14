@@ -28,7 +28,6 @@ function resetCampaignData(callback) {
             UsabillaBridge.resetCampaignData(callback)
             return
         }
-
         console.warn("reset callback is only available for iOS now")
         return
     }
@@ -38,7 +37,7 @@ function resetCampaignData(callback) {
     })
 }
 
-function showLoadedForm(event) {
+function showLoadedForm() {
     UsabillaBridge.showLoadedFrom()
 }
 
@@ -59,6 +58,8 @@ function setFormDidClose(callback) {
 module.exports = {
     initialize,
     loadFeedbackForm,
+    resetCampaignData,
+    sendEvent,
     showLoadedForm,
     sendEvent,
     resetCampaignData,
