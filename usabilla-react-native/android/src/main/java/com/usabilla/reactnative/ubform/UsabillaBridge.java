@@ -31,7 +31,6 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
     private static final String LOG_TAG = "Usabilla React Bridge";
     private static final String FRAGMENT_TAG = "passive form";
 
-    private Context context;
     private Fragment form;
 
     private BroadcastReceiver closingFormReceiver = new BroadcastReceiver() {
@@ -52,8 +51,8 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
 
     public UsabillaBridge(ReactApplicationContext reactContext) {
         super(reactContext);
-        context = reactContext;
-        LocalBroadcastManager.getInstance(context).registerReceiver(closingFormReceiver, new IntentFilter("com.usabilla.closeForm"));
+        reactContext.addLifecycleEventListener(this);
+        LocalBroadcastManager.getInstance(reactContext).registerReceiver(closingFormReceiver, new IntentFilter("com.usabilla.closeForm"));
     }
 
     @Override
@@ -112,9 +111,34 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
         Usabilla.customVariables = customVariables.toHashMap();
     }
 
+    @ReactMethod
+    public void sendEvent(@NonNull final String eventName) {
+        final Activity activity = getCurrentActivity();
+        if (activity != null) {
+            Usabilla.sendEvent(activity.getBaseContext(), eventName);
+            return;
+        }
+        Log.e(LOG_TAG, "Sending event to Usabilla is not possible. Android activity is null");
+    }
+
+    @ReactMethod
+    public void resetCampaignData() {
+        final Activity activity = getCurrentActivity();
+        if (activity != null) {
+            Usabilla.resetCampaignData(activity.getBaseContext());
+            return;
+        }
+        Log.e(LOG_TAG, "Resetting Usabilla campaigns is not possible. Android activity is null");
+    }
+
     @Override
     public void onHostResume() {
-        // do nothing
+        final Activity activity = getCurrentActivity();
+        if (activity instanceof FragmentActivity) {
+            Usabilla.updateFragmentManager(((FragmentActivity) activity).getSupportFragmentManager());
+            return;
+        }
+        Log.e(LOG_TAG, "Usabilla could not set support fragment manager. Android activity is not a FragmentActivity");
     }
 
     @Override
@@ -124,7 +148,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
 
     @Override
     public void onHostDestroy() {
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(closingFormReceiver);
+        LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(closingFormReceiver);
     }
 
     @Override

@@ -23,22 +23,20 @@ function sendEvent(event) {
 }
 
 function resetCampaignData(callback) {
-    if (callback) {
-        if (Platform.OS == 'ios') {
+    if (Platform.OS == 'android') {
+        UsabillaBridge.resetCampaignData()
+    } else {
+        if (callback) {
             UsabillaBridge.resetCampaignData(callback)
             return
         }
-
-        console.warn("reset callback is only available for iOS now")
-        return
+        UsabillaBridge.resetCampaignData(()=> {
+            console.log("Campaign data is successfully reset!")
+        })
     }
-
-    UsabillaBridge.resetCampaignData(()=> {
-        console.log("campaign data is reset successfully")
-    })
 }
 
-function showLoadedForm(event) {
+function showLoadedForm() {
     UsabillaBridge.showLoadedFrom()
 }
 
