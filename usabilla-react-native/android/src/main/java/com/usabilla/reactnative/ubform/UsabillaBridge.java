@@ -13,11 +13,13 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.usabilla.sdk.ubform.UBFeedbackForm;
@@ -28,7 +30,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
 
     private static final String LOG_TAG = "Usabilla React Bridge";
     private static final String FRAGMENT_TAG = "passive form";
-    
+
     private Context context;
     private Fragment form;
 
@@ -60,7 +62,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
     }
 
     /**
-     * Method called via the index.js to initialise the Usabilla SDK
+     * Called via the index.js to initialise the Usabilla SDK
      *
      * @param appId Id of the app linked to campaigns
      */
@@ -75,7 +77,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
     }
 
     /**
-     * Method called via the index.js to load a passive feedback form
+     * Called via the index.js to load a passive feedback form
      *
      * @param formId Id of the form desired to be loaded
      */
@@ -90,7 +92,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
     }
 
     /**
-     * Method used as hook from the App.js file, calling index.js to show the form previously downloaded
+     * Hook from the App.js file calling index.js to show the form previously downloaded
      */
     @ReactMethod
     public void showLoadedFrom() {
@@ -100,6 +102,14 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
             return;
         }
         emitReactEvent(getReactApplicationContext(), "UBFormNotFoundFragmentActivity", Arguments.createMap());
+    }
+
+    /**
+     * Called via the index.js to set the custom variables in the Usabilla SDK
+     */
+    @ReactMethod
+    public void setCustomVariables(ReadableMap customVariables) {
+        Usabilla.customVariables = customVariables.toHashMap();
     }
 
     @Override
