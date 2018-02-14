@@ -43,6 +43,10 @@ export default class App extends Component<{}> {
     usabilla.sendEvent(event)
   }
 
+  requestFormWithDefaultScreenshot() {
+    usabilla.loadFeedbackFormWithCurrentViewScreenshot("YOUR_FORM_ID_HERE")
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -57,6 +61,8 @@ export default class App extends Component<{}> {
         <Button onPress={() => this.sendEvent(this.state.text)} title="Send event" />
         <Text />
         <Button onPress={this.resetCampaignData} title="Reset" />
+        <Text />
+        <Button onPress={this.requestFormWithDefaultScreenshot} title="Form with screenshot" />
       </View>
     )
   }
