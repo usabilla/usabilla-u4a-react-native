@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "release" : "cd usabilla-react-native && npm run semantic-release"
   },
   "dependencies": {
     "react": "16.2.0",
