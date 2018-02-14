@@ -28,7 +28,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
 
     private static final String LOG_TAG = "Usabilla React Bridge";
     private static final String FRAGMENT_TAG = "passive form";
-    
+
     private Context context;
     private Fragment form;
 
@@ -71,7 +71,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
             Usabilla.initialize(activity.getBaseContext(), appId);
             return;
         }
-        Log.e(LOG_TAG, "Usabilla initialisation not possible. Android activity is null");
+        Log.e(LOG_TAG, "Initialisation not possible. Android activity is null");
     }
 
     /**
@@ -80,13 +80,29 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
      * @param formId Id of the form desired to be loaded
      */
     @ReactMethod
-    public void loadFeedbackForm(@NonNull String formId) {
+    public void loadFeedbackForm(@NonNull final String formId) {
         final Activity activity = getCurrentActivity();
         if (activity != null) {
             Usabilla.loadFeedbackForm(activity.getBaseContext(), formId, this);
             return;
         }
-        Log.e(LOG_TAG, "Usabilla loading feedback form not possible. Android activity is null");
+        Log.e(LOG_TAG, "Loading feedback form not possible. Android activity is null");
+    }
+
+    /**
+     * Method called via the index.js to load a passive feedback form with a screenshot attached showing the current screen
+     *
+     * @param formId Id of the form desired to be loaded
+     */
+    @ReactMethod
+    public void loadFeedbackFormWithCurrentViewScreenshot(@NonNull final String formId) {
+        final Activity activity = getCurrentActivity();
+        if (activity != null) {
+            Usabilla.takeScreenshot(activity);
+            Usabilla.loadFeedbackForm(activity.getBaseContext(), formId, this);
+            return;
+        }
+        Log.e(LOG_TAG, "Loading feedback form not possible. Android activity is null");
     }
 
     /**
