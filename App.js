@@ -22,12 +22,19 @@ export default class App extends Component<{}> {
     usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form:", reminder))
     usabilla.setFormDidClose((reminder) => console.log(reminder.formId))
   }
+
   onFormLoaded() {
     usabilla.showLoadedForm()
   }
+
   requestForm() {
     usabilla.loadFeedbackForm("YOUR_FORM_ID_HERE")
   }
+
+  requestFormWithDefaultScreenshot() {
+    usabilla.loadFeedbackFormWithCurrentViewScreenshot("YOUR_FORM_ID_HERE")
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -35,6 +42,8 @@ export default class App extends Component<{}> {
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
         <Button onPress={this.requestForm} title="Form" />
+        <Text />
+        <Button onPress={this.requestFormWithDefaultScreenshot} title="Form with screenshot" />
       </View>
     )
   }

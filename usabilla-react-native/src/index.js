@@ -18,6 +18,10 @@ function loadFeedbackForm(formId) {
     UsabillaBridge.loadFeedbackForm(formId)
 }
 
+function loadFeedbackFormWithCurrentViewScreenshot(formId) {
+    UsabillaBridge.loadFeedbackFormWithCurrentViewScreenshot(formId)
+}
+
 function showLoadedForm(event) {
     UsabillaBridge.showLoadedFrom()
 }
@@ -39,8 +43,9 @@ function setFormDidClose(callback) {
 module.exports = {
     initialize,
     loadFeedbackForm,
-    showLoadedForm,
-    setFormDidLoadSuccessfully,
+    loadFeedbackFormWithCurrentScreenshot,
+    setFormDidClose,
     setFormDidFailLoading,
-    setFormDidClose
+    setFormDidLoadSuccessfully,
+    showLoadedForm
 }
