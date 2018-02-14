@@ -24,12 +24,15 @@ export default class App extends Component<{}> {
     usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form:", reminder))
     usabilla.setFormDidClose((reminder) => console.log(reminder.formId))
   }
+
   onFormLoaded() {
     usabilla.showLoadedForm()
   }
+
   requestForm() {
     usabilla.loadFeedbackForm("YOUR_FORM_ID_HERE")
   }
+
   render() {
     return (
       <View style={styles.container}>

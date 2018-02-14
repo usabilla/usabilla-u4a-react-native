@@ -7,7 +7,7 @@ const usabillaEventEmitter = (Platform.OS == 'android') ? DeviceEventEmitter : n
 function initialize(appId) {
     if (Platform.OS == 'android') {
         usabillaEventEmitter.addListener(
-            'UBFormNotFoundFragmentActivity', 
+            'UBFormNotFoundFragmentActivity',
             () => console.log("The Activity does not extend FragmentActivity and cannot call getSupportFragmentManager()")
         )
     }
@@ -22,8 +22,8 @@ function showLoadedForm(event) {
     UsabillaBridge.showLoadedFrom()
 }
 
-function setCustomVariables(dict) {
-    UsabillaBridge.setCustomVariables(dict)
+function setCustomVariables(customVariables) {
+    UsabillaBridge.setCustomVariables(customVariables)
 }
 
 function setFormDidLoadSuccessfully(callback) {
@@ -45,7 +45,7 @@ module.exports = {
     loadFeedbackForm,
     showLoadedForm,
     setCustomVariables,
-    setFormDidLoadSuccessfully,
+    setFormDidClose,
     setFormDidFailLoading,
-    setFormDidClose
+    setFormDidLoadSuccessfully,
 }
