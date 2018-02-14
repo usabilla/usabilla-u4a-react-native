@@ -3,6 +3,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  TextInput,
   View,
   Button
 } from 'react-native'
@@ -17,6 +18,7 @@ const instructions = Platform.select({
 export default class App extends Component<{}> {
   constructor() {
     super()
+    this.state = {text: ''}
     usabilla.initialize("YOUR_APP_ID_HERE")
     var customVars = {"flight-number": "99999999", "user-type": "premium", "number-flights": 12}
     usabilla.setCustomVariables(customVars)
@@ -33,6 +35,14 @@ export default class App extends Component<{}> {
     usabilla.loadFeedbackForm("YOUR_FORM_ID_HERE")
   }
 
+  resetCampaignData() {
+    usabilla.resetCampaignData()
+  }
+
+  sendEvent(event) {
+    usabilla.sendEvent(event)
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -40,6 +50,13 @@ export default class App extends Component<{}> {
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
         <Button onPress={this.requestForm} title="Form" />
+        <TextInput
+          style={{height: 40, width: 150}}
+          placeholder="Event"
+          onChangeText={(text) => this.setState({text})} />
+        <Button onPress={() => this.sendEvent(this.state.text)} title="Send event" />
+        <Text />
+        <Button onPress={this.resetCampaignData} title="Reset" />
       </View>
     )
   }
