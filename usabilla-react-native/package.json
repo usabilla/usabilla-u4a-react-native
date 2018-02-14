@@ -1,10 +1,10 @@
 {
   "name": "usabilla-react-native",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "Usabilla SDK for React Native",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/usabilla/usabilla-u4a-react-native.git"
+    "url": "https://github.com/usabilla/usabilla-u4a-react-native.git"
   },
   "keywords": [
     "usabilla",
@@ -13,11 +13,15 @@
     "user-feedback",
     "targeted-surveys",
     "sdk"
-    ],
+  ],
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "semantic-release": "^12.4.1"
   }
 }
