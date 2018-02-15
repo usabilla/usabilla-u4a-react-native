@@ -1,3 +1,6 @@
+[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/usabilla/usabilla-u4a-react-native/blob/develop/LICENSE)
+
+
 # Usabilla for React Native
 Usabilla for Apps allows you to collect feedback from your users with great ease and flexibility.
 This React Native bridge to the Native Usabilla SDK allows you to load passive feedback forms and submit results from a React Native app.
@@ -40,11 +43,43 @@ react-native link usabilla-react-native
 To use this Bridge, please make sure you are using XCode 9.1 or above.
 
 ## Features
-- Load and show a Passive Feedback form.
-- Submit the results of the form.
-- Set custom variables.
+### Load a Passive Feedback form
+In order to load a Passive Feedback form with the Usabilla library you need to call:
 
-### Upcoming features
+`usabilla.loadFeedbackForm("YOUR_FORM_ID_HERE")`
+
+This method only performs the call to fetch the Passive Feedback form and in order to handle its response there are two methods available:
+
+- `usabilla.setFormDidLoadSuccessfully(usabilla.showLoadedForm())`: Sets the callback to execute when the form is fetched successfully
+- `usabilla.setFormDidFailLoading((error) => console.log(error))`: Sets the callback to execute when the form fails to be fetched. This callback has a parameter `error` containing a text explaining what happened
+
+**NOTE**: Usabilla provides a standard callback for showing a successfully fetched form with the method `usabilla.showLoadedForm()`
+
+**[iOS ONLY]**: When a user submits or closes the form, it is possible to get a callback containing information about the submission using the method:
+
+`usabilla.setFormDidClose((reminder) => console.log(reminder))`
+
+This callback has a parameter containing the information:
+  - formId (string)
+  - isRedirectToAppStoreEnabled (boolean)
+
+### Submit the results of the form
+This functionality is embedded in the native Usabilla library and there is no need to perform any specific action from the React Native environment.
+
+### Support for custom variables
+
+In order to set custom variables in the Usabilla native library it's necessary to call the method:
+
+`usabilla.setCustomVariables(customVars)`
+
+This method accepts as parameter a valid JSON object with two limitations:
+
+- Arrays should only contain same type components.
+- Objects can be nested up to one level (currently undergoing work to enable deeper nesting).
+
+**NOTE**: Feedback sent without respecting those limitations will still be received and saved, but the values of the customer input context won't be displayed nor exported.
+
+## Upcoming features
 - Pre-fill a Passive Feedback form with a custom screenshot.
 - Add support for Campaigns (active surveys).
 
