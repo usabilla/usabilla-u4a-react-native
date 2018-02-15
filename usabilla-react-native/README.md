@@ -40,13 +40,12 @@ react-native link usabilla-react-native
 To use this Bridge, please make sure you are using XCode 9.1 or above.
 
 ## Features
-The first version of Usabilla for React Native `0.1.0` allows you to :
 - Load and show a Passive Feedback form.
 - Submit the results of the form.
+- Set custom variables.
 
 ### Upcoming features
 - Pre-fill a Passive Feedback form with a custom screenshot.
-- Add support for custom variables.
 - Add support for Campaigns (active surveys).
 
 ## Support
