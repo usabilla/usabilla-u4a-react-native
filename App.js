@@ -18,6 +18,8 @@ export default class App extends Component<{}> {
   constructor() {
     super()
     usabilla.initialize("YOUR_APP_ID_HERE")
+    var customVars = {"flight-number": "99999999", "user-type": "premium", "number-flights": 12}
+    usabilla.setCustomVariables(customVars)
     usabilla.setFormDidLoadSuccessfully(this.onFormLoaded)
     usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form:", reminder))
     usabilla.setFormDidClose((reminder) => console.log(reminder.formId))

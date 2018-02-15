@@ -22,6 +22,10 @@ function showLoadedForm(event) {
     UsabillaBridge.showLoadedFrom()
 }
 
+function setCustomVariables(dict) {
+    UsabillaBridge.setCustomVariables(dict)
+}
+
 function setFormDidLoadSuccessfully(callback) {
     usabillaEventEmitter.addListener('UBFormLoadingSucceeded', callback)
 }
@@ -40,6 +44,7 @@ module.exports = {
     initialize,
     loadFeedbackForm,
     showLoadedForm,
+    setCustomVariables,
     setFormDidLoadSuccessfully,
     setFormDidFailLoading,
     setFormDidClose

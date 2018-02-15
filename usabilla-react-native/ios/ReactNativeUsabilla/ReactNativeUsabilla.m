@@ -31,14 +31,19 @@ RCT_EXPORT_MODULE(UsabillaBridge);
              @"UBFormDidClose"];
 }
 
+RCT_EXPORT_METHOD(initialize:(NSString *)appID)
+{
+    [self.usabillaInterface initialize:appID];
+}
+
 RCT_EXPORT_METHOD(loadFeedbackForm:(NSString *)formID)
 {
     [self.usabillaInterface loadFeedbackForm:formID];
 }
 
-RCT_EXPORT_METHOD(initialize:(NSString *)appID)
+RCT_EXPORT_METHOD(setCustomVariables:(NSDictionary * _Nonnull)variables)
 {
-    [self.usabillaInterface initialize:appID];
+    [self.usabillaInterface setCustomVariables:variables];
 }
 
 RCT_EXPORT_METHOD(showLoadedFrom)

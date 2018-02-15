@@ -38,15 +38,20 @@ class UsabillaInterface: NSObject {
         Usabilla.delegate = self
     }
 
-    @objc(loadFeedbackForm:)
-    func loadFeedbackForm(formID: String) {
-        Usabilla.loadFeedbackForm(formID)
-    }
-
     @objc(initialize:)
     func initialize(appID: String) {
         Usabilla.initialize(appID: nil)
         Usabilla.debugEnabled = true
+    }
+
+    @objc(loadFeedbackForm:)
+    func loadFeedbackForm(formID: String) {
+        Usabilla.loadFeedbackForm(formID)
+    }
+    
+    @objc(setCustomVariables:)
+    func setCustomVariables(_ variables: [String: Any]) {
+        Usabilla.customVariables = variables
     }
 }
 
