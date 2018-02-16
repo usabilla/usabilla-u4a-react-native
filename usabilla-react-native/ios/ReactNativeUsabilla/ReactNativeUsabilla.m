@@ -46,6 +46,19 @@ RCT_EXPORT_METHOD(setCustomVariables:(NSDictionary * _Nonnull)variables)
     [self.usabillaInterface setCustomVariables:variables];
 }
 
+RCT_EXPORT_METHOD(sendEvent:(NSString *)event)
+{
+    [self.usabillaInterface sendEvent:event];
+}
+
+RCT_EXPORT_METHOD(resetCampaignData:(RCTResponseSenderBlock)callback)
+{
+    [self.usabillaInterface resetCampaignData:^{
+        NSDictionary* resultsDict = @{@"success" : @YES};
+        callback(@[[NSNull null], resultsDict]);
+    }];
+}
+
 RCT_EXPORT_METHOD(showLoadedFrom)
 {
     UIViewController *rootController = (UIViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
