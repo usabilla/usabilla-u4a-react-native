@@ -3,7 +3,7 @@ import { NativeEventEmitter, NativeModules, Platform, DeviceEventEmitter } from 
 let {UsabillaBridge} = NativeModules
 const usabillaEventEmitter = (Platform.OS == 'android') ? DeviceEventEmitter : new NativeEventEmitter(UsabillaBridge)
 
-/* Usabilla Sdk Functions */
+/* Usabilla SDK Functions */
 function initialize(appId) {
     if (Platform.OS == 'android') {
         usabillaEventEmitter.addListener(
@@ -16,6 +16,26 @@ function initialize(appId) {
 
 function loadFeedbackForm(formId) {
     UsabillaBridge.loadFeedbackForm(formId)
+}
+
+function sendEvent(event) {
+    UsabillaBridge.sendEvent(event)
+}
+
+function resetCampaignData(callback) {
+    if (callback) {
+        if (Platform.OS == 'ios') {
+            UsabillaBridge.resetCampaignData(callback)
+            return
+        }
+
+        console.warn("reset callback is only available for iOS now")
+        return
+    }
+
+    UsabillaBridge.resetCampaignData(()=> {
+        console.log("campaign data is reset successfully")
+    })
 }
 
 function showLoadedForm(event) {
@@ -40,6 +60,8 @@ module.exports = {
     initialize,
     loadFeedbackForm,
     showLoadedForm,
+    sendEvent,
+    resetCampaignData,
     setFormDidLoadSuccessfully,
     setFormDidFailLoading,
     setFormDidClose

@@ -45,8 +45,22 @@ class UsabillaInterface: NSObject {
 
     @objc(initialize:)
     func initialize(appID: String) {
-        Usabilla.initialize(appID: nil)
+        Usabilla.initialize(appID: appID)
         Usabilla.debugEnabled = true
+    }
+
+    @objc(sendEvent:)
+    func sendEvent(eventName: String) {
+        Usabilla.sendEvent(event: eventName)
+    }
+    
+    @objc(resetCampaignData:)
+    func resetCampaignData(completion: (() -> Swift.Void)?) {
+        Usabilla.resetCampaignData {
+            if let completion = completion {
+                completion()
+            }
+        }
     }
 }
 
