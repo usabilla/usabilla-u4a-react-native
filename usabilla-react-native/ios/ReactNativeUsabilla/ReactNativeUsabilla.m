@@ -36,9 +36,17 @@ RCT_EXPORT_METHOD(initialize:(NSString *)appID)
     [self.usabillaInterface initialize:appID];
 }
 
-RCT_EXPORT_METHOD(loadFeedbackForm:(NSString *)formID)
+RCT_EXPORT_METHOD(loadFeedbackForm:(NSString * _Nonnull)formID)
 {
     [self.usabillaInterface loadFeedbackForm:formID];
+}
+
+RCT_EXPORT_METHOD(loadFeedbackFormWithCurrentViewScreenshot:(NSString * _Nonnull)formID)
+{
+    UIViewController *rootController = (UIViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    UIImage* screenshot = [self.usabillaInterface takeScreenshot:rootController.view];
+
+    [self.usabillaInterface loadFeedbackForm:formID screenshot:screenshot];
 }
 
 RCT_EXPORT_METHOD(setCustomVariables:(NSDictionary * _Nonnull)variables)
@@ -61,8 +69,10 @@ RCT_EXPORT_METHOD(resetCampaignData:(RCTResponseSenderBlock)callback)
 
 RCT_EXPORT_METHOD(showLoadedFrom)
 {
-    UIViewController *rootController = (UIViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    [rootController presentViewController:self->loadedViewController animated:true completion:nil];
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        UIViewController *rootController = (UIViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        [rootController presentViewController:self->loadedViewController animated:true completion:nil];
+    });
 }
 
 #pragma mark UsabillaInterfaceDelegate Methods

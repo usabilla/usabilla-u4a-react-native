@@ -31,10 +31,6 @@ export default class App extends Component<{}> {
     usabilla.showLoadedForm()
   }
 
-  requestForm() {
-    usabilla.loadFeedbackForm("YOUR_FORM_ID_HERE")
-  }
-
   resetCampaignData() {
     usabilla.resetCampaignData()
   }
@@ -53,7 +49,6 @@ export default class App extends Component<{}> {
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
-        <Button onPress={this.requestForm} title="Form" />
         <TextInput
           style={{height: 40, width: 150}}
           placeholder="Event"
@@ -62,7 +57,7 @@ export default class App extends Component<{}> {
         <Text />
         <Button onPress={this.resetCampaignData} title="Reset" />
         <Text />
-        <Button onPress={this.requestFormWithDefaultScreenshot} title="Form with screenshot" />
+        <Button onPress={this.requestFormWithDefaultScreenshot} title="Show Form" />
       </View>
     )
   }
