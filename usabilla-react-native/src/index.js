@@ -14,8 +14,21 @@ function initialize(appId) {
     UsabillaBridge.initialize(appId)
 }
 
+/**
+ * This method will load the feedback with no screenshot attachement
+ * @param {String} formId : feedback form Id
+ */
 function loadFeedbackForm(formId) {
     UsabillaBridge.loadFeedbackForm(formId)
+}
+
+/**
+ * This method will load the feedback form and attach 
+ * the current view screenshot to it.
+ * @param {String} formId : feedback form Id
+ */
+function loadFeedbackFormWithCurrentViewScreenshot(formId) {
+    UsabillaBridge.loadFeedbackFormWithCurrentViewScreenshot(formId)
 }
 
 function sendEvent(event) {
@@ -34,10 +47,6 @@ function resetCampaignData(callback) {
             console.log("Campaign data is successfully reset!")
         })
     }
-}
-
-function loadFeedbackFormWithCurrentViewScreenshot(formId) {
-    UsabillaBridge.loadFeedbackFormWithCurrentViewScreenshot(formId)
 }
 
 function showLoadedForm() {
@@ -65,7 +74,7 @@ function setFormDidClose(callback) {
 module.exports = {
     initialize,
     loadFeedbackForm,
-    loadFeedbackFormWithCurrentScreenshot,
+    loadFeedbackFormWithCurrentViewScreenshot,
     resetCampaignData,
     sendEvent,
     setCustomVariables,

@@ -2,10 +2,12 @@
 
 
 # Usabilla for React Native
+
 Usabilla for Apps allows you to collect feedback from your users with great ease and flexibility.
 This React Native bridge to the Native Usabilla SDK allows you to load passive feedback forms and submit results from a React Native app.
 
 ## Installation
+
 To install the Usabilla SDK into your React Native Application:
 1. In a terminal window, navigate to the root directory of your project and run :
 
@@ -26,6 +28,7 @@ react-native link usabilla-react-native
 
 ### Additional setup
 #### iOS
+
 1. The native Usabilla SDK is written in Swift, So make sure that your iOS Project contains a Bridging-Header file or add one.
 2. In your iOS project go to `Build Settings` -> `Framework Search Paths` and add :
 `$(SRCROOT)/../node_modules/usabilla-react-native/ios`
@@ -34,15 +37,18 @@ react-native link usabilla-react-native
 - Drag and drop the `Usabilla.framework` from `ReactNativeUsabilla/Frameworks` and check the `code sign on copy`.
 
 #### Android
+
 1. To make sure that the linking happened properly, check that the following modifications took place:
 - In `android/app/build.gradle` the line `compile project(':usabilla-react-native')` is added
 - In `android/settings.gradle` the lines `include ':usabilla-react-native'` and `project(':usabilla-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/usabilla-react-native/android')` are added
 - In your `MainApplication.java` the `UsabillaBridgePackage` has been added to the list of packages returned by the method `getPackages()` 
 
 ### Requirements
+
 To use this Bridge, please make sure you are using XCode 9.1 or above.
 
 ## Features
+
 You can start using the Usabilla for React Native module in your app by requiring:
 
 `const usabilla = require('usabilla-react-native')`
@@ -68,7 +74,16 @@ This callback has a parameter containing the information:
   - formId (string)
   - isRedirectToAppStoreEnabled (boolean)
 
+### Pre-fill a Passive Feedback form with a custom screenshot
+
+Usabilla for React Native allows you to attach a screenshot to a form before sending it by calling:
+
+`usabilla.loadFeedbackFormWithCurrentViewScreenshot("YOUR_FORM_ID_HERE")`
+
+This method will take a screenshot of the current visible view and pre-fill the form with it.
+
 ### Submit the results of the form
+
 This functionality is embedded in the native Usabilla library and there is no need to perform any specific action from the React Native environment.
 
 ### Support for custom variables
@@ -85,6 +100,7 @@ This method accepts as parameter a valid JSON object with two limitations:
 **NOTE**: Feedback sent without respecting those limitations will still be received and saved, but the values of the customer input context won't be displayed nor exported.
 
 ### Campaigns
+
 In order to be able to run campaigns in your app, you should first start by initializing the SDK:
 
 `usabilla.initialize("YOUR_APP_ID")`
@@ -98,9 +114,6 @@ The Usabilla SDK allows you to reset all the campaign data by calling:
 Android: `usabilla.resetCampaignData()`
 
 iOS: `usabilla.resetCampaignData(callback)` , the `callback` here lets you know when the reset is done.
-
-## Upcoming features
-- Pre-fill a Passive Feedback form with a custom screenshot.
 
 ## Support
 
