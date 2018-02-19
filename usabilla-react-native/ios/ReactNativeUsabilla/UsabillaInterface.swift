@@ -8,6 +8,7 @@
 
 import Foundation
 import Usabilla
+import UIKit
 
 @objc class RNUsabillaFeedbackResult: NSObject {
     public let rating: Int?
@@ -47,6 +48,16 @@ class UsabillaInterface: NSObject {
     func initialize(appID: String) {
         Usabilla.initialize(appID: nil)
         Usabilla.debugEnabled = true
+    }
+    
+    @objc(loadFeedbackForm:screenshot:)
+    func loadFeedbackForm(formID: String, screenshot: UIImage) {
+        Usabilla.loadFeedbackForm(formID, screenshot: screenshot)
+    }
+    
+    @objc(takeScreenshot:)
+    func takeScreenshot(view: UIView) -> UIImage {
+        return Usabilla.takeScreenshot(view)!
     }
 }
 

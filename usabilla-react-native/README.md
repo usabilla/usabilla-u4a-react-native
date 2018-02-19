@@ -44,6 +44,12 @@ To use this Bridge, please make sure you are using XCode 9.1 or above.
 - Submit the results of the form.
 - Pre-fill a Passive Feedback form with a custom screenshot.
 
+Usabilla for React Native allows you to attach a screenshot to a form before sending it by calling:
+
+`usabilla.loadFeedbackFormWithCurrentViewScreenshot("YOUR_FORM_ID_HERE")`
+
+This method will take a screenshot of the current visible view and pre-fill the form with it.
+
 ### Upcoming features
 - Add support for custom variables.
 - Add support for Campaigns (active surveys).

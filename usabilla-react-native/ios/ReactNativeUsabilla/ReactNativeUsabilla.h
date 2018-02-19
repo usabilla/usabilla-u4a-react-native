@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
+#import <React/RCTConvert.h>
 #import "ReactNativeUsabilla-Swift.h"
 
 @interface ReactNativeUsabilla : RCTEventEmitter <RCTBridgeModule, UsabillaInterfaceDelegate>

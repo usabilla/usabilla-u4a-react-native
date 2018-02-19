@@ -31,7 +31,7 @@ RCT_EXPORT_MODULE(UsabillaBridge);
              @"UBFormDidClose"];
 }
 
-RCT_EXPORT_METHOD(loadFeedbackForm:(NSString *)formID)
+RCT_EXPORT_METHOD(loadFeedbackForm:(NSString * _Nonnull)formID)
 {
     [self.usabillaInterface loadFeedbackForm:formID];
 }
@@ -39,6 +39,14 @@ RCT_EXPORT_METHOD(loadFeedbackForm:(NSString *)formID)
 RCT_EXPORT_METHOD(initialize:(NSString *)appID)
 {
     [self.usabillaInterface initialize:appID];
+}
+
+RCT_EXPORT_METHOD(loadFeedbackFormWithCurrentViewScreenshot:(NSString * _Nonnull)formID)
+{
+    UIViewController *rootController = (UIViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    UIImage* screenshot = [self.usabillaInterface takeScreenshot:rootController.view];
+
+    [self.usabillaInterface loadFeedbackForm:formID screenshot:screenshot];
 }
 
 RCT_EXPORT_METHOD(showLoadedFrom)
