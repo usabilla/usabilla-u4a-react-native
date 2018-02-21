@@ -43,7 +43,12 @@ react-native link usabilla-react-native
 To use this Bridge, please make sure you are using XCode 9.1 or above.
 
 ## Features
+You can start using the Usabilla for React Native module in your app by requiring:
+
+`const usabilla = require('usabilla-react-native')`
+
 ### Load a Passive Feedback form
+
 In order to load a Passive Feedback form with the Usabilla library you need to call:
 
 `usabilla.loadFeedbackForm("YOUR_FORM_ID_HERE")`
@@ -79,9 +84,23 @@ This method accepts as parameter a valid JSON object with two limitations:
 
 **NOTE**: Feedback sent without respecting those limitations will still be received and saved, but the values of the customer input context won't be displayed nor exported.
 
+### Campaigns
+In order to be able to run campaigns in your app, you should first start by initializing the SDK:
+
+`usabilla.initialize("YOUR_APP_ID")`
+
+This call loads and updates all your campaigns locally and you can start targeting them by sending events from your app using the method:
+
+`usabilla.sendEvent("YOUR_EVENT_NAME")`
+
+The Usabilla SDK allows you to reset all the campaign data by calling:
+
+Android: `usabilla.resetCampaignData()`
+
+iOS: `usabilla.resetCampaignData(callback)` , the `callback` here lets you know when the reset is done.
+
 ## Upcoming features
 - Pre-fill a Passive Feedback form with a custom screenshot.
-- Add support for Campaigns (active surveys).
 
 ## Support
 
