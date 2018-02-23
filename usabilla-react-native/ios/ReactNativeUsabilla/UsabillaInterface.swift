@@ -40,7 +40,7 @@ class UsabillaInterface: NSObject {
     }
 
     @objc(initialize:)
-    func initialize(appID: String) {
+    func initialize(appID: String?) {
         Usabilla.initialize(appID: appID)
         Usabilla.debugEnabled = true
     }

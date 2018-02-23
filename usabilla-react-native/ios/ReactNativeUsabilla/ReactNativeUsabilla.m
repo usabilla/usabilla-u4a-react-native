@@ -31,7 +31,7 @@ RCT_EXPORT_MODULE(UsabillaBridge);
              @"UBFormDidClose"];
 }
 
-RCT_EXPORT_METHOD(initialize:(NSString *)appID)
+RCT_EXPORT_METHOD(initialize:(NSString * _Nullable)appID)
 {
     [self.usabillaInterface initialize:appID];
 }
