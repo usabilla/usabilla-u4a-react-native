@@ -1,6 +1,6 @@
 {
   "name": "RNUsabilla",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "react": "16.2.0",
-    "react-native": "0.52.0",
-    "usabilla-react-native": "file:usabilla-react-native"
+    "react-native": "0.53.3",
+    "usabilla-react-native": "file:../"
   },
   "devDependencies": {
     "babel-jest": "22.1.0",
