@@ -42,6 +42,10 @@ react-native link usabilla-react-native
 - In `android/app/build.gradle` the line `compile project(':usabilla-react-native')` is added
 - In `android/settings.gradle` the lines `include ':usabilla-react-native'` and `project(':usabilla-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/usabilla-react-native/android')` are added
 - In your `MainApplication.java` the `UsabillaBridgePackage` has been added to the list of packages returned by the method `getPackages()` 
+2. Make sure that your `MainActivity.java` extends `ReactFragmentActivity`
+3. In case of problems compiling the project in Android Studio, In the app module `build.gradle`:	
+- Set the `buildToolVersion` to `26.0.2`	
+- Set the `compileSdkVersion` to `26`
 
 ### Requirements
 
