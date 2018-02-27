@@ -38,7 +38,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C5D334522023637C0067631D /* SwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D334512023637C0067631D /* SwiftFile.swift */; };
-		C5D334AF20236C500067631D /* Usabilla.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5D334AE20236C500067631D /* Usabilla.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C5D710D42045618B001E11B8 /* Usabilla.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5D710D32045618B001E11B8 /* Usabilla.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -331,7 +331,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C5D334AF20236C500067631D /* Usabilla.framework in CopyFiles */,
+				C5D710D42045618B001E11B8 /* Usabilla.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +369,7 @@
 		C5D334502023637B0067631D /* RNUsabilla-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNUsabilla-Bridging-Header.h"; sourceTree = "<group>"; };
 		C5D334512023637C0067631D /* SwiftFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFile.swift; sourceTree = "<group>"; };
 		C5D334AE20236C500067631D /* Usabilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Usabilla.framework; path = "../usabilla-react-native/ios/Usabilla.framework"; sourceTree = "<group>"; };
+		C5D710D32045618B001E11B8 /* Usabilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Usabilla.framework; path = ../../ios/Usabilla.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -602,6 +603,7 @@
 			isa = PBXGroup;
 			children = (
 				C5D334AE20236C500067631D /* Usabilla.framework */,
+				C5D710D32045618B001E11B8 /* Usabilla.framework */,
 				13B07FAE1A68108700A75B9A /* RNUsabilla */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* RNUsabillaTests */,
@@ -1290,7 +1292,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 24ZZS38JW5;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../usabilla-react-native/ios";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/usabilla-react-native/ios";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/usabilla-react-native/ios/ReactNativeUsabilla/**",
@@ -1318,7 +1320,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 24ZZS38JW5;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../usabilla-react-native/ios";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/usabilla-react-native/ios";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/usabilla-react-native/ios/ReactNativeUsabilla/**",
