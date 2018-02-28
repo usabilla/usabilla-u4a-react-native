@@ -16,6 +16,6 @@ android {
 }
 
 dependencies {
-    compile 'com.usabilla.sdk:ubform:4.0.2'
-    implementation "com.facebook.react:react-native:0.+"
+    compile 'com.usabilla.sdk:ubform:4.0.+'
+    compile "com.facebook.react:react-native:0.+"
 }
