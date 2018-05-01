@@ -43,7 +43,7 @@ react-native link usabilla-react-native
 
 ### Requirements
 
-To use this Bridge, please make sure you are using XCode 9.1 or above.
+This version of the react native bridge works with the latest release of `XCode 9.3`. In order to use this bridge with older XCode versions please use the package version `@0.5.3` or less.
 
 ## Features
 
