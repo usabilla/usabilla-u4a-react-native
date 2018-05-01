@@ -368,7 +368,6 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		C5D334502023637B0067631D /* RNUsabilla-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNUsabilla-Bridging-Header.h"; sourceTree = "<group>"; };
 		C5D334512023637C0067631D /* SwiftFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFile.swift; sourceTree = "<group>"; };
-		C5D334AE20236C500067631D /* Usabilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Usabilla.framework; path = "../usabilla-react-native/ios/Usabilla.framework"; sourceTree = "<group>"; };
 		C5D710D32045618B001E11B8 /* Usabilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Usabilla.framework; path = ../../ios/Usabilla.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -602,7 +601,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				C5D334AE20236C500067631D /* Usabilla.framework */,
 				C5D710D32045618B001E11B8 /* Usabilla.framework */,
 				13B07FAE1A68108700A75B9A /* RNUsabilla */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
