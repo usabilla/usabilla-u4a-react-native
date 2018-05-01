@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C57AB339209886E500C8C295 /* Usabilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E2234520234DA7006A570D /* Usabilla.framework */; };
 		C5E2234320234D76006A570D /* ReactNativeUsabilla.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E2234220234D76006A570D /* ReactNativeUsabilla.m */; };
-		C5E2234620234DA7006A570D /* Usabilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E2234520234DA7006A570D /* Usabilla.framework */; };
 		C5E2234920234DC2006A570D /* UsabillaInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E2234820234DC2006A570D /* UsabillaInterface.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5E2234620234DA7006A570D /* Usabilla.framework in Frameworks */,
+				C57AB339209886E500C8C295 /* Usabilla.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
