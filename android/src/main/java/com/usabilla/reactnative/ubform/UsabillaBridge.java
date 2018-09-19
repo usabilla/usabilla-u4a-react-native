@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,15 +23,16 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.usabilla.sdk.ubform.UBFeedbackForm;
+import com.usabilla.sdk.ubform.UsabillaFormCallback;
 import com.usabilla.sdk.ubform.Usabilla;
 import com.usabilla.sdk.ubform.sdk.form.FormClient;
 
-public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeedbackForm, LifecycleEventListener {
+public class UsabillaBridge extends ReactContextBaseJavaModule implements UsabillaFormCallback, LifecycleEventListener {
 
     private static final String LOG_TAG = "Usabilla React Bridge";
     private static final String FRAGMENT_TAG = "passive form";
 
+    private Usabilla usabilla;
     private Fragment form;
 
     private BroadcastReceiver closingFormReceiver = new BroadcastReceiver() {
@@ -69,7 +71,8 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
     public void initialize(@NonNull String appId) {
         final Activity activity = getCurrentActivity();
         if (activity != null) {
-            Usabilla.initialize(activity.getBaseContext(), appId);
+            usabilla = Usabilla.getInstance(activity.getBaseContext());
+            usabilla.initialize(activity.getBaseContext(), appId);
             return;
         }
         Log.e(LOG_TAG, "Initialisation not possible. Android activity is null");
@@ -84,7 +87,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
     public void loadFeedbackForm(@NonNull final String formId) {
         final Activity activity = getCurrentActivity();
         if (activity != null) {
-            Usabilla.loadFeedbackForm(activity.getBaseContext(), formId, this);
+            usabilla.loadFeedbackForm(activity.getBaseContext(), formId, this);
             return;
         }
         Log.e(LOG_TAG, "Loading feedback form not possible. Android activity is null");
@@ -99,8 +102,8 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
     public void loadFeedbackFormWithCurrentViewScreenshot(@NonNull final String formId) {
         final Activity activity = getCurrentActivity();
         if (activity != null) {
-            Usabilla.takeScreenshot(activity);
-            Usabilla.loadFeedbackForm(activity.getBaseContext(), formId, this);
+            final Bitmap screenshot = usabilla.takeScreenshot(activity);
+            usabilla.loadFeedbackForm(activity.getBaseContext(), formId, screenshot, this);
             return;
         }
         Log.e(LOG_TAG, "Loading feedback form not possible. Android activity is null");
@@ -124,34 +127,70 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements UBFeed
      */
     @ReactMethod
     public void setCustomVariables(ReadableMap customVariables) {
-        Usabilla.customVariables = customVariables.toHashMap();
+        usabilla.setCustomVariables(customVariables.toHashMap());
     }
 
+    /**
+     * Called via the index.js to see if the navigation buttons are visible
+     */
     @ReactMethod
-    public void sendEvent(@NonNull final String eventName) {
+    public boolean areNavigationButtonsVisible() {
+        return usabilla.areNavigationButtonsVisible();
+    }
+
+    /**
+     * Called via the index.js to set the visibility of the standard navigation buttons
+     */
+    @ReactMethod
+    public void setDefaultNavigationButtonsVisibility(@NonNull final boolean visible) {
+        usabilla.setDefaultNavigationButtonsVisibility(visible);
+    }
+
+    /**
+     * Called via the index.js to remove previously cached passive forms
+     */
+    @ReactMethod
+    public void removeCachedForms() {
         final Activity activity = getCurrentActivity();
         if (activity != null) {
-            Usabilla.sendEvent(activity.getBaseContext(), eventName);
+            usabilla.removeCachedForms(activity.getBaseContext());
             return;
         }
-        Log.e(LOG_TAG, "Sending event to Usabilla is not possible. Android activity is null");
+        Log.e(LOG_TAG, "Resetting cached Usabilla passive forms is not possible. Android activity is null");
     }
 
+    /**
+     * Called via the index.js to remove previously cached campaigns
+     */
     @ReactMethod
     public void resetCampaignData() {
         final Activity activity = getCurrentActivity();
         if (activity != null) {
-            Usabilla.resetCampaignData(activity.getBaseContext());
+            usabilla.resetCampaignData(activity.getBaseContext());
             return;
         }
         Log.e(LOG_TAG, "Resetting Usabilla campaigns is not possible. Android activity is null");
+    }
+
+    /**
+     * Called via the index.js to send an evnt to the Usabilla SDK
+     */
+    @ReactMethod
+    public void sendEvent(@NonNull final String eventName) {
+        final Activity activity = getCurrentActivity();
+        if (activity != null) {
+            usabilla.sendEvent(activity.getBaseContext(), eventName);
+            return;
+        }
+        Log.e(LOG_TAG, "Sending event to Usabilla is not possible. Android activity is null");
     }
 
     @Override
     public void onHostResume() {
         final Activity activity = getCurrentActivity();
         if (activity instanceof FragmentActivity) {
-            Usabilla.updateFragmentManager(((FragmentActivity) activity).getSupportFragmentManager());
+            usabilla = Usabilla.getInstance(activity.getBaseContext());
+            usabilla.updateFragmentManager(((FragmentActivity) activity).getSupportFragmentManager());
             return;
         }
         Log.e(LOG_TAG, "Usabilla could not set support fragment manager. Android activity is not a FragmentActivity");

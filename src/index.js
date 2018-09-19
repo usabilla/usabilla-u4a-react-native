@@ -14,6 +14,23 @@ function initialize(appId) {
     UsabillaBridge.initialize(appId)
 }
 
+function areNavigationButtonsVisible() {
+    if (Platform.OS == 'android') {
+        return UsabillaBridge.areNavigationButtonsVisible()
+    } else {
+        // iOS implementation
+        return true
+    }
+}
+
+function setDefaultNavigationButtonsVisibility(visible) {
+    if (Platform.OS == 'android') {
+        UsabillaBridge.setDefaultNavigationButtonsVisibility(visible)
+    } else {
+        // iOS implementation
+    }
+}
+
 /**
  * This method will load the feedback with no screenshot attachement
  * @param {String} formId : feedback form Id
@@ -33,6 +50,14 @@ function loadFeedbackFormWithCurrentViewScreenshot(formId) {
 
 function sendEvent(event) {
     UsabillaBridge.sendEvent(event)
+}
+
+function removeCachedForms() {
+    if (Platform.OS == 'android') {
+        UsabillaBridge.removeCachedForms()
+    } else {
+        // iOS implementation
+    }
 }
 
 function resetCampaignData(callback) {
@@ -72,12 +97,15 @@ function setFormDidClose(callback) {
 }
 
 module.exports = {
+    areNavigationButtonsVisible,
     initialize,
     loadFeedbackForm,
     loadFeedbackFormWithCurrentViewScreenshot,
+    removeCachedForms,
     resetCampaignData,
     sendEvent,
     setCustomVariables,
+    setDefaultNavigationButtonsVisibility,
     setFormDidClose,
     setFormDidFailLoading,
     setFormDidLoadSuccessfully,

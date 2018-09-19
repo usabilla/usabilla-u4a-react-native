@@ -55,7 +55,7 @@ export default class App extends Component<{}> {
           onChangeText={(text) => this.setState({text})} />
         <Button onPress={() => this.sendEvent(this.state.text)} title="Send event" />
         <Text />
-        <Button onPress={this.resetCampaignData} title="Reset" />
+        <Button onPress={this.resetCampaignData} title="Reset campaigns" />
         <Text />
         <Button onPress={this.requestFormWithDefaultScreenshot} title="Show Form" />
       </View>
