@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "cd node_modules/react-native/React/..; exec ./scripts/ios-install-third-party.sh"
   },
   "dependencies": {
     "react": "16.4.2",
@@ -13,7 +14,7 @@
   },
   "devDependencies": {
     "babel-jest": "23.4.2",
-    "babel-preset-react-native": "4.0.0",
+    "babel-preset-react-native": "^5.0.2",
     "jest": "23.5.0",
     "react-test-renderer": "16.4.2"
   },
