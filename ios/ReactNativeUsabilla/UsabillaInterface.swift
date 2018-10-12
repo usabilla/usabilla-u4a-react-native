@@ -74,6 +74,11 @@ class UsabillaInterface: NSObject {
         }
     }
 
+    @objc(removeCachedForms)
+    func removeCachedForms() {
+        Usabilla.removeCachedForms()
+    }
+
     @objc(takeScreenshot:)
     func takeScreenshot(view: UIView) -> UIImage {
         return Usabilla.takeScreenshot(view)!
