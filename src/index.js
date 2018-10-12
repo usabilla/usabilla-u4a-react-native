@@ -53,11 +53,7 @@ function sendEvent(event) {
 }
 
 function removeCachedForms() {
-    if (Platform.OS == 'android') {
-        UsabillaBridge.removeCachedForms()
-    } else {
-        // iOS implementation
-    }
+    UsabillaBridge.removeCachedForms()
 }
 
 function resetCampaignData(callback) {

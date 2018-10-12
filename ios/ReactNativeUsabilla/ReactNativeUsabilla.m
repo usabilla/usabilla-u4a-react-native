@@ -59,6 +59,11 @@ RCT_EXPORT_METHOD(sendEvent:(NSString *)event)
     [self.usabillaInterface sendEvent:event];
 }
 
+RCT_EXPORT_METHOD(removeCachedForms)
+{
+    [self.usabillaInterface removeCachedForms];
+}
+
 RCT_EXPORT_METHOD(resetCampaignData:(RCTResponseSenderBlock)callback)
 {
     [self.usabillaInterface resetCampaignData:^{
