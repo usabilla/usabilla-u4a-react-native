@@ -18,7 +18,7 @@ function areNavigationButtonsVisible() {
     if (Platform.OS == 'android') {
         return UsabillaBridge.areNavigationButtonsVisible()
     } else {
-        // iOS implementation
+        console.warn('areNavigationButtonsVisible is not available for iOS');
         return true
     }
 }
@@ -27,7 +27,7 @@ function setDefaultNavigationButtonsVisibility(visible) {
     if (Platform.OS == 'android') {
         UsabillaBridge.setDefaultNavigationButtonsVisibility(visible)
     } else {
-        // iOS implementation
+        console.warn('setDefaultNavigationButtonsVisibility is not available for iOS');
     }
 }
 
