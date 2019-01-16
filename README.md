@@ -30,11 +30,27 @@ react-native link usabilla-react-native
 #### iOS
 
 1. The native Usabilla SDK is written in Swift, So make sure that your iOS Project contains a Bridging-Header file or add one.
+   The default project created by react-native will not create this. 
+   To have XCode create the bridge-header automatically, open the ios-project in XCode:
+   - select "New File"
+   - select "Swift file"
+   - save it with any name, as its not being used
+   - choose "Create Bridging Header"
+   
+   ![](./images/AddNewFile.png)
+   ![](./images/AddNewFile2.png)
+   ![](./images/AddNewFile3.png)
 2. In your iOS project go to `Build Settings` -> `Framework Search Paths` and add :
 `$(SRCROOT)/../node_modules/usabilla-react-native/ios`
+   ![](./images/AddPath.png)
 3. In `Build Phases` create a `New Copy Files Phase`
 - Setup Destination to Frameworks.
 - Drag and drop the `Usabilla.framework` from `ReactNativeUsabilla/Frameworks` and check the `code sign on copy`.
+- Make sure that You set Destination to "Frameworks"
+   ![](./images/AddCopyPhase.png)
+   ![](./images/AddCopyPhase2.png)
+   
+ The project can now be compiled without any errors related to Usabilla SDK   
 
 #### Android
 
