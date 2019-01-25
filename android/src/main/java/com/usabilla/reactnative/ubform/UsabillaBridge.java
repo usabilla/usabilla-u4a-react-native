@@ -24,6 +24,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.usabilla.sdk.ubform.UsabillaFormCallback;
+import com.usabilla.sdk.ubform.UbConstants;
 import com.usabilla.sdk.ubform.Usabilla;
 import com.usabilla.sdk.ubform.sdk.form.FormClient;
 
@@ -32,7 +33,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     private static final String LOG_TAG = "Usabilla React Bridge";
     private static final String FRAGMENT_TAG = "passive form";
 
-    private Usabilla usabilla;
+    private Usabilla usabilla = Usabilla.INSTANCE;
     private Fragment form;
 
     private BroadcastReceiver closingFormReceiver = new BroadcastReceiver() {
@@ -54,7 +55,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     public UsabillaBridge(ReactApplicationContext reactContext) {
         super(reactContext);
         reactContext.addLifecycleEventListener(this);
-        LocalBroadcastManager.getInstance(reactContext).registerReceiver(closingFormReceiver, new IntentFilter("com.usabilla.closeForm"));
+        LocalBroadcastManager.getInstance(reactContext).registerReceiver(closingFormReceiver, new IntentFilter(UbConstants.INTENT_CLOSE_FORM));
     }
 
     @Override
@@ -70,9 +71,9 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     @ReactMethod
     public void initialize(@NonNull String appId) {
         final Activity activity = getCurrentActivity();
-        if (activity != null) {
-            usabilla = Usabilla.getInstance(activity.getBaseContext());
+        if (activity != null) {  
             usabilla.initialize(activity.getBaseContext(), appId);
+            usabilla.updateFragmentManager(((FragmentActivity) activity).getSupportFragmentManager());
             return;
         }
         Log.e(LOG_TAG, "Initialisation not possible. Android activity is null");
@@ -85,12 +86,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
      */
     @ReactMethod
     public void loadFeedbackForm(@NonNull final String formId) {
-        final Activity activity = getCurrentActivity();
-        if (activity != null) {
-            usabilla.loadFeedbackForm(activity.getBaseContext(), formId, this);
-            return;
-        }
-        Log.e(LOG_TAG, "Loading feedback form not possible. Android activity is null");
+        usabilla.loadFeedbackForm(formId, this);
     }
 
     /**
@@ -103,7 +99,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
         final Activity activity = getCurrentActivity();
         if (activity != null) {
             final Bitmap screenshot = usabilla.takeScreenshot(activity);
-            usabilla.loadFeedbackForm(activity.getBaseContext(), formId, screenshot, this);
+            usabilla.loadFeedbackForm(formId, screenshot, this);
             return;
         }
         Log.e(LOG_TAG, "Loading feedback form not possible. Android activity is null");
@@ -151,12 +147,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
      */
     @ReactMethod
     public void removeCachedForms() {
-        final Activity activity = getCurrentActivity();
-        if (activity != null) {
-            usabilla.removeCachedForms(activity.getBaseContext());
-            return;
-        }
-        Log.e(LOG_TAG, "Resetting cached Usabilla passive forms is not possible. Android activity is null");
+        usabilla.removeCachedForms();
     }
 
     /**
@@ -187,13 +178,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
 
     @Override
     public void onHostResume() {
-        final Activity activity = getCurrentActivity();
-        if (activity instanceof FragmentActivity) {
-            usabilla = Usabilla.getInstance(activity.getBaseContext());
-            usabilla.updateFragmentManager(((FragmentActivity) activity).getSupportFragmentManager());
-            return;
-        }
-        Log.e(LOG_TAG, "Usabilla could not set support fragment manager. Android activity is not a FragmentActivity");
+        // do nothing
     }
 
     @Override
