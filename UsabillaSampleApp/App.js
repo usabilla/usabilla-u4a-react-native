@@ -1,12 +1,5 @@
 import React, { Component } from 'react'
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button
-} from 'react-native'
+import { Platform, StyleSheet, Text, TextInput, View, Button } from 'react-native'
 
 var usabilla = require('usabilla-react-native')
 
