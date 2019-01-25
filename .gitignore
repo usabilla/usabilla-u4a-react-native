@@ -4,6 +4,7 @@
 .DS_Store
 android/.DS_Store
 ios/.DS_Store
+android/.project
 
 ## Build generated
 build/
