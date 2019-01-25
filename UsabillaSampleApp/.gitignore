@@ -25,10 +25,15 @@ project.xcworkspace
 # Android/IntelliJ
 #
 build/
+bin/
+gen/
 .idea
 .gradle
 local.properties
 *.iml
+.idea/
+android/.project
+android/app/.project
 
 # node.js
 #
