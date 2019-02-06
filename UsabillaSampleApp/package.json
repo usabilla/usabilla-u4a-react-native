@@ -8,6 +8,8 @@
     "postinstall": "cd node_modules/react-native/React/..; exec ./scripts/ios-install-third-party.sh"
   },
   "dependencies": {
+    "merge": "^1.2.1",
+    "morgan": "^1.9.1",
     "react": "16.4.2",
     "react-native": "0.56.0",
     "usabilla-react-native": "file:../"
