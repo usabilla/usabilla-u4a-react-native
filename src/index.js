@@ -92,8 +92,21 @@ function setFormDidClose(callback) {
     }
 }
 
+function dismiss() {
+    UsabillaBridge.dismiss()
+}
+
+function setDataMasking(masks, character) {
+    UsabillaBridge.setDataMasking(masks, character)
+}
+
+function getDefaultDataMasks() {
+    return UsabillaBridge.DEFAULT_DATA_MASKS
+}
+
 module.exports = {
     areNavigationButtonsVisible,
+    dismiss,
     initialize,
     loadFeedbackForm,
     loadFeedbackFormWithCurrentViewScreenshot,
@@ -101,6 +114,8 @@ module.exports = {
     resetCampaignData,
     sendEvent,
     setCustomVariables,
+    setDataMasking,
+    getDefaultDataMasks,
     setDefaultNavigationButtonsVisibility,
     setFormDidClose,
     setFormDidFailLoading,

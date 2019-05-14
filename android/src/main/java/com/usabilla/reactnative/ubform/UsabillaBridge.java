@@ -14,12 +14,12 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
@@ -28,10 +28,16 @@ import com.usabilla.sdk.ubform.UbConstants;
 import com.usabilla.sdk.ubform.Usabilla;
 import com.usabilla.sdk.ubform.sdk.form.FormClient;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class UsabillaBridge extends ReactContextBaseJavaModule implements UsabillaFormCallback, LifecycleEventListener {
 
     private static final String LOG_TAG = "Usabilla React Bridge";
     private static final String FRAGMENT_TAG = "passive form";
+    private static final String DEFAULT_DATA_MASKS = "DEFAULT_DATA_MASKS";
 
     private Usabilla usabilla = Usabilla.INSTANCE;
     private Fragment form;
@@ -174,6 +180,38 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
             return;
         }
         Log.e(LOG_TAG, "Sending event to Usabilla is not possible. Android activity is null");
+    }
+
+    /**
+     * Called via the index.js to remove from the view the Usabilla form
+     */
+    @ReactMethod
+    public boolean dismiss() {
+        final Activity activity = getCurrentActivity();
+        if (activity != null) {
+            return usabilla.dismiss(activity.getBaseContext());
+        }
+        Log.e(LOG_TAG, "Dismissing the Usabilla form is not possible. Android activity is null");
+        return false;
+    }
+
+    /**
+     * Called via the index.js to mask sensitive information from the feedback before sending it
+     */
+    @ReactMethod
+    public void setDataMasking(@NonNull final ReadableArray masks, @NonNull final String character) {
+        List<String> listMasks = new ArrayList<>();
+        for (int i = 0; i < masks.size(); i++) {
+            listMasks.add(masks.getString(i));
+        }
+        usabilla.setDataMasking(listMasks, character.charAt(0));
+    }
+
+    @Override
+    public Map<String, Object> getConstants() {
+        Map<String, Object> map = new HashMap<>();
+        map.put(DEFAULT_DATA_MASKS, UbConstants.getDefaultDataMasks());
+        return map;
     }
 
     @Override
