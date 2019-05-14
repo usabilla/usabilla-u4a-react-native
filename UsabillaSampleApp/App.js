@@ -13,6 +13,7 @@ export default class App extends Component<{}> {
     super()
     this.state = {text: ''}
     usabilla.initialize("YOUR_APP_ID_HERE")
+    usabilla.setDataMasking(usabilla.getDefaultDataMasks(), 'X')
     var customVars = {"flight-number": "99999999", "user-type": "premium", "number-flights": 12}
     usabilla.setCustomVariables(customVars)
     usabilla.setFormDidLoadSuccessfully(this.onFormLoaded)
@@ -33,7 +34,7 @@ export default class App extends Component<{}> {
   }
 
   requestFormWithDefaultScreenshot() {
-    usabilla.loadFeedbackFormWithCurrentViewScreenshot("5cd3df5befaab7393426afd0")
+    usabilla.loadFeedbackFormWithCurrentViewScreenshot("YOUR_FORM_ID_HERE")
   }
 
   render() {
