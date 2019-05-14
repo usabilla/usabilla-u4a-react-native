@@ -33,7 +33,7 @@ export default class App extends Component<{}> {
   }
 
   requestFormWithDefaultScreenshot() {
-    usabilla.loadFeedbackFormWithCurrentViewScreenshot("YOUR_FORM_ID_HERE")
+    usabilla.loadFeedbackFormWithCurrentViewScreenshot("5cd3df5befaab7393426afd0")
   }
 
   render() {
