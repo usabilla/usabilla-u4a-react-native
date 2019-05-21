@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -47,8 +48,12 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
         public void onReceive(Context context, Intent intent) {
             final Activity activity = getCurrentActivity();
             if (activity instanceof FragmentActivity) {
-                ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().remove(form).commit();
-                form = null;
+                FragmentManager supportFragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
+                Fragment fragment = supportFragmentManager.findFragmentByTag(FRAGMENT_TAG);
+
+                if (fragment != null) {
+                    supportFragmentManager.beginTransaction().remove(fragment).commit();
+                }
                 return;
             }
             Log.e(LOG_TAG, "Android activity null when removing form fragment");
@@ -61,7 +66,6 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     public UsabillaBridge(ReactApplicationContext reactContext) {
         super(reactContext);
         reactContext.addLifecycleEventListener(this);
-        LocalBroadcastManager.getInstance(reactContext).registerReceiver(closingFormReceiver, new IntentFilter(UbConstants.INTENT_CLOSE_FORM));
     }
 
     @Override
@@ -119,6 +123,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
         final Activity activity = getCurrentActivity();
         if (activity instanceof FragmentActivity && form != null) {
             ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().replace(android.R.id.content, form, FRAGMENT_TAG).commit();
+            form = null;
             return;
         }
         emitReactEvent(getReactApplicationContext(), "UBFormNotFoundFragmentActivity", Arguments.createMap());
@@ -216,17 +221,17 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
 
     @Override
     public void onHostResume() {
-        // do nothing
+        LocalBroadcastManager.getInstance(getReactApplicationContext()).registerReceiver(closingFormReceiver, new IntentFilter(UbConstants.INTENT_CLOSE_FORM));
     }
 
     @Override
     public void onHostPause() {
-        // do nothing
+        LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(closingFormReceiver);
     }
 
     @Override
     public void onHostDestroy() {
-        LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(closingFormReceiver);
+        // do nothing
     }
 
     @Override
