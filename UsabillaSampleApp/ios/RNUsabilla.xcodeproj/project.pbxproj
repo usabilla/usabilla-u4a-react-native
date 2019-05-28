@@ -39,6 +39,7 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C5D334522023637C0067631D /* SwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D334512023637C0067631D /* SwiftFile.swift */; };
 		C5D710D42045618B001E11B8 /* Usabilla.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5D710D32045618B001E11B8 /* Usabilla.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EDAC1E36229D7352004538CF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDAC1E0E229D7218004538CF /* JavaScriptCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -385,6 +386,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDAC1E36229D7352004538CF /* JavaScriptCore.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
