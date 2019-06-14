@@ -22,6 +22,26 @@
     return self;
 }
 
+- (NSDictionary *)constantsToExport
+{
+    return @{ @"DEFAULT_DATA_MASKS":  [self.usabillaInterface getDefaultDataMasks]};
+}
+
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
+
+RCT_EXPORT_METHOD(dismiss)
+{
+    [self.usabillaInterface dismiss];
+}
+
+RCT_EXPORT_METHOD(setDataMasking:(NSArray<NSString *>*)masks : (NSString *)maskChar)
+{
+    [self.usabillaInterface setDataMasking:masks:maskChar];
+}
+
 RCT_EXPORT_MODULE(UsabillaBridge);
 
 - (NSArray<NSString *> *)supportedEvents
