@@ -83,6 +83,25 @@ class UsabillaInterface: NSObject {
     func takeScreenshot(view: UIView) -> UIImage {
         return Usabilla.takeScreenshot(view)!
     }
+    
+    @objc(dismiss)
+    func dismiss() {
+        let _ = Usabilla.dismiss()
+    }
+    
+    @objc(getDefaultDataMasks)
+    func getDefaultDataMasks() -> [String] {
+        let str = Usabilla.defaultDataMasks
+        return str
+    }
+    
+    @objc(setDataMasking::)
+    func setDataMasking(_ masks: [String], _ maskChar: String) {
+        guard let maskCharacter = maskChar.first else {   Usabilla.setDataMasking(masks: Usabilla.defaultDataMasks, maskCharacter: "X")
+            return
+        }
+        Usabilla.setDataMasking(masks: masks, maskCharacter: maskCharacter)
+    }
 }
 
 extension UsabillaInterface: UsabillaDelegate {
