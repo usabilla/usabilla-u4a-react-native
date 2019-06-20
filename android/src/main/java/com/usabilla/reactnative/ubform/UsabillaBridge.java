@@ -36,8 +36,9 @@ import java.util.Map;
 
 public class UsabillaBridge extends ReactContextBaseJavaModule implements UsabillaFormCallback, LifecycleEventListener {
 
+    public static final String FRAGMENT_TAG = "passive form";
+    
     private static final String LOG_TAG = "Usabilla React Bridge";
-    private static final String FRAGMENT_TAG = "passive form";
     private static final String DEFAULT_DATA_MASKS = "DEFAULT_DATA_MASKS";
 
     private Usabilla usabilla = Usabilla.INSTANCE;
