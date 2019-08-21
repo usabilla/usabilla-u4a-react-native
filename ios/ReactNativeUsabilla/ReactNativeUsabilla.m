@@ -63,10 +63,11 @@ RCT_EXPORT_METHOD(loadFeedbackForm:(NSString * _Nonnull)formID)
 
 RCT_EXPORT_METHOD(loadFeedbackFormWithCurrentViewScreenshot:(NSString * _Nonnull)formID)
 {
-    UIViewController *rootController = (UIViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    UIImage* screenshot = [self.usabillaInterface takeScreenshot:rootController.view];
-
-    [self.usabillaInterface loadFeedbackForm:formID screenshot:screenshot];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIViewController *rootController = (UIViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        UIImage* screenshot = [self.usabillaInterface takeScreenshot:rootController.view];
+        [self.usabillaInterface loadFeedbackForm:formID screenshot:screenshot];
+    });
 }
 
 RCT_EXPORT_METHOD(setCustomVariables:(NSDictionary * _Nonnull)variables)
