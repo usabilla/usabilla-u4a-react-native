@@ -28,6 +28,7 @@ react-native link usabilla-react-native
 
 ### Additional setup
 #### iOS
+This release uses the Usabilla SDK v6.4.0.
 
 1. The native Usabilla SDK is written in Swift, So make sure that your iOS Project contains a Bridging-Header file or add one.
    The default project created by react-native will not create this. 
@@ -49,6 +50,16 @@ react-native link usabilla-react-native
 - Make sure that You set Destination to "Frameworks"
    ![](./images/AddCopyPhase.png)
    ![](./images/AddCopyPhase2.png)
+   
+ - Make sure to add :
+   ```
+   Privacy - Camera Usage Description
+   ```
+   and
+   ```
+   Privacy - Photo Library Usage Description
+   ```
+   with a meaningful explanation to the end-user.
    
  The project can now be compiled without any errors related to Usabilla SDK   
 
