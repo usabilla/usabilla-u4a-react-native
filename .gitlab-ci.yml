@@ -1,0 +1,22 @@
+stages:
+  - install
+  - release
+
+prepare:
+  stage: install
+  image: $ECR_REPOSITORY/usabilla/infra/docker-images/gitlab-runner:branch-node-carbon
+  script:
+    - yarn install
+  artifacts:
+    paths:
+      - node_modules
+
+publish:
+  stage: release
+  image: $ECR_REPOSITORY/usabilla/infra/docker-images/gitlab-runner:branch-node-carbon
+  before_script:
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
+  script:
+    - yarn semantic-release
+  only:
+    - master
