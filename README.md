@@ -23,7 +23,7 @@ react-native link usabilla-react-native
 
 ### Additional setup
 #### iOS
-This release uses the Usabilla SDK v6.4.0.
+This release uses the Usabilla SDK v6.4.2.
 
 1. The native Usabilla SDK is written in Swift, So make sure that your iOS Project contains a Bridging-Header file or add one.
    The default project created by react-native will not create this. 
@@ -65,7 +65,9 @@ This release uses the Usabilla SDK v6.4.0.
 
 ### Requirements
 
-This version of the react native bridge works with the latest release of `XCode 9.3`. In order to use this bridge with older XCode versions please use the package version `@0.5.3` or less.
+This version of the react native bridge works with the latest release of `XCode 11.1`.
+For Xcode versions between `XCode 9.3` to `XCode 10.3` please use the package version `@0.8.2` and lesser till `@0.5.4`.
+For Xcode versions lesser than `XCode 9.3` please use the package version `@0.5.3` or less.
 
 ## Features
 
