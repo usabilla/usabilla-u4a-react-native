@@ -37,7 +37,7 @@ import java.util.Map;
 public class UsabillaBridge extends ReactContextBaseJavaModule implements UsabillaFormCallback, LifecycleEventListener {
 
     public static final String FRAGMENT_TAG = "passive form";
-    
+
     private static final String LOG_TAG = "Usabilla React Bridge";
     private static final String DEFAULT_DATA_MASKS = "DEFAULT_DATA_MASKS";
 
@@ -50,10 +50,8 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
             final Activity activity = getCurrentActivity();
             if (activity instanceof FragmentActivity) {
                 FragmentManager supportFragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
-                Fragment fragment = supportFragmentManager.findFragmentByTag(FRAGMENT_TAG);
-
-                if (fragment != null) {
-                    supportFragmentManager.beginTransaction().remove(fragment).commit();
+                if (supportFragmentManager.findFragmentByTag(FRAGMENT_TAG) != null) {
+                    supportFragmentManager.popBackStack(FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 }
                 return;
             }
@@ -82,7 +80,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     @ReactMethod
     public void initialize(@NonNull String appId) {
         final Activity activity = getCurrentActivity();
-        if (activity != null) {  
+        if (activity != null) {
             usabilla.initialize(activity.getBaseContext(), appId);
             usabilla.updateFragmentManager(((FragmentActivity) activity).getSupportFragmentManager());
             return;
@@ -123,7 +121,8 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     public void showLoadedFrom() {
         final Activity activity = getCurrentActivity();
         if (activity instanceof FragmentActivity && form != null) {
-            ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().replace(android.R.id.content, form, FRAGMENT_TAG).commit();
+            ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().replace(android.R.id.content, form, FRAGMENT_TAG)
+                    .addToBackStack(FRAGMENT_TAG).commit();
             form = null;
             return;
         }
