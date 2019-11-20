@@ -113,7 +113,7 @@ RCT_EXPORT_METHOD(showLoadedFrom)
     [self sendEventWithName:@"UBFormLoadingFailed" body:@{@"error": error.description}];
 }
 
--(void)formDidCloseWithFormID:(NSString *)formID withFeedbackResults:(NSArray<RNUsabillaFeedbackResult *> *)results isRedirectToAppStoreEnabled:(BOOL)isRedirectToAppStoreEnabled {
+-(void)formDidCloseWithFormID:(NSString *)formID withFeedbackResults:(NSArray<NSDictionary *> *)results isRedirectToAppStoreEnabled:(BOOL)isRedirectToAppStoreEnabled {
     self->loadedViewController = nil;
     [self sendEventWithName:@"UBFormDidClose" body:@{@"formId": formID, @"results": results, @"isRedirectToAppStoreEnabled": @(isRedirectToAppStoreEnabled)}];
 }

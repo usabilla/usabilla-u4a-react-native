@@ -26,7 +26,7 @@ import UIKit
 protocol UsabillaInterfaceDelegate {
     @objc func formLoadedSucessfully(form: UINavigationController)
     @objc func formFailedLoading(error: NSError)
-    @objc func formDidClose(formID: String, withFeedbackResults results: [RNUsabillaFeedbackResult], isRedirectToAppStoreEnabled: Bool)
+    @objc func formDidClose(formID: String, withFeedbackResults results: [[String : Any]], isRedirectToAppStoreEnabled: Bool)
 }
 
 @objc(UsabillaInterface)
@@ -115,9 +115,10 @@ extension UsabillaInterface: UsabillaDelegate {
     }
 
     func formDidClose(formID: String, withFeedbackResults results: [FeedbackResult], isRedirectToAppStoreEnabled: Bool) {
-        var rnResults = [RNUsabillaFeedbackResult]()
+        var rnResults: [[String : Any]] = []
         for result in results {
-            rnResults.append(RNUsabillaFeedbackResult(rating: result.rating, abandonedPageIndex: result.abandonedPageIndex, sent: result.sent))
+            var dictionary: Dictionary = ["rating": result.rating ?? 0, "abandonedPageIndex": result.abandonedPageIndex ?? 0, "sent": result.sent] as [String : Any]
+            rnResults.append(dictionary)
         }
 
         delegate?.formDidClose(formID: formID, withFeedbackResults: rnResults, isRedirectToAppStoreEnabled: isRedirectToAppStoreEnabled)

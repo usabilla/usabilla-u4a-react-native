@@ -5,6 +5,7 @@
 
 Usabilla for Apps allows you to collect feedback from your users with great ease and flexibility.
 This React Native bridge to the Native Usabilla SDK allows you to load passive feedback forms and submit results from a React Native app.
+This React Native bridge supports React Native app builds upto the version `0.59`.
 
 ## Installation
 
@@ -23,7 +24,7 @@ react-native link usabilla-react-native
 
 ### Additional setup
 #### iOS
-This release uses the Usabilla SDK v6.4.0.
+This release uses the Usabilla SDK v6.4.3.
 
 1. The native Usabilla SDK is written in Swift, So make sure that your iOS Project contains a Bridging-Header file or add one.
    The default project created by react-native will not create this. 
@@ -65,7 +66,9 @@ This release uses the Usabilla SDK v6.4.0.
 
 ### Requirements
 
-This version of the react native bridge works with the latest release of `XCode 9.3`. In order to use this bridge with older XCode versions please use the package version `@0.5.3` or less.
+This version of the react native bridge works with the latest release of `XCode 11`.
+For Xcode versions between `XCode 9.3` to `XCode 10.3` please use the package version `@0.8.2` and lesser till `@0.5.4`.
+For Xcode versions lesser than `XCode 9.3` please use the package version `@0.5.3` or less.
 
 ## Features
 
