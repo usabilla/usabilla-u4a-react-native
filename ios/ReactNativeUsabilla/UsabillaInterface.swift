@@ -57,7 +57,8 @@ class UsabillaInterface: NSObject {
     
     @objc(setCustomVariables:)
     func setCustomVariables(_ variables: [String: Any]) {
-        Usabilla.customVariables = variables
+        let newCustomVariables = variables.mapValues { String(describing: $0) }
+        Usabilla.customVariables = newCustomVariables
     }
 
     @objc(sendEvent:)
