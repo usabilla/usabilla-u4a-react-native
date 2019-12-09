@@ -1,6 +1,6 @@
 {
   "name": "usabilla-react-native",
-  "version": "0.0.0-development",
+  "version": "0.8.4",
   "description": "Usabilla SDK for React Native",
   "repository": {
     "type": "git",
@@ -14,7 +14,9 @@
     "targeted-surveys",
     "sdk"
   ],
+  "author": "Team SDK <sdk@usabilla.com>",
   "license": "MIT",
+  "homepage": "https://github.com/usabilla/usabilla-u4a-react-native",
   "main": "src/index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",

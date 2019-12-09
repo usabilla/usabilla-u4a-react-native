@@ -10,29 +10,22 @@ import Foundation
 import Usabilla
 import UIKit
 
-@objc class RNUsabillaFeedbackResult: NSObject {
-    public let rating: Int?
-    public let abandonedPageIndex: Int?
-    public var sent: Bool
-
-    init(rating: Int?, abandonedPageIndex: Int?, sent: Bool) {
-        self.rating = rating
-        self.abandonedPageIndex = abandonedPageIndex
-        self.sent = sent
-    }
-}
-
-@objc(UsabillaInterfaceDelegate)
-protocol UsabillaInterfaceDelegate {
-    @objc func formLoadedSucessfully(form: UINavigationController)
-    @objc func formFailedLoading(error: NSError)
-    @objc func formDidClose(formID: String, withFeedbackResults results: [[String : Any]], isRedirectToAppStoreEnabled: Bool)
-}
-
 @objc(UsabillaInterface)
-class UsabillaInterface: NSObject {
+class UsabillaInterface: RCTEventEmitter {
 
-    @objc weak var delegate: UsabillaInterfaceDelegate?
+    @objc weak var formNavigationController: UINavigationController?
+
+    override static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
+    
+    func constantsToExport() -> [String: Any]! {
+        return ["DEFAULT_DATA_MASKS": getDefaultDataMasks()]
+    }
+    
+    override func supportedEvents() -> [String]! {
+        return ["UBFormLoadingSucceeded","UBFormLoadingFailed","UBFormDidClose","UBCampaignDidClose"]
+    }
 
     override init() {
         super.init()
@@ -57,7 +50,8 @@ class UsabillaInterface: NSObject {
     
     @objc(setCustomVariables:)
     func setCustomVariables(_ variables: [String: Any]) {
-        Usabilla.customVariables = variables
+        let newCustomVariables = variables.mapValues { String(describing: $0) }
+        Usabilla.customVariables = newCustomVariables
     }
 
     @objc(sendEvent:)
@@ -66,11 +60,11 @@ class UsabillaInterface: NSObject {
     }
     
     @objc(resetCampaignData:)
-    func resetCampaignData(completion: (() -> Swift.Void)?) {
+    func resetCampaignData(_ callback: RCTResponseSenderBlock) {
+        let resultsDict: Dictionary = ["success": true]
+        callback([NSNull(), resultsDict])
+        
         Usabilla.resetCampaignData {
-            if let completion = completion {
-                completion()
-            }
         }
     }
 
@@ -107,21 +101,32 @@ class UsabillaInterface: NSObject {
 extension UsabillaInterface: UsabillaDelegate {
 
     func formDidLoad(form: UINavigationController) {
-        delegate?.formLoadedSucessfully(form: form)
+        formNavigationController = form
+        if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+            rootVC.present(formNavigationController!, animated: true, completion: nil)
+        }
+        sendEvent(withName: "UBFormLoadingSucceeded", body: ["success": true])
     }
 
     func formDidFailLoading(error: UBError) {
-        delegate?.formFailedLoading(error: NSError(domain: "Usabilla-PassiveForm", code: 500, userInfo: ["error": error.description]))
+        formNavigationController = nil
+        sendEvent(withName: "UBFormLoadingFailed", body: ["error": error.description])
     }
 
     func formDidClose(formID: String, withFeedbackResults results: [FeedbackResult], isRedirectToAppStoreEnabled: Bool) {
         var rnResults: [[String : Any]] = []
         for result in results {
-            var dictionary: Dictionary = ["rating": result.rating ?? 0, "abandonedPageIndex": result.abandonedPageIndex ?? 0, "sent": result.sent] as [String : Any]
+            let dictionary: Dictionary = ["rating": result.rating ?? 0, "abandonedPageIndex": result.abandonedPageIndex ?? 0, "sent": result.sent] as [String : Any]
             rnResults.append(dictionary)
         }
-
-        delegate?.formDidClose(formID: formID, withFeedbackResults: rnResults, isRedirectToAppStoreEnabled: isRedirectToAppStoreEnabled)
+        formNavigationController = nil
+        sendEvent(withName: "UBFormDidClose", body: ["formId": formID, "results": rnResults, "isRedirectToAppStoreEnabled": isRedirectToAppStoreEnabled])
+    }
+    
+    func campaignDidClose(withFeedbackResult result: FeedbackResult, isRedirectToAppStoreEnabled: Bool) {
+        let rnResult: [String : Any] = ["rating": result.rating ?? 0, "abandonedPageIndex": result.abandonedPageIndex ?? 0, "sent": result.sent] as [String : Any]
+        formNavigationController = nil
+        sendEvent(withName: "UBCampaignDidClose", body: ["result": rnResult, "isRedirectToAppStoreEnabled": isRedirectToAppStoreEnabled])
     }
 }
 
