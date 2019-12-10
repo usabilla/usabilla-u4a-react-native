@@ -28,6 +28,7 @@ import com.usabilla.sdk.ubform.UsabillaFormCallback;
 import com.usabilla.sdk.ubform.UbConstants;
 import com.usabilla.sdk.ubform.Usabilla;
 import com.usabilla.sdk.ubform.sdk.form.FormClient;
+import com.usabilla.sdk.ubform.sdk.entity.FeedbackResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,13 +41,27 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     
     private static final String LOG_TAG = "Usabilla React Bridge";
     private static final String DEFAULT_DATA_MASKS = "DEFAULT_DATA_MASKS";
+    
+    private static final String KEY_RATING = "rating";
+    private static final String KEY_ABANDONED_PAGE_INDEX = "abandonedPageIndex";
+    private static final String KEY_SENT = "sent";
 
     private Usabilla usabilla = Usabilla.INSTANCE;
     private Fragment form;
 
+    private WritableMap getResult(Intent intent, String feedbackResultType) {
+        final FeedbackResult res = intent.getParcelableExtra(feedbackResultType);
+        final WritableMap result = Arguments.createMap();
+        result.putInt(KEY_RATING, res.getRating());
+        result.putInt(KEY_ABANDONED_PAGE_INDEX, res.getAbandonedPageIndex());
+        result.putBoolean(KEY_SENT, res.isSent());
+        return result;
+    }
+
     private BroadcastReceiver closingFormReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            final WritableMap result = getResult(intent, FeedbackResult.INTENT_FEEDBACK_RESULT);
             final Activity activity = getCurrentActivity();
             if (activity instanceof FragmentActivity) {
                 FragmentManager supportFragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
@@ -55,9 +70,19 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
                 if (fragment != null) {
                     supportFragmentManager.beginTransaction().remove(fragment).commit();
                 }
+                emitReactEvent(getReactApplicationContext(), "UBFormDidClose", result);
                 return;
-            }
+            }                
+            emitReactEvent(getReactApplicationContext(), "UBFormDidClose", result);
             Log.e(LOG_TAG, "Android activity null when removing form fragment");
+        }
+    };
+
+    private BroadcastReceiver closingCampaignReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final WritableMap result = getResult(intent, FeedbackResult.INTENT_FEEDBACK_RESULT_CAMPAIGN);
+            emitReactEvent(getReactApplicationContext(), "UBCampaignDidClose", result);
         }
     };
 
@@ -114,20 +139,6 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
             return;
         }
         Log.e(LOG_TAG, "Loading feedback form not possible. Android activity is null");
-    }
-
-    /**
-     * Hook from the App.js file calling index.js to show the form previously downloaded
-     */
-    @ReactMethod
-    public void showLoadedFrom() {
-        final Activity activity = getCurrentActivity();
-        if (activity instanceof FragmentActivity && form != null) {
-            ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().replace(android.R.id.content, form, FRAGMENT_TAG).commit();
-            form = null;
-            return;
-        }
-        emitReactEvent(getReactApplicationContext(), "UBFormNotFoundFragmentActivity", Arguments.createMap());
     }
 
     /**
@@ -223,11 +234,13 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     @Override
     public void onHostResume() {
         LocalBroadcastManager.getInstance(getReactApplicationContext()).registerReceiver(closingFormReceiver, new IntentFilter(UbConstants.INTENT_CLOSE_FORM));
+        LocalBroadcastManager.getInstance(getReactApplicationContext()).registerReceiver(closingCampaignReceiver, new IntentFilter(UbConstants.INTENT_CLOSE_CAMPAIGN));
     }
 
     @Override
     public void onHostPause() {
         LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(closingFormReceiver);
+        LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(closingCampaignReceiver);
     }
 
     @Override
@@ -238,6 +251,12 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     @Override
     public void formLoadSuccess(FormClient formClient) {
         form = formClient.getFragment();
+        final Activity activity = getCurrentActivity();
+        if (activity instanceof FragmentActivity && form != null) {
+            ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().replace(android.R.id.content, form, FRAGMENT_TAG).commit();
+            form = null;
+            return;
+        }
         emitReactEvent(getReactApplicationContext(), "UBFormLoadingSucceeded", Arguments.createMap());
     }
 
