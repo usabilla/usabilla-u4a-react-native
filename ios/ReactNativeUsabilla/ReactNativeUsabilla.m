@@ -10,7 +10,7 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 
-@interface RCT_EXTERN_MODULE(UsabillaInterface, NSObject)
+@interface RCT_EXTERN_MODULE(UsabillaBridge, NSObject)
 
 + (BOOL)requiresMainQueueSetup
 {
