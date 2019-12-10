@@ -1,5 +1,5 @@
 //
-//  UsabillaInterface.swift
+//  UsabillaBridge.swift
 //  ReactNativeUsabilla
 //
 //  Created by Adil Bougamza on 01/02/2018.
@@ -10,8 +10,8 @@ import Foundation
 import Usabilla
 import UIKit
 
-@objc(UsabillaInterface)
-class UsabillaInterface: RCTEventEmitter {
+@objc(UsabillaBridge)
+class UsabillaBridge: RCTEventEmitter {
 
     @objc weak var formNavigationController: UINavigationController?
 
@@ -43,9 +43,18 @@ class UsabillaInterface: RCTEventEmitter {
         Usabilla.loadFeedbackForm(formID)
     }
     
-    @objc(loadFeedbackForm:screenshot:)
-    func loadFeedbackForm(formID: String, screenshot: UIImage) {
-        Usabilla.loadFeedbackForm(formID, screenshot: screenshot)
+    @objc(loadFeedbackFormWithCurrentViewScreenshot:)
+    func loadFeedbackFormWithCurrentViewScreenshot(formID: String) {
+        DispatchQueue.main.sync {
+            if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+              let screenshot = self.takeScreenshot(view: rootVC.view)
+                Usabilla.loadFeedbackForm(formID, screenshot: screenshot)
+          }
+        }
+    }
+
+    func takeScreenshot(view: UIView) -> UIImage {
+        return Usabilla.takeScreenshot(view)!
     }
     
     @objc(setCustomVariables:)
@@ -72,11 +81,7 @@ class UsabillaInterface: RCTEventEmitter {
     func removeCachedForms() {
         Usabilla.removeCachedForms()
     }
-
-    @objc(takeScreenshot:)
-    func takeScreenshot(view: UIView) -> UIImage {
-        return Usabilla.takeScreenshot(view)!
-    }
+    
     
     @objc(dismiss)
     func dismiss() {
@@ -98,7 +103,7 @@ class UsabillaInterface: RCTEventEmitter {
     }
 }
 
-extension UsabillaInterface: UsabillaDelegate {
+extension UsabillaBridge: UsabillaDelegate {
 
     func formDidLoad(form: UINavigationController) {
         formNavigationController = form
