@@ -1,6 +1,6 @@
 import { NativeEventEmitter, NativeModules, Platform, DeviceEventEmitter } from 'react-native';
-const UsabillaBridge = NativeModules.UsabillaInterface;
-const usabillaEventEmitter = (Platform.OS == 'android') ? DeviceEventEmitter : new NativeEventEmitter(UsabillaBridge);
+const rnUsabilla = NativeModules.UsabillaBridge;
+const usabillaEventEmitter = (Platform.OS == 'android') ? DeviceEventEmitter : new NativeEventEmitter(rnUsabilla);
 
 export default {
     
@@ -11,12 +11,12 @@ export default {
                 () => console.log("The Activity does not extend FragmentActivity and cannot call getSupportFragmentManager()")
             )
         }
-        return UsabillaBridge.initialize(appId)
+        return rnUsabilla.initialize(appId)
     },
     
     areNavigationButtonsVisible() {
         if (Platform.OS == 'android') {
-            return UsabillaBridge.areNavigationButtonsVisible()
+            return rnUsabilla.areNavigationButtonsVisible()
         } else {
             console.warn('areNavigationButtonsVisible is not available for iOS');
             return true
@@ -25,7 +25,7 @@ export default {
     
     setDefaultNavigationButtonsVisibility(visible) {
         if (Platform.OS == 'android') {
-            return UsabillaBridge.setDefaultNavigationButtonsVisibility(visible)
+            return rnUsabilla.setDefaultNavigationButtonsVisibility(visible)
         } else {
             console.warn('setDefaultNavigationButtonsVisibility is not available for iOS');
         }
@@ -36,7 +36,7 @@ export default {
      * @param {String} formId : feedback form Id
      */
     loadFeedbackForm(formId) {
-        return UsabillaBridge.loadFeedbackForm(formId)
+        return rnUsabilla.loadFeedbackForm(formId)
     },
     
     /**
@@ -45,37 +45,33 @@ export default {
      * @param {String} formId : feedback form Id
      */
     loadFeedbackFormWithCurrentViewScreenshot(formId) {
-        return UsabillaBridge.loadFeedbackFormWithCurrentViewScreenshot(formId)
+        return rnUsabilla.loadFeedbackFormWithCurrentViewScreenshot(formId)
     },
     
     sendEvent(event) {
-        return UsabillaBridge.sendEvent(event)
+        return rnUsabilla.sendEvent(event)
     },
     
     removeCachedForms() {
-        return UsabillaBridge.removeCachedForms()
+        return rnUsabilla.removeCachedForms()
     },
     
     resetCampaignData(callback) {
         if (Platform.OS == 'android') {
-            return UsabillaBridge.resetCampaignData()
+            return rnUsabilla.resetCampaignData()
         } else {
             if (callback) {
-            return UsabillaBridge.resetCampaignData(callback)
+            return rnUsabilla.resetCampaignData(callback)
                 
             }
-            return UsabillaBridge.resetCampaignData(()=> {
+            return rnUsabilla.resetCampaignData(()=> {
                 console.log("Campaign data is successfully reset!")
             })
         }
     },
     
-    showLoadedForm() {
-        return UsabillaBridge.showLoadedFrom()
-    },
-    
     setCustomVariables(customVariables) {
-        return UsabillaBridge.setCustomVariables(customVariables)
+        return rnUsabilla.setCustomVariables(customVariables)
     },
     
     setFormDidLoadSuccessfully(callback) {
@@ -87,26 +83,22 @@ export default {
     },
     
     setFormDidClose(callback) {
-        if (Platform.OS == 'ios') {
-            usabillaEventEmitter.addListener('UBFormDidClose', callback)
-        }
+        usabillaEventEmitter.addListener('UBFormDidClose', callback)
     },
     
     setCampaignDidClose(callback) {
-        if (Platform.OS == 'ios') {
-            usabillaEventEmitter.addListener('UBCampaignDidClose', callback)
-        }
+        usabillaEventEmitter.addListener('UBCampaignDidClose', callback)
     },
     
     dismiss() {
-        UsabillaBridge.dismiss()
+        rnUsabilla.dismiss()
     },
     
     setDataMasking(masks, character) {
-        UsabillaBridge.setDataMasking(masks, character)
+        rnUsabilla.setDataMasking(masks, character)
     },
     
     getDefaultDataMasks() {
-        return UsabillaBridge.DEFAULT_DATA_MASKS
+        return rnUsabilla.DEFAULT_DATA_MASKS
     }
   };
