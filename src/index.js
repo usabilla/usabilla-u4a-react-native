@@ -101,4 +101,5 @@ export default {
     getDefaultDataMasks() {
         return rnUsabilla.DEFAULT_DATA_MASKS
     }
+
   };
