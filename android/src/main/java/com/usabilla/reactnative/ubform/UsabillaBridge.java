@@ -45,6 +45,8 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     private static final String KEY_RATING = "rating";
     private static final String KEY_ABANDONED_PAGE_INDEX = "abandonedPageIndex";
     private static final String KEY_SENT = "sent";
+    private static final String KEY_ERROR_MSG = "error";
+    private static final String KEY_SUCCESS_FLAG = "success";
 
     private Usabilla usabilla = Usabilla.INSTANCE;
     private Fragment form;
@@ -72,8 +74,10 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
                 }
                 emitReactEvent(getReactApplicationContext(), "UBFormDidClose", result);
                 return;
-            }                
-            emitReactEvent(getReactApplicationContext(), "UBFormDidClose", result);
+            }
+            final WritableMap resultError = Arguments.createMap();
+            resultError.putString(KEY_ERROR_MSG, "The form could not be shown because the activity doesn't extend from FragmentActivity");
+            emitReactEvent(getReactApplicationContext(), "UBFormLoadingFailed", resultError);
             Log.e(LOG_TAG, "Android activity null when removing form fragment");
         }
     };
@@ -255,14 +259,21 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
         if (activity instanceof FragmentActivity && form != null) {
             ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction().replace(android.R.id.content, form, FRAGMENT_TAG).commit();
             form = null;
+            final WritableMap result = Arguments.createMap();
+            result.putBoolean(KEY_SUCCESS_FLAG, true);
+            emitReactEvent(getReactApplicationContext(), "UBFormLoadingSucceeded", result);
             return;
         }
-        emitReactEvent(getReactApplicationContext(), "UBFormLoadingSucceeded", Arguments.createMap());
+        final WritableMap resultError = Arguments.createMap();
+        resultError.putString(KEY_ERROR_MSG, "The form could not be shown because the activity doesn't extend from FragmentActivity");
+        emitReactEvent(getReactApplicationContext(), "UBFormLoadingFailed", resultError);
     }
 
     @Override
     public void formLoadFail() {
-        emitReactEvent(getReactApplicationContext(), "UBFormLoadingFailed", Arguments.createMap());
+        final WritableMap resultError = Arguments.createMap();
+        resultError.putString(KEY_ERROR_MSG, "The form could not be loaded");
+        emitReactEvent(getReactApplicationContext(), "UBFormLoadingFailed", resultError);
     }
 
     @Override
