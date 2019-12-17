@@ -75,9 +75,6 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
                 emitReactEvent(getReactApplicationContext(), "UBFormDidClose", result);
                 return;
             }
-            final WritableMap resultError = Arguments.createMap();
-            resultError.putString(KEY_ERROR_MSG, "The form could not be shown because the activity doesn't extend from FragmentActivity");
-            emitReactEvent(getReactApplicationContext(), "UBFormLoadingFailed", resultError);
             Log.e(LOG_TAG, "Android activity null when removing form fragment");
         }
     };
