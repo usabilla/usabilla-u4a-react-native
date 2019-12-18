@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
-import { Platform, StyleSheet, Text, TextInput, View, Button } from 'react-native'
-
-var usabilla = require('usabilla-react-native')
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import usabilla from 'usabilla-react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu',
@@ -13,24 +12,23 @@ export default class App extends Component<{}> {
     super()
     this.state = {text: ''}
     usabilla.initialize("YOUR_APP_ID_HERE")
-    usabilla.setDataMasking(usabilla.getDefaultDataMasks(), 'X')
-    var customVars = {"flight-number": "99999999", "user-type": "premium", "number-flights": 12}
-    usabilla.setCustomVariables(customVars)
-    usabilla.setFormDidLoadSuccessfully(this.onFormLoaded)
-    usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form:", reminder))
-    usabilla.setFormDidClose((reminder) => console.log(reminder.formId))
-  }
-
-  onFormLoaded() {
-    usabilla.showLoadedForm()
+    usabilla.setDataMasking(usabilla.getDefaultDataMasks(), 'X');
+    var customVars = {"test": 1};
+    usabilla.setCustomVariables(customVars);
+    usabilla.setFormDidLoadSuccessfully((reminder) => console.log("successfull loading form: ", reminder));
+    usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form: ", reminder));
+    usabilla.setFormDidClose((reminder) => console.log("Form closed: ", reminder));
+    usabilla.setCampaignDidClose((reminder) => console.log("Campaign closed: ",JSON.stringify(reminder)))
   }
 
   resetCampaignData() {
-    usabilla.resetCampaignData()
+      usabilla.resetCampaignData(()=> {
+          console.log("Campaign data is successfully reset!")
+      })
   }
 
   sendEvent(event) {
-    usabilla.sendEvent(event)
+   usabilla.sendEvent(event)
   }
 
   requestFormWithDefaultScreenshot() {
