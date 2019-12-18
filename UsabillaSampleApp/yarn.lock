@@ -5877,8 +5877,10 @@ urix@^0.1.0:
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
 
-"usabilla-react-native@file:..":
+usabilla-react-native@^0.8.4:
   version "0.8.4"
+  resolved "https://registry.yarnpkg.com/usabilla-react-native/-/usabilla-react-native-0.8.4.tgz#91c5560e167234fce9cf67e846567f4b0bdc9edc"
+  integrity sha512-Ezlx14IxT9RwZEMrBn9uRq6yOFAB4QlpX+SVi0vGQ9ge9atdGKFWVZit5VMm619YQoDnL5MYyzs2d4eukzatUg==
 
 use@^3.1.0:
   version "3.1.1"
