@@ -2,28 +2,33 @@
 
 
 # Usabilla for Apps - React Native
+
 Usabilla for Apps allows you to collect feedback from your users with great ease and flexibility.
 This React Native bridge to the Native Usabilla SDK allows you to load passive feedback forms and submit results from a React Native app. This release uses the Usabilla SDK v6.4.4.
 This React Native bridge supports React Native app builds with version `0.61.5` that contains Auto-Linking. For React Native versions without Auto-Linking, please follow these steps.
 
-- [Requirements](#requirements)
-- [Installation](#installation)
-	- [iOS](#ios)
-	- [Android](#android)
-- [Campaigns](#campaigns)
-	- [The App ID](#the-app-id)
-	- [Events](#events)
-	- [Campaign submission callback](#campaign-submission-callback)
-	- [Reset Campaign data](#reset-campaign-data)
-	- [Managing an existing Campaign](#managing-an-existing-campaign)
-	- [Campaign results](#campaign-results)
-- [Feedback Form](#feedback-form)
-	- [The Form ID](#the-form-id)
-	- [Screenshot](#screenshot)
-	- [Feedback submission calback](#feedback-submission-callback)
-	- [Campaigns](#campaigns)
-- [Custom Variables](#custom-variables)
-- [Installation steps for React Native without Auto-Linking](#installation-steps-for-react-native-without-auto-linking)
+- [Usabilla for Apps - React Native](#usabilla-for-apps---react-native)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+    - [iOS](#ios)
+    - [Android](#android)
+  - [Campaigns](#campaigns)
+    - [The App Id](#the-app-id)
+    - [Events](#events)
+    - [Campaign submission callback](#campaign-submission-callback)
+    - [Reset Campaign data](#reset-campaign-data)
+    - [Managing an existing Campaign](#managing-an-existing-campaign)
+    - [Campaign results](#campaign-results)
+  - [Feedback Form](#feedback-form)
+    - [The Form ID](#the-form-id)
+    - [Screenshot](#screenshot)
+    - [Submit the results of the form](#submit-the-results-of-the-form)
+    - [Feedback submission callback](#feedback-submission-callback)
+  - [Custom Variables](#custom-variables)
+  - [Installation steps for React Native without Auto-Linking](#installation-steps-for-react-native-without-auto-linking)
+    - [Android](#android-1)
+    - [iOS](#ios-1)
+  - [Support](#support)
 
 ## Requirements
 
@@ -84,6 +89,7 @@ The configuration of how a campaign is displayed to the user will be familiar to
 The most important aspect of running a mobile campaign is 'Events'. Events are custom triggers that are configured in the SDK. When a pre-defined event occurs, it will allow you to trigger a campaign. A good example of an event is a successful purchase by a user in your app.
 
 ### The App Id
+
 The app Id is an identifier used to associate campaigns to a mobile app.
 By loading the SDK with a specific app Id, it will fetch all the campaigns connected to the given app Id.
 
@@ -124,7 +130,7 @@ usabilla.setCampaignDidClose((response) => {})
  * response {
  *  rating: int,
  *  sent: boolean,
- *  abondonedpageindex: int
+ *  abandonedpageindex: int
  * }
  */
 ```
@@ -141,7 +147,7 @@ The **response** array contains the following information:
  *  results: {
  *  rating: int,
  *  sent: boolean,
- *  abondonedpageindex: int
+ *  abandonedpageindex: int
  *  },
  * isRedirectToAppStoreEnabled: boolean
  * }
@@ -190,7 +196,7 @@ Feedback forms that are Forms that are created in [Usabilla](https://app.usabill
 
 ### The Form ID
 
-Implementing a Feedback Form is done by configureing the Form ID that is generated when a Feedback Form is created in [Usabilla](https://app.usabilla.com/member/apps/list).
+Implementing a Feedback Form is done by configuring the Form ID that is generated when a Feedback Form is created in [Usabilla](https://app.usabilla.com/member/apps/list).
 
 In order to load a Passive Feedback form with the Usabilla library you need to call:
 
@@ -205,7 +211,7 @@ To check whether the form is fetched successfully, we have the following method:
 usabilla.setFormDidLoadSuccessfully((response) => {})
 /**
  * response {
- *  successs: true
+ *  success: true
  *  }
  */
 ```
@@ -215,7 +221,7 @@ usabilla.setFormDidLoadSuccessfully((response) => {})
  usabilla.setFormDidLoadSuccessfully((response) => {})
 /**
  * response {
- *  successs: true
+ *  success: true
  *  },
  * isRedirectToAppStoreEnabled: boolean
  * }
@@ -269,7 +275,7 @@ usabilla.setFormDidClose((response) => {})
  * response {
  *  rating: int,
  *  sent: boolean,
- *  abondonedpageindex: int
+ *  abandonedpageindex: int
  * }
  */
 ```
@@ -287,7 +293,7 @@ The **response** array contains the following information:
  *  results: [{
  *  rating: int,
  *  sent: boolean,
- *  abondonedpageindex: int
+ *  abandonedpageindex: int
  *  }],
  * formId: String,
  * isRedirectToAppStoreEnabled: boolean
