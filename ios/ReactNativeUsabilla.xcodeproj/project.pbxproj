@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C57AB339209886E500C8C295 /* Usabilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E2234520234DA7006A570D /* Usabilla.framework */; };
 		C5E2234320234D76006A570D /* ReactNativeUsabilla.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E2234220234D76006A570D /* ReactNativeUsabilla.m */; };
-		C5E2234920234DC2006A570D /* UsabillaInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E2234820234DC2006A570D /* UsabillaInterface.swift */; };
+		F203323E24116C1400FFE87E /* UsabillaBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F203323D24116C1400FFE87E /* UsabillaBridge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,11 +26,10 @@
 
 /* Begin PBXFileReference section */
 		C5E223312023452C006A570D /* libReactNativeUsabilla.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReactNativeUsabilla.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5E2234120234D76006A570D /* ReactNativeUsabilla.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactNativeUsabilla.h; sourceTree = "<group>"; };
 		C5E2234220234D76006A570D /* ReactNativeUsabilla.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeUsabilla.m; sourceTree = "<group>"; };
 		C5E2234520234DA7006A570D /* Usabilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Usabilla.framework; sourceTree = "<group>"; };
 		C5E2234720234DC1006A570D /* ReactNativeUsabilla-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactNativeUsabilla-Bridging-Header.h"; sourceTree = "<group>"; };
-		C5E2234820234DC2006A570D /* UsabillaInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsabillaInterface.swift; sourceTree = "<group>"; };
+		F203323D24116C1400FFE87E /* UsabillaBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsabillaBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,9 +64,8 @@
 		C5E2234020234D76006A570D /* ReactNativeUsabilla */ = {
 			isa = PBXGroup;
 			children = (
-				C5E2234120234D76006A570D /* ReactNativeUsabilla.h */,
+				F203323D24116C1400FFE87E /* UsabillaBridge.swift */,
 				C5E2234220234D76006A570D /* ReactNativeUsabilla.m */,
-				C5E2234820234DC2006A570D /* UsabillaInterface.swift */,
 				C5E2234720234DC1006A570D /* ReactNativeUsabilla-Bridging-Header.h */,
 			);
 			path = ReactNativeUsabilla;
@@ -139,8 +137,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5E2234920234DC2006A570D /* UsabillaInterface.swift in Sources */,
 				C5E2234320234D76006A570D /* ReactNativeUsabilla.m in Sources */,
+				F203323E24116C1400FFE87E /* UsabillaBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
