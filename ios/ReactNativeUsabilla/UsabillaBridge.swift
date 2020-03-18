@@ -38,6 +38,11 @@ class UsabillaBridge: RCTEventEmitter {
         Usabilla.debugEnabled = true
     }
 
+    @objc(loadLocalizedStringFile:)
+    func loadLocalizedStringFile(localizedStringFile: String) {
+        Usabilla.localizedStringFile = localizedStringFile
+    }
+
     @objc(loadFeedbackForm:)
     func loadFeedbackForm(formID: String) {
         Usabilla.loadFeedbackForm(formID)

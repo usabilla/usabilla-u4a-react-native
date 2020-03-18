@@ -30,6 +30,18 @@ export default {
             console.warn('setDefaultNavigationButtonsVisibility is not available for iOS');
         }
     },
+
+    /**
+     * This method will load the localisation string file with all the properties
+     * @param {String} localizedStringFile : custom string file name
+     */
+    loadLocalizedStringFile(localizedStringFile) {
+        if (Platform.OS == 'ios') {
+            return rnUsabilla.loadLocalizedStringFile(localizedStringFile)
+        } else {
+            console.warn('loadLocalizedStringFile is not available for android');
+        }
+    },
     
     /**
      * This method will load the feedback with no screenshot attachement
