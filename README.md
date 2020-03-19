@@ -385,4 +385,4 @@ The project can now be compiled without any errors related to Usabilla SDK.
 
 ## Support
 
-Usabilla For React Native is maintained by the Usabilla Development Team. Everyone is encouraged to file bug reports, feature requests, and pull requests through GitHub. This input is critical and will be carefully considered, but we cannot promise a specific resolution or time frame for your request. For more information please email our Support Team at support@usabilla.com
+If you require help with the implementation, want to report an issue, or have a question please reach out to our Support Team via support@usabilla.com. When contacting our Support Team please make sure you include your Usabilla Account Name and the name of your Customer Success Manager.
