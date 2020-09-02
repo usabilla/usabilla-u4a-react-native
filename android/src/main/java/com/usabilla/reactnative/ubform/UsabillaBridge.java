@@ -155,7 +155,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
      */
     @ReactMethod
     public boolean areNavigationButtonsVisible() {
-        return usabilla.areNavigationButtonsVisible();
+        return usabilla.getDefaultNavigationButtonsVisibility();
     }
 
     /**
