@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { Platform, PixelRatio, StyleSheet, SafeAreaView,Text, TextInput, View, Image, ImageBackground, TouchableWithoutFeedback} from 'react-native';
 import usabilla from 'usabilla-react-native';
+import { bgImage,logo } from './assets/images';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu',
@@ -37,39 +38,162 @@ export default class App extends Component<{}> {
 
   render() {
     return (
+    <SafeAreaView>
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-        <TextInput
-          style={{height: 40, width: 150}}
-          placeholder="Event"
-          onChangeText={(text) => this.setState({text})} />
-        <Button onPress={() => this.sendEvent(this.state.text)} title="Send event" />
-        <Text />
-        <Button onPress={this.resetCampaignData} title="Reset campaigns" />
-        <Text />
-        <Button onPress={this.requestFormWithDefaultScreenshot} title="Show Form" />
-      </View>
+        <ImageBackground source={bgImage} style={styles.backgroundImage}>
+          <View style={styles.top}>
+            <Text style={styles.welcome}>Usabilla</Text>
+            <Text style={styles.welcome}>React Native</Text>
+            <Text style={styles.welcome}>Demo App</Text>
+          </View>
+          <View style={styles.middle}>
+            <View style={styles.showForm}>
+              <TouchableWithoutFeedback onPress={this.requestFormWithDefaultScreenshot}>
+                <View style={styles.buttonShowForm}>
+                  <Text style={styles.textShowForm}>SHOW FORM</Text>
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+            <View style={styles.event}>
+              <TextInput
+                style={styles.eventInput}
+                placeholder="Enter event here"
+                onChangeText={(text) => this.setState({text})}>
+              </TextInput>
+              <TouchableWithoutFeedback onPress={() =>this.sendEvent(this.state.text)}>
+                <View style={styles.buttonSend}>
+                  <Text style={styles.textSend}>SEND EVENT</Text>
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+            <View style={styles.reset}>
+              <TouchableWithoutFeedback onPress={this.resetCampaignData}>
+                <View style={styles.buttonReset}>
+                  <Text style={styles.textReset}>RESET</Text>
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+          </View>
+          <View style={styles.bottom}>
+            <Image style={styles.footerImage} source={ logo }></Image>
+          </View>
+        </ImageBackground>
+      </View> 
+    </SafeAreaView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    width: "100%",
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '100%'
+  },
+  top: {
+    marginTop: PixelRatio.roundToNearestPixel(20),
+    marginLeft: PixelRatio.roundToNearestPixel(40),
+    textAlign: 'left',
   },
   welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    fontFamily: "MiloOT-Bold",
+    fontSize: 55 / PixelRatio.getFontScale(),
+    letterSpacing: PixelRatio.roundToNearestPixel(0),
+    color: '#00A5C9',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  middle: {
+    marginTop: PixelRatio.roundToNearestPixel(115),
+    marginLeft: PixelRatio.roundToNearestPixel(40),
+    marginRight: PixelRatio.roundToNearestPixel(40),
+    flexDirection:'column',
   },
+  showForm: {
+    marginTop: PixelRatio.roundToNearestPixel(0),
+  },
+  buttonShowForm: {
+    backgroundColor: '#00A5C9',
+    borderWidth: PixelRatio.roundToNearestPixel(1),
+    borderRadius: PixelRatio.roundToNearestPixel(2),
+    borderColor: '#ffffff',
+    borderStyle:'solid',
+    width: 'auto',
+  },
+  textShowForm: {
+    textAlign: 'center',
+    color: '#ffffff',
+    fontFamily: "MiloOT-Medi",
+    fontSize: 19 / PixelRatio.getFontScale(),
+    letterSpacing: PixelRatio.roundToNearestPixel(0),
+    lineHeight: PixelRatio.roundToNearestPixel(19),
+    padding: PixelRatio.roundToNearestPixel(14),
+  },
+  event: {
+    marginTop: PixelRatio.roundToNearestPixel(40),
+    flexDirection:'row',
+    display: 'flex',
+    height: PixelRatio.roundToNearestPixel(48),
+  },
+  eventInput: {
+    padding: PixelRatio.roundToNearestPixel(10),
+    marginRight: PixelRatio.roundToNearestPixel(16),
+    borderWidth: PixelRatio.roundToNearestPixel(2),
+    fontFamily: "MiloOT-Text",
+    fontSize: 19 / PixelRatio.getFontScale(),
+    letterSpacing: PixelRatio.roundToNearestPixel(0),
+    lineHeight: PixelRatio.roundToNearestPixel(19),
+    borderRadius: PixelRatio.roundToNearestPixel(2),
+    borderWidth: PixelRatio.roundToNearestPixel(2),
+    borderStyle: 'solid',
+    borderColor: '#C8D2DA',
+    backgroundColor:'#FFFFFF',
+    justifyContent: 'center',
+    flex: 0.5
+  },
+  buttonSend: {
+    backgroundColor: '#ffffff',
+    borderWidth: PixelRatio.roundToNearestPixel(1),
+    borderRadius: PixelRatio.roundToNearestPixel(2),
+    borderColor: '#00A5C9',
+    flex: 0.5
+  },
+  textSend: {
+    textAlign: 'center',
+    color: '#00A5C9',
+    fontFamily: "MiloOT-Medi",
+    fontSize: 19 / PixelRatio.getFontScale(),
+    letterSpacing: PixelRatio.roundToNearestPixel(0),
+    padding: PixelRatio.roundToNearestPixel(12),
+  },
+  reset: {
+    marginTop: PixelRatio.roundToNearestPixel(16),
+  },
+  buttonReset: {
+    backgroundColor: '#ffffff',
+    borderWidth: PixelRatio.roundToNearestPixel(1),
+    borderRadius: PixelRatio.roundToNearestPixel(2),
+    borderColor: '#00A5C9',
+    width: 'auto',
+  },
+  textReset: {
+    textAlign: 'center',
+    color: '#00A5C9',
+    fontFamily: "MiloOT-Medi",
+    fontSize: 19 / PixelRatio.getFontScale(),
+    letterSpacing: 0,
+    lineHeight:19,
+    padding: 14,
+  },
+  bottom: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: PixelRatio.roundToNearestPixel(0),
+  },
+  footerImage: {
+    height: PixelRatio.roundToNearestPixel(50), 
+    width: PixelRatio.roundToNearestPixel(83)
+  }
 })
