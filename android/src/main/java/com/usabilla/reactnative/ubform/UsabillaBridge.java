@@ -167,6 +167,18 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     }
 
     /**
+     * Called via the index.js to download passive forms and cache them
+     */
+    @ReactMethod
+    public void preloadFeedbackForms(@NonNull final ReadableArray formIDs) {
+        List<String> listformIDs = new ArrayList<>();
+        for (int i = 0; i < formIDs.size(); i++) {
+            listformIDs.add(formIDs.getString(i));
+        }
+        usabilla.preloadFeedbackForms(listformIDs);
+    }
+
+    /**
      * Called via the index.js to remove previously cached passive forms
      */
     @ReactMethod

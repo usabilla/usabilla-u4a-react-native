@@ -24,8 +24,9 @@ RCT_EXTERN_METHOD(loadFeedbackForm:(NSString * _Nullable)formID)
 RCT_EXTERN_METHOD(setDataMasking:(NSArray<NSString *>*)masks : (NSString *)maskChar)
 RCT_EXTERN_METHOD(setCustomVariables:(NSDictionary * _Nonnull)variables)
 RCT_EXTERN_METHOD(loadFeedbackFormWithCurrentViewScreenshot:(NSString * _Nonnull)formID)
-RCT_EXTERN_METHOD(sendEvent:(NSString *)event)
+RCT_EXTERN_METHOD(preloadFeedbackForms:(NSArray<NSString *>*)formIDs)
 RCT_EXTERN_METHOD(removeCachedForms)
+RCT_EXTERN_METHOD(sendEvent:(NSString *)event)
 RCT_EXTERN_METHOD(resetCampaignData:(RCTResponseSenderBlock)callback)
 
 @end
