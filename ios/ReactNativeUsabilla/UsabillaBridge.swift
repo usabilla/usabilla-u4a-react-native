@@ -82,6 +82,11 @@ class UsabillaBridge: RCTEventEmitter {
         }
     }
 
+    @objc(preloadFeedbackForms:)
+    func preloadFeedbackForms(_ formIDs: [String]) {
+        Usabilla.preloadFeedbackForms(withFormIDs: formIDs)
+    }
+    
     @objc(removeCachedForms)
     func removeCachedForms() {
         Usabilla.removeCachedForms()

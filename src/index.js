@@ -60,12 +60,22 @@ export default {
         return rnUsabilla.loadFeedbackFormWithCurrentViewScreenshot(formId)
     },
     
-    sendEvent(event) {
-        return rnUsabilla.sendEvent(event)
+    /**
+     * This method will pre load the feedback forms and 
+     * with no screenshot attachement
+     * @param {Array} formIds : feedback form Ids
+     */
+
+    preloadFeedbackForms(formIds) {
+        return rnUsabilla.preloadFeedbackForms(formIds)
     },
     
     removeCachedForms() {
         return rnUsabilla.removeCachedForms()
+    },
+
+    sendEvent(event) {
+        return rnUsabilla.sendEvent(event)
     },
     
     resetCampaignData(callback) {
