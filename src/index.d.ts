@@ -9,15 +9,16 @@ declare module 'usabilla-react-native' {
     loadFeedbackFormWithCurrentViewScreenshot: (formId: string) => void;
     preloadFeedbackForms: (formIds: string[]) => void;
     removeCachedForms: () => void;
-    sendEvent: (event: any) => void;
+    sendEvent: (event: string) => void;
     resetCampaignData: (callback: (...args: any[]) => any) => void;
     setCustomVariables: (customVariables: any) => void;
     setFormDidLoadSuccessfully: (callback: (...args: any[]) => any) => void;
     setFormDidClose: (callback: (...args: any[]) => any) => void;
+    setFormDidFailLoading: (callback: (...args: any[]) => any) => void;
     setCampaignDidClose: (callback: (...args: any[]) => any) => void;
     dismiss: () => void;
     setDataMasking: (masks: string[], character: string) => void;
-    getDefaultDataMasks: () => void;
+    getDefaultDataMasks: () => string[];
   };
 
   export default UBReactNative;
