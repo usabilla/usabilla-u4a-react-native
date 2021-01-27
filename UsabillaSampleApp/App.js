@@ -8,13 +8,20 @@ const instructions = Platform.select({
   android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu',
 })
 
+/// Usabilla Configuration
+// Replace appId with your usabilla app id.
+const appId = "YOUR_APP_ID_HERE";
+// Replace FormId with your usabilla form id.
+const formId = "YOUR_FORM_ID_HERE";
+// Replace custom variable with your usabilla custom variable created for targeting specific Campaign..
+const customVars = {"Key": "Value"};
+
 export default class App extends Component<{}> {
   constructor() {
     super()
     this.state = {text: ''}
-    usabilla.initialize("YOUR_APP_ID_HERE")
+    usabilla.initialize(appId);
     usabilla.setDataMasking(usabilla.getDefaultDataMasks(), 'X');
-    var customVars = {"test": 1};
     usabilla.setCustomVariables(customVars);
     usabilla.setFormDidLoadSuccessfully((reminder) => console.log("successfull loading form: ", reminder));
     usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form: ", reminder));
@@ -33,7 +40,7 @@ export default class App extends Component<{}> {
   }
 
   requestFormWithDefaultScreenshot() {
-    usabilla.loadFeedbackFormWithCurrentViewScreenshot("YOUR_FORM_ID_HERE")
+    usabilla.loadFeedbackFormWithCurrentViewScreenshot(formId);
   }
 
   render() {
