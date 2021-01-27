@@ -64,8 +64,11 @@ class UsabillaBridge: RCTEventEmitter {
     
     @objc(setCustomVariables:)
     func setCustomVariables(_ variables: [String: Any]) {
-        let newCustomVariables = variables.mapValues { String(describing: $0) }
-        Usabilla.customVariables = newCustomVariables
+        guard let variable = variables as? [String: String] else {
+            print("ERROR : Expected customVariables as Dictionary of String [String : String]")
+            return
+        }
+        Usabilla.customVariables = variable
     }
 
     @objc(sendEvent:)

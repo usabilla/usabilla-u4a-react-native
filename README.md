@@ -315,12 +315,12 @@ In order to set custom variables in the Usabilla native library it's necessary t
 
 `usabilla.setCustomVariables(customVars)`
 
-This method accepts as parameter a valid JSON object with two limitations:
+**NOTE**: This method accepts as parameter a valid JSON object with the limitations as the key,value should be String type:
+```var customVars = {'Key': 'Value'};```
 
-- Arrays should only contain same type components.
-- Objects can be nested up to one level (currently undergoing work to enable deeper nesting).
+Trying to set an invalid object as a custom variable will result in that object not being set and in an error being printed in the console.
 
-**NOTE**: Feedback sent without respecting those limitations will still be received and saved, but the values of the customer input context won't be displayed nor exported.
+Custom variables are added as extra feedback data with every feedback item sent by the SDK, whether from a passive feedback or a campaign.
 
 ## Installation steps for React Native without Auto-Linking
 
