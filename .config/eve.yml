@@ -1,0 +1,16 @@
+version: 1
+
+team: collect
+
+mirrors:
+  gitlab:
+    group: usabilla/dev/mobile/bridge
+    name: usabilla-u4a-react-native
+
+plugins:
+  approve-dependabot-prs:
+    enabled: true
+  merge-dependabot-prs:
+    enabled: true
+    dependencies:
+      all: patch
