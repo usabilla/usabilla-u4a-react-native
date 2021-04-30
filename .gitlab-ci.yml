@@ -4,7 +4,7 @@ stages:
 
 prepare:
   stage: install
-  image: $ECR_REPOSITORY/usabilla/infra/docker-images/gitlab-runner:branch-node-carbon
+  image: registry.vox.dev/getfeedback/cicd-container-images/gitlab-runner-node:stable
   script:
     - yarn install
   artifacts:
@@ -13,7 +13,7 @@ prepare:
 
 publish:
   stage: release
-  image: $ECR_REPOSITORY/usabilla/infra/docker-images/gitlab-runner:branch-node-carbon
+  image: registry.vox.dev/getfeedback/cicd-container-images/gitlab-runner-node:stable
   before_script:
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
   script:
