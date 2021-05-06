@@ -87,6 +87,27 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
         }
     };
 
+    /**
+     * Called via the index.js to handle back press
+     */
+    @ReactMethod
+    public void onBackPressed() {
+        final Activity activity = getCurrentActivity();
+        if (activity instanceof FragmentActivity) {
+            FragmentManager supportFragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
+            Fragment fragment = supportFragmentManager.findFragmentByTag(FRAGMENT_TAG);
+
+            if (fragment != null) {
+                supportFragmentManager.beginTransaction().remove(fragment).commit();
+                final WritableMap result = Arguments.createMap();
+                result.putInt(KEY_RATING, -1);
+                result.putInt(KEY_ABANDONED_PAGE_INDEX, -1);
+                result.putBoolean(KEY_SENT, false);
+                emitReactEvent(getReactApplicationContext(), "UBFormDidClose", result);
+            }
+        }
+    }
+
     @ReactMethod
     public String mainButtonTextArg = "mainButtonText";
 

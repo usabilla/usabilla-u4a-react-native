@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Platform, PixelRatio, StyleSheet, SafeAreaView,Text, TextInput, View, Image, ImageBackground, TouchableWithoutFeedback} from 'react-native';
 import usabilla from 'usabilla-react-native';
 import { bgImage,logo } from './assets/images';
+import { BackHandler } from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu',
@@ -10,23 +11,46 @@ const instructions = Platform.select({
 
 /// Usabilla Configuration
 // Replace appId with your usabilla app id.
-const appId = "YOUR_APP_ID_HERE";
+const appId = "[YOUR_APP_ID_HERE]";
 // Replace FormId with your usabilla form id.
-const formId = "YOUR_FORM_ID_HERE";
+const formId = "[YOUR_FORM_ID_HERE]";
 // Replace custom variable with your usabilla custom variable created for targeting specific Campaign..
 const customVars = {"Key": "Value"};
+
+var isFormVisible = false;
 
 export default class App extends Component<{}> {
   constructor() {
     super()
     this.state = {text: ''}
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     usabilla.initialize(appId);
     usabilla.setDataMasking(usabilla.getDefaultDataMasks(), 'X');
     usabilla.setCustomVariables(customVars);
-    usabilla.setFormDidLoadSuccessfully((reminder) => console.log("successfull loading form: ", reminder));
+    usabilla.setFormDidLoadSuccessfully((reminder) => {
+      isFormVisible = true
+      console.log("successfull loading form: ", reminder)
+      }
+    );
     usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form: ", reminder));
-    usabilla.setFormDidClose((reminder) => console.log("Form closed: ", reminder));
+    usabilla.setFormDidClose((reminder) => { 
+      isFormVisible = false
+      console.log("Form closed: ", reminder)
+    });
     usabilla.setCampaignDidClose((reminder) => console.log("Campaign closed: ",JSON.stringify(reminder)))
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  handleBackButtonClick() {
+    usabilla.onBackPressed()
+    return isFormVisible;
   }
 
   resetCampaignData() {
