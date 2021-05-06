@@ -309,6 +309,41 @@ The **response** array contains the following information:
 
 **NOTE**: **isRedirectToAppStoreEnabled** is not included in the **response** array on Android since displaying the Play Store Rating prompt is handled automatically by the SDK.
 
+### Android hardware back button
+Android hardware back button press should be captured and passed to usabilla react native in order to remove feedback form properly and get a callback.
+To achieve this, you can use a pattern like this;
+```
+  import { BackHandler } from 'react-native';
+  ...
+
+  var isFormVisible = false;
+
+  constructor() {
+    super()
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    usabilla.setFormDidLoadSuccessfully((response) => isFormVisible = true);
+    usabilla.setFormDidClose((response) => isFormVisible = false);
+    ...
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  handleBackButtonClick() {
+    usabilla.onBackPressed()
+    return isFormVisible;
+  }
+```
+If you close a feedback form with `onBackPressed()`, then the **response** will contain the following information:
+**rating**: -1
+**sent**: false
+**abandonedpageindex**: -1
+
 ## Custom Variables
 
 In order to set custom variables in the Usabilla native library it's necessary to call the method:
