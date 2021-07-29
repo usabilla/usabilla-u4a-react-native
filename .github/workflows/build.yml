@@ -1,0 +1,24 @@
+name: Build
+on:
+  create:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install packages
+        run: yarn install
+      - name: Credentials check
+        run: |
+          if [ -z "${{secrets.NPM_TOKEN}}" ]; then
+            echo "Missing NPM_TOKEN environment variable"
+            exit 1
+          fi
+      - name: Publish
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}' >> .npmrc
+          yarn semantic-release
