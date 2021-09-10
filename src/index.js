@@ -13,7 +13,11 @@ export default {
         }
         return rnUsabilla.initialize(appId)
     },
-    
+
+    setDebugEnabled(debugEnabled){
+        return rnUsabilla.setDebugEnabled(debugEnabled)
+    },
+
     areNavigationButtonsVisible() {
         if (Platform.OS == 'android') {
             return rnUsabilla.areNavigationButtonsVisible()

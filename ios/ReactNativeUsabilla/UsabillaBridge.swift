@@ -35,7 +35,11 @@ class UsabillaBridge: RCTEventEmitter {
     @objc(initialize:)
     func initialize(appID: String?) {
         Usabilla.initialize(appID: appID)
-        Usabilla.debugEnabled = true
+    }
+    
+    @objc(setDebugEnabled:)
+    func setDebugEnabled(debugEnabled: Bool) {
+        Usabilla.debugEnabled = debugEnabled
     }
 
     @objc(loadLocalizedStringFile:)

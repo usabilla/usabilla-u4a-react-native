@@ -19,6 +19,7 @@
 
 RCT_EXTERN_METHOD(dismiss)
 RCT_EXTERN_METHOD(initialize:(NSString * _Nullable)appID)
+RCT_EXTERN_METHOD(setDebugEnabled:(BOOL * _Nonnull)debugEnabled)
 RCT_EXTERN_METHOD(loadLocalizedStringFile:(NSString * _Nullable)localizedStringFile)
 RCT_EXTERN_METHOD(loadFeedbackForm:(NSString * _Nullable)formID)
 RCT_EXTERN_METHOD(setDataMasking:(NSArray<NSString *>*)masks : (NSString *)maskChar)
