@@ -138,6 +138,14 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     }
 
     /**
+     * Called via the index.js to set the debug mode
+     */
+    @ReactMethod
+    public void setDebugEnabled(@NonNull final boolean debugEnabled) {
+        usabilla.setDebugEnabled(debugEnabled);
+    }
+
+    /**
      * Called via the index.js to load a passive feedback form
      *
      * @param formId Id of the form desired to be loaded
