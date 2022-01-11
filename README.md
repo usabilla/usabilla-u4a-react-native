@@ -24,6 +24,7 @@ This React Native bridge supports React Native app builds with version `0.61.5` 
     - [Screenshot](#screenshot)
     - [Submit the results of the form](#submit-the-results-of-the-form)
     - [Feedback submission callback](#feedback-submission-callback)
+  - [Masking Private Identifiable Information](#masking-private-identifiable-information)
   - [Custom Variables](#custom-variables)
   - [Localization](#localization)
   - [Installation steps for React Native without Auto-Linking](#installation-steps-for-react-native-without-auto-linking)
@@ -344,6 +345,40 @@ If you close a feedback form with `onBackPressed()`, then the **response** will 
 **rating**: -1
 **sent**: false
 **abandonedpageindex**: -1
+
+## Masking Private Identifiable Information
+
+The SDK has an option to mask (on the back-end side) the data from input texts, specifically `Text Input` and `Text Area`. Please note that the an email input field is not being masked.
+
+It matches a list of RegEx and replaces them by the "X" character by default.
+
+The SDK has a `setDataMasking` method that can be used as:
+```
+usabilla.setDataMasking();
+usabilla.setDataMasking([String]);
+usabilla.setDataMasking([String], String);
+```
+**1st parameter - [String] `masks`** is a list of RegExes to mask data in input fields. It uses the default RegExes that the SDK provides.
+**2nd parameter - String `maskCharacter`**  is a character to replace the matched RegExes. By default it uses 'X'.
+
+**NOTE**: **To clear / remove data masking** use `usabilla.setDataMasking(masks: [])` empty array `masks` removes the data masking feature.
+
+The default RegExes that the SDK provides are: Email Addresses & Numbers
+
+For email it uses:
+```
+[a-zA-Z0-9\+\.\_\%\-\+]{1,256}\@[a-zA-Z0-9][a-zA-Z0-9\-]{0,64}(\.[a-zA-Z0-9][a-zA-Z0-9\-]{0,25})+
+```
+For Numbers with the length 4 or more
+```
+[0-9]{4,}
+```
+The default RegEx can be accessed by:
+
+```
+usabilla.getDefaultDataMasks();
+```
+
 
 ## Custom Variables
 

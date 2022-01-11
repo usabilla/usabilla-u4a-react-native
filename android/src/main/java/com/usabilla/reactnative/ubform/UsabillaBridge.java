@@ -38,10 +38,10 @@ import java.util.Map;
 public class UsabillaBridge extends ReactContextBaseJavaModule implements UsabillaFormCallback, LifecycleEventListener {
 
     public static final String FRAGMENT_TAG = "passive form";
-    
+
     private static final String LOG_TAG = "Usabilla React Bridge";
     private static final String DEFAULT_DATA_MASKS = "DEFAULT_DATA_MASKS";
-    
+    private static final String DEFAULT_MASK_CHARACTER = "X";
     private static final String KEY_RATING = "rating";
     private static final String KEY_ABANDONED_PAGE_INDEX = "abandonedPageIndex";
     private static final String KEY_SENT = "sent";
@@ -129,7 +129,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     @ReactMethod
     public void initialize(@NonNull String appId) {
         final Activity activity = getCurrentActivity();
-        if (activity != null) {  
+        if (activity != null) {
             usabilla.initialize(activity.getBaseContext(), appId);
             usabilla.updateFragmentManager(((FragmentActivity) activity).getSupportFragmentManager());
             return;
@@ -258,12 +258,18 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
      * Called via the index.js to mask sensitive information from the feedback before sending it
      */
     @ReactMethod
-    public void setDataMasking(@NonNull final ReadableArray masks, @NonNull final String character) {
-        List<String> listMasks = new ArrayList<>();
-        for (int i = 0; i < masks.size(); i++) {
-            listMasks.add(masks.getString(i));
+    public void setDataMasking(final @Nullable ReadableArray masks, final @Nullable String character) {
+        List<String> listMasks = null;
+        if (masks == null) {
+            listMasks = UbConstants.getDefaultDataMasks();
+        } else {
+            listMasks = new ArrayList<>(masks.size());
+            for (int i = 0; i < masks.size(); i++) {
+                listMasks.add(masks.getString(i));
+            }
         }
-        usabilla.setDataMasking(listMasks, character.charAt(0));
+        String maskChar = (character != null) ? character : DEFAULT_MASK_CHARACTER;
+        usabilla.setDataMasking(listMasks, maskChar.charAt(0));
     }
 
     @Override
