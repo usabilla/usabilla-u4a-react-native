@@ -55,7 +55,7 @@ class UsabillaBridge: RCTEventEmitter {
     @objc(loadFeedbackFormWithCurrentViewScreenshot:)
     func loadFeedbackFormWithCurrentViewScreenshot(formID: String) {
         DispatchQueue.main.sync {
-            if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+            if let rootVC = UIApplication.shared.windows.first?.rootViewController {
               let screenshot = self.takeScreenshot(view: rootVC.view)
                 Usabilla.loadFeedbackForm(formID, screenshot: screenshot)
           }
