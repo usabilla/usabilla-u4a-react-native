@@ -112,11 +112,10 @@ class UsabillaBridge: RCTEventEmitter {
     }
     
     @objc(setDataMasking::)
-    func setDataMasking(_ masks: [String], _ maskChar: String) {
-        guard let maskCharacter = maskChar.first else {   Usabilla.setDataMasking(masks: Usabilla.defaultDataMasks, maskCharacter: "X")
-            return
-        }
-        Usabilla.setDataMasking(masks: masks, maskCharacter: maskCharacter)
+    func setDataMasking(_ masks: [String]?, _ maskChar: String?) {
+        let mask = masks ?? Usabilla.defaultDataMasks
+        let maskCharacter = maskChar?.first ?? "X"
+        Usabilla.setDataMasking(masks: mask, maskCharacter: maskCharacter)
     }
 }
 

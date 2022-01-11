@@ -19,7 +19,7 @@ declare module 'usabilla-react-native' {
     setFormDidFailLoading: (callback: (...args: any[]) => any) => void;
     setCampaignDidClose: (callback: (...args: any[]) => any) => void;
     dismiss: () => void;
-    setDataMasking: (masks: string[], character: string) => void;
+    setDataMasking: (masks?: string[], character?: string) => void;
     getDefaultDataMasks: () => string[];
   };
 
