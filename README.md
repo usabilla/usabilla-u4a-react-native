@@ -25,6 +25,7 @@ This React Native bridge supports React Native app builds with version `0.61.5` 
     - [Submit the results of the form](#submit-the-results-of-the-form)
     - [Feedback submission callback](#feedback-submission-callback)
   - [Custom Variables](#custom-variables)
+  - [Localization](#localization)
   - [Installation steps for React Native without Auto-Linking](#installation-steps-for-react-native-without-auto-linking)
     - [Android](#android-1)
     - [iOS](#ios-1)
@@ -356,6 +357,23 @@ In order to set custom variables in the Usabilla native library it's necessary t
 Trying to set an invalid object as a custom variable will result in that object not being set and in an error being printed in the console.
 
 Custom variables are added as extra feedback data with every feedback item sent by the SDK, whether from a passive feedback or a campaign.
+
+## Localization
+
+For all the text that is not customizable in the web interface, you can provide your own translation using a .string localized file inside your application.
+
+This file also includes all the accessibility labels read when VoiceOver is enabled.
+
+### iOS
+
+```
+ usabilla.loadLocalizedStringFile("YOUR_LOCALIZED_STRING_FILENAME'");
+```
+
+**NOTE**: This method accepts as parameter a valid String file name and available only for ios.
+To read more about localisation in ios [follow here](https://github.com/usabilla/usabilla-u4a-ios-swift-sdk#localization)
+
+To read more about localisation in android [follow here](https://github.com/usabilla/usabilla-u4a-android-sdk#localization)
 
 ## Installation steps for React Native without Auto-Linking
 
