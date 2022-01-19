@@ -2,6 +2,7 @@ declare module 'usabilla-react-native' {
   const UBReactNative: {
     initialize: (appID: string) => void;
     setDebugEnabled: (debugEnabled: boolean) => void;
+    onBackPressed: () => void;
     areNavigationButtonsVisible: () => boolean;
     setDefaultNavigationButtonsVisibility: (visible: boolean) => void;
     loadLocalizedStringFile: (localizedStringFile: string) => void;

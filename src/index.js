@@ -18,6 +18,15 @@ export default {
         return rnUsabilla.setDebugEnabled(debugEnabled)
     },
 
+    onBackPressed() {
+        if (Platform.OS == 'android') {
+            return rnUsabilla.onBackPressed()
+        } else {
+            console.warn('onBackPressed is not available for iOS');
+            return true
+        }
+    },
+
     areNavigationButtonsVisible() {
         if (Platform.OS == 'android') {
             return rnUsabilla.areNavigationButtonsVisible()
