@@ -12,11 +12,6 @@
 
 @interface RCT_EXTERN_MODULE(UsabillaBridge, NSObject)
 
-+ (BOOL)requiresMainQueueSetup
-{
-    return YES;
-}
-
 RCT_EXTERN_METHOD(dismiss)
 RCT_EXTERN_METHOD(initialize:(NSString * _Nullable)appID)
 RCT_EXTERN_METHOD(setDebugEnabled:(BOOL * _Nonnull)debugEnabled)
