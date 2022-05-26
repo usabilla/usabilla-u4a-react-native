@@ -18,11 +18,15 @@ class UsabillaBridge: RCTEventEmitter {
     override static func requiresMainQueueSetup() -> Bool {
         return true
     }
-    
+
+    override var methodQueue: DispatchQueue {
+        return .main
+    }
+
     func constantsToExport() -> [String: Any]! {
         return ["DEFAULT_DATA_MASKS": getDefaultDataMasks()]
     }
-    
+
     override func supportedEvents() -> [String]! {
         return ["UBFormLoadingSucceeded","UBFormLoadingFailed","UBFormDidClose","UBCampaignDidClose"]
     }
@@ -36,7 +40,7 @@ class UsabillaBridge: RCTEventEmitter {
     func initialize(appID: String?) {
         Usabilla.initialize(appID: appID)
     }
-    
+
     @objc(setDebugEnabled:)
     func setDebugEnabled(debugEnabled: Bool) {
         Usabilla.debugEnabled = debugEnabled
@@ -51,21 +55,19 @@ class UsabillaBridge: RCTEventEmitter {
     func loadFeedbackForm(formID: String) {
         Usabilla.loadFeedbackForm(formID)
     }
-    
+
     @objc(loadFeedbackFormWithCurrentViewScreenshot:)
     func loadFeedbackFormWithCurrentViewScreenshot(formID: String) {
-        DispatchQueue.main.sync {
-            if let rootVC = UIApplication.shared.windows.first?.rootViewController {
-              let screenshot = self.takeScreenshot(view: rootVC.view)
-                Usabilla.loadFeedbackForm(formID, screenshot: screenshot)
-          }
+        if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+            let screenshot = self.takeScreenshot(view: rootVC.view)
+            Usabilla.loadFeedbackForm(formID, screenshot: screenshot)
         }
     }
 
     func takeScreenshot(view: UIView) -> UIImage {
         return Usabilla.takeScreenshot(view)!
     }
-    
+
     @objc(setCustomVariables:)
     func setCustomVariables(_ variables: [String: Any]) {
         guard let variable = variables as? [String: String] else {
@@ -79,7 +81,7 @@ class UsabillaBridge: RCTEventEmitter {
     func sendEvent(eventName: String) {
         Usabilla.sendEvent(event: eventName)
     }
-    
+
     @objc(resetCampaignData:)
     func resetCampaignData(_ callback: RCTResponseSenderBlock) {
         let resultsDict: Dictionary = ["success": true]
@@ -93,24 +95,23 @@ class UsabillaBridge: RCTEventEmitter {
     func preloadFeedbackForms(_ formIDs: [String]) {
         Usabilla.preloadFeedbackForms(withFormIDs: formIDs)
     }
-    
+
     @objc(removeCachedForms)
     func removeCachedForms() {
         Usabilla.removeCachedForms()
     }
-    
-    
+
     @objc(dismiss)
     func dismiss() {
         let _ = Usabilla.dismiss()
     }
-    
+
     @objc(getDefaultDataMasks)
     func getDefaultDataMasks() -> [String] {
         let str = Usabilla.defaultDataMasks
         return str
     }
-    
+
     @objc(setDataMasking::)
     func setDataMasking(_ masks: [String]?, _ maskChar: String?) {
         let mask = masks ?? Usabilla.defaultDataMasks
@@ -143,7 +144,7 @@ extension UsabillaBridge: UsabillaDelegate {
         formNavigationController = nil
         sendEvent(withName: "UBFormDidClose", body: ["formId": formID, "results": rnResults, "isRedirectToAppStoreEnabled": isRedirectToAppStoreEnabled])
     }
-    
+
     func campaignDidClose(withFeedbackResult result: FeedbackResult, isRedirectToAppStoreEnabled: Bool) {
         let rnResult: [String : Any] = ["rating": result.rating ?? 0, "abandonedPageIndex": result.abandonedPageIndex ?? 0, "sent": result.sent] as [String : Any]
         formNavigationController = nil
