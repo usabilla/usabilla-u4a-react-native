@@ -15,6 +15,7 @@ This React Native bridge supports React Native app builds with version `0.61.5` 
   - [Campaigns](#campaigns)
     - [The App Id](#the-app-id)
     - [Events](#events)
+    - [Standard Events](#standard-events)
     - [Campaign submission callback](#campaign-submission-callback)
     - [Reset Campaign data](#reset-campaign-data)
     - [Managing an existing Campaign](#managing-an-existing-campaign)
@@ -79,6 +80,23 @@ You can start using the Usabilla for React Native module in your app by requirin
 
 `const usabilla = require('usabilla-react-native')`
 
+**Note : For using latest SDK and Standard Events, Hosting App's Gradle needs to be updated**
+1. Change `distributionUrl` in **gradle-wrapper.properties** - `distributionUrl=https\://services.gradle.org/distributions/gradle-7.4-all.zip`
+
+![](./images/Android1.png)
+
+2. Udate **build.gradle** to use
+	`buildToolsVersion = "30.0.2"`
+	`compileSdkVersion = 31`
+	`targetSdkVersion = 31`
+	`classpath("com.android.tools.build:gradle:7.1.2")`
+
+![](./images/Android2.png)
+
+3. Explicitly declare the `android:exported=”true”` attribute in the **AndroidManifest**.
+
+![](./images/Android3.png)
+
 ## Campaigns
 
 In the Usabilla for Apps Platform, a campaign is defined as a proactive survey targeted to a specific set of users.
@@ -120,6 +138,24 @@ It is also possible to segment your user base using **Custom Variables**. **Cust
 For more on how to use custom variables, have a look at [Custom Variables](#custom-variables).
 
 **Note: A campaign will never be triggered for the same user more than once.**
+
+### Standard Events
+
+From **`v1.0.0`** onwards we are introducing a new feature **Standard Events**.
+
+**Note : Now with Standard Events you can show campaigns in your application(Host application embedded with GetFeedback Digital/ Usabilla SDK) without adding any extra lines of code. You just have to create Standard Campaigns(Campaigns with Default/System Events) with your `User-Account` at `GetFeedback`.**
+
+Currently we are supporting these lifecycle / system events : 
+ - `LAUNCH` : Define as when the app is entering foreground
+ - `EXIT` : Define as when the app is entering to the background
+ - `CRASH` : Define as when the app is crashed ( terminated due to an unexpected behaviour)
+
+**Note : SDK will not listen to any Default / System events, until it has been initialised and it is recommended to initialise only once. In order to make this work properly, SDK has to be initialize using `FlutterUsabilla.initialize` at the earliest possibility, preferably in the initState method:**
+
+To get some additional information about the response left by your user, you have the option to use the [`callback`](#campaign-submission-callback)  method. This is a listener that listens in to the moment a Campaign with standard events is closed. 
+
+[Click here](https://support.usabilla.com/hc/en-us/articles/4747575452562) to read more about Standard Events.
+
 
 ### Campaign submission callback
 
