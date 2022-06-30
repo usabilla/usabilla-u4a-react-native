@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion 31
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0.0"
     }
@@ -16,8 +16,7 @@ android {
 }
 
 dependencies {
-    /* TODO: Revert back ubform to semantic version for all minor & patches ~ 7.+ */
-    implementation 'com.usabilla.sdk:ubform:7.4.0'
+    implementation 'com.usabilla.sdk:ubform:7.+'
     implementation "com.facebook.react:react-native:0.+"
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 }
