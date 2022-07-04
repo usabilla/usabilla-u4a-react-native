@@ -128,13 +128,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
      */
     @ReactMethod
     public void initialize(@NonNull String appId) {
-        final Activity activity = getCurrentActivity();
-        if (activity != null) {
-            usabilla.initialize(activity.getBaseContext(), appId);
-            usabilla.updateFragmentManager(((FragmentActivity) activity).getSupportFragmentManager());
-            return;
-        }
-        Log.e(LOG_TAG, "Initialisation not possible. Android activity is null");
+        usabilla.initialize(getReactApplicationContext());
     }
 
     /**
@@ -220,12 +214,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
      */
     @ReactMethod
     public void resetCampaignData() {
-        final Activity activity = getCurrentActivity();
-        if (activity != null) {
-            usabilla.resetCampaignData(activity.getBaseContext());
-            return;
-        }
-        Log.e(LOG_TAG, "Resetting Usabilla campaigns is not possible. Android activity is null");
+        usabilla.resetCampaignData(getReactApplicationContext());
     }
 
     /**
@@ -233,12 +222,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
      */
     @ReactMethod
     public void sendEvent(@NonNull final String eventName) {
-        final Activity activity = getCurrentActivity();
-        if (activity != null) {
-            usabilla.sendEvent(activity.getBaseContext(), eventName);
-            return;
-        }
-        Log.e(LOG_TAG, "Sending event to Usabilla is not possible. Android activity is null");
+        usabilla.sendEvent(getReactApplicationContext(), eventName);
     }
 
     /**
@@ -246,12 +230,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
      */
     @ReactMethod
     public boolean dismiss() {
-        final Activity activity = getCurrentActivity();
-        if (activity != null) {
-            return usabilla.dismiss(activity.getBaseContext());
-        }
-        Log.e(LOG_TAG, "Dismissing the Usabilla form is not possible. Android activity is null");
-        return false;
+        return usabilla.dismiss(getReactApplicationContext());
     }
 
     /**
@@ -283,6 +262,11 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     public void onHostResume() {
         LocalBroadcastManager.getInstance(getReactApplicationContext()).registerReceiver(closingFormReceiver, new IntentFilter(UbConstants.INTENT_CLOSE_FORM));
         LocalBroadcastManager.getInstance(getReactApplicationContext()).registerReceiver(closingCampaignReceiver, new IntentFilter(UbConstants.INTENT_CLOSE_CAMPAIGN));
+
+        final Activity activity = getCurrentActivity();
+        if (activity instanceof FragmentActivity) {
+            usabilla.updateFragmentManager(((FragmentActivity) activity).getSupportFragmentManager());
+        }
     }
 
     @Override
