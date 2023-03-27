@@ -37,7 +37,8 @@ export default class App extends Component<{}> {
       isFormVisible = false
       console.log("Form closed: ", reminder)
     });
-    usabilla.setCampaignDidClose((reminder) => console.log("Campaign closed: ",JSON.stringify(reminder)))
+    usabilla.setCampaignDidClose((reminder) => console.log("Campaign closed: ",JSON.stringify(reminder)));
+    usabilla.isUBInitialised((reminder) => console.log("Usabilla Initialised: ", reminder.success));
   }
 
   componentDidMount() {

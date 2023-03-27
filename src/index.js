@@ -135,6 +135,14 @@ export default {
     
     getDefaultDataMasks() {
         return rnUsabilla.DEFAULT_DATA_MASKS
+    },
+    
+    isUBInitialised(callback) {
+        if (Platform.OS == 'android') {
+            usabillaEventEmitter.addListener('isUBInitialised', callback)
+        } else {
+            console.warn('isUBInitialised is not available for iOS');
+        }
     }
 
   };

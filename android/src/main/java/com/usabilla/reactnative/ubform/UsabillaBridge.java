@@ -25,6 +25,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.usabilla.sdk.ubform.UsabillaFormCallback;
+import com.usabilla.sdk.ubform.UsabillaReadyCallback;
 import com.usabilla.sdk.ubform.UbConstants;
 import com.usabilla.sdk.ubform.Usabilla;
 import com.usabilla.sdk.ubform.sdk.form.FormClient;
@@ -35,7 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UsabillaBridge extends ReactContextBaseJavaModule implements UsabillaFormCallback, LifecycleEventListener {
+public class UsabillaBridge extends ReactContextBaseJavaModule implements UsabillaFormCallback, UsabillaReadyCallback, LifecycleEventListener {
 
     public static final String FRAGMENT_TAG = "passive form";
 
@@ -130,7 +131,7 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     public void initialize(@NonNull String appId) {
         final Activity activity = getCurrentActivity();
         if (activity != null) {
-            usabilla.initialize(activity.getBaseContext(), appId);
+            usabilla.initialize(activity.getBaseContext(), appId, null, this::onUsabillaInitialized);
             usabilla.updateFragmentManager(((FragmentActivity) activity).getSupportFragmentManager());
             return;
         }
@@ -333,5 +334,12 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
         reactContext
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                 .emit(eventName, params);
+    }
+
+    @Override
+    public void onUsabillaInitialized() {
+        final WritableMap result = Arguments.createMap();
+        result.putBoolean(KEY_SUCCESS_FLAG, true);
+        emitReactEvent(getReactApplicationContext(), "isUBInitialised", result);
     }
 }
