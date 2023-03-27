@@ -21,6 +21,7 @@ declare module 'usabilla-react-native' {
     dismiss: () => void;
     setDataMasking: (masks?: string[], character?: string) => void;
     getDefaultDataMasks: () => string[];
+    isUBInitialised: (callback: (...args: any[]) => any) => void;
   };
 
   export default UBReactNative;
