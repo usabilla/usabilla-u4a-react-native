@@ -1,0 +1,29 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/MiloOT-Bold.otf",
+      "sha1": "631d5688b43edbd3d0eb447d5e8124d584e0d33e"
+    },
+    {
+      "path": "assets/fonts/MiloOT-Medi.otf",
+      "sha1": "dcf8782d7a0b09c3f82324bb5594110f9c7018b0"
+    },
+    {
+      "path": "assets/fonts/MiloOT-Text.otf",
+      "sha1": "4ef6bb61d8c16134b400e735f4191a338682b8d2"
+    },
+    {
+      "path": "assets/images/background.png",
+      "sha1": "3a36322e76675d73cb4d1685a5bfbdd259fa50b4"
+    },
+    {
+      "path": "assets/images/footer.png",
+      "sha1": "69275797ffedd3fff5cabf183cf605cbdcd6e175"
+    },
+    {
+      "path": "assets/images/index.js",
+      "sha1": "861c4cc57edcba38df41ec54ee5a5aec7265ab72"
+    }
+  ]
+}
