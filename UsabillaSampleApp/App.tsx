@@ -1,78 +1,64 @@
-import React, { Component } from 'react';
-import { Platform, PixelRatio, StyleSheet, SafeAreaView,Text, TextInput, View, Image, ImageBackground, TouchableWithoutFeedback} from 'react-native';
-import usabilla from 'usabilla-react-native';
-import { bgImage,logo } from './assets/images';
-import { BackHandler } from 'react-native';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ */
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu',
-})
+import React from 'react'
+import {Component} from 'react';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  PixelRatio,
+  TextInput,
+} from 'react-native';
+
+import usabilla from 'usabilla-react-native';
 
 /// Usabilla Configuration
 // Replace appId with your usabilla app id.
-const appId = "[YOUR_APP_ID_HERE]";
+const appId = 'c16fde48-2d98-42eb-afcc-fa93626552ec';//"YOUR_APP_ID_HERE"
 // Replace FormId with your usabilla form id.
-const formId = "[YOUR_FORM_ID_HERE]";
+const formId = '62eb7feac0e5bc32565870d3';//"YOUR_FORM_ID_HERE"
 // Replace custom variable with your usabilla custom variable created for targeting specific Campaign..
-const customVars = {"Key": "Value"};
+const customVars = { feature_flag: true };
 
-var isFormVisible = false;
+type Props = {};
+type State = { text: string };
+export default class App extends Component<Props, State> {
 
-export default class App extends Component<{}> {
-  constructor() {
-    super()
-    this.state = {text: ''}
-    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+  constructor(props: any) {
+    super(props);
+    this.state = {text: ''};
     usabilla.initialize(appId);
     usabilla.setDataMasking(usabilla.getDefaultDataMasks(), 'X');
     usabilla.setCustomVariables(customVars);
-    usabilla.setFormDidLoadSuccessfully((reminder) => {
-      isFormVisible = true
-      console.log("successfull loading form: ", reminder)
-      }
-    );
+    usabilla.setFormDidLoadSuccessfully((reminder) => console.log("successfull loading form: ", reminder));
     usabilla.setFormDidFailLoading((reminder) => console.log("Error loading form: ", reminder));
-    usabilla.setFormDidClose((reminder) => { 
-      isFormVisible = false
-      console.log("Form closed: ", reminder)
-    });
-    usabilla.setCampaignDidClose((reminder) => console.log("Campaign closed: ",JSON.stringify(reminder)));
-    usabilla.isUBInitialised((reminder) => console.log("Usabilla Initialised: ", reminder.success));
-  }
-
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-  }
-
-  handleBackButtonClick() {
-    usabilla.onBackPressed()
-    return isFormVisible;
+    usabilla.setFormDidClose((reminder) => console.log("Form closed: ", reminder));
+    usabilla.setCampaignDidClose((reminder) => console.log("Campaign closed: ", JSON.stringify(reminder)))
   }
 
   resetCampaignData() {
-      usabilla.resetCampaignData(()=> {
-          console.log("Campaign data is successfully reset!")
-      })
+    usabilla.resetCampaignData(() => {
+      console.log("Campaign data is successfully reset!")
+    })
   }
 
-  sendEvent(event) {
-   usabilla.sendEvent(event)
+  sendEvent(event: string) {
+    usabilla.sendEvent(event)
   }
 
   requestFormWithDefaultScreenshot() {
-    usabilla.loadFeedbackFormWithCurrentViewScreenshot(formId);
+    usabilla.loadFeedbackForm(formId);
   }
-
   render() {
     return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <ImageBackground source={bgImage} style={styles.backgroundImage}>
+      <SafeAreaView>
+        <View style={styles.container}>
           <View style={styles.top}>
             <Text style={styles.welcome}>Usabilla</Text>
             <Text style={styles.welcome}>React Native</Text>
@@ -90,9 +76,9 @@ export default class App extends Component<{}> {
               <TextInput
                 style={styles.eventInput}
                 placeholder="Enter event here"
-                onChangeText={(text) => this.setState({text})}>
+                onChangeText={(text) => this.setState({ text })}>
               </TextInput>
-              <TouchableWithoutFeedback onPress={() =>this.sendEvent(this.state.text)}>
+              <TouchableWithoutFeedback onPress={() => this.sendEvent(this.state.text)}>
                 <View style={styles.buttonSend}>
                   <Text style={styles.textSend}>SEND EVENT</Text>
                 </View>
@@ -106,13 +92,9 @@ export default class App extends Component<{}> {
               </TouchableWithoutFeedback>
             </View>
           </View>
-          <View style={styles.bottom}>
-            <Image style={styles.footerImage} source={ logo }></Image>
-          </View>
-        </ImageBackground>
-      </View> 
-    </SafeAreaView>
-    )
+        </View>
+      </SafeAreaView>
+    );
   }
 }
 
@@ -122,7 +104,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   top: {
     marginTop: PixelRatio.roundToNearestPixel(20),
@@ -130,7 +112,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   welcome: {
-    fontFamily: "MiloOT-Bold",
     fontSize: 55 / PixelRatio.getFontScale(),
     letterSpacing: PixelRatio.roundToNearestPixel(0),
     color: '#00A5C9',
@@ -139,7 +120,7 @@ const styles = StyleSheet.create({
     marginTop: PixelRatio.roundToNearestPixel(115),
     marginLeft: PixelRatio.roundToNearestPixel(40),
     marginRight: PixelRatio.roundToNearestPixel(40),
-    flexDirection:'column',
+    flexDirection: 'column',
   },
   showForm: {
     marginTop: PixelRatio.roundToNearestPixel(0),
@@ -149,13 +130,12 @@ const styles = StyleSheet.create({
     borderWidth: PixelRatio.roundToNearestPixel(1),
     borderRadius: PixelRatio.roundToNearestPixel(2),
     borderColor: '#ffffff',
-    borderStyle:'solid',
+    borderStyle: 'solid',
     width: 'auto',
   },
   textShowForm: {
     textAlign: 'center',
     color: '#ffffff',
-    fontFamily: "MiloOT-Medi",
     fontSize: 19 / PixelRatio.getFontScale(),
     letterSpacing: PixelRatio.roundToNearestPixel(0),
     lineHeight: PixelRatio.roundToNearestPixel(19),
@@ -163,7 +143,7 @@ const styles = StyleSheet.create({
   },
   event: {
     marginTop: PixelRatio.roundToNearestPixel(40),
-    flexDirection:'row',
+    flexDirection: 'row',
     display: 'flex',
     height: PixelRatio.roundToNearestPixel(48),
   },
@@ -171,7 +151,6 @@ const styles = StyleSheet.create({
     padding: PixelRatio.roundToNearestPixel(10),
     marginRight: PixelRatio.roundToNearestPixel(16),
     borderWidth: PixelRatio.roundToNearestPixel(2),
-    fontFamily: "MiloOT-Text",
     fontSize: 19 / PixelRatio.getFontScale(),
     letterSpacing: PixelRatio.roundToNearestPixel(0),
     lineHeight: PixelRatio.roundToNearestPixel(19),
@@ -179,21 +158,20 @@ const styles = StyleSheet.create({
     borderWidth: PixelRatio.roundToNearestPixel(2),
     borderStyle: 'solid',
     borderColor: '#C8D2DA',
-    backgroundColor:'#FFFFFF',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
-    flex: 0.5
+    flex: 0.5,
   },
   buttonSend: {
     backgroundColor: '#ffffff',
     borderWidth: PixelRatio.roundToNearestPixel(1),
     borderRadius: PixelRatio.roundToNearestPixel(2),
     borderColor: '#00A5C9',
-    flex: 0.5
+    flex: 0.5,
   },
   textSend: {
     textAlign: 'center',
     color: '#00A5C9',
-    fontFamily: "MiloOT-Medi",
     fontSize: 19 / PixelRatio.getFontScale(),
     letterSpacing: PixelRatio.roundToNearestPixel(0),
     padding: PixelRatio.roundToNearestPixel(12),
@@ -211,10 +189,9 @@ const styles = StyleSheet.create({
   textReset: {
     textAlign: 'center',
     color: '#00A5C9',
-    fontFamily: "MiloOT-Medi",
     fontSize: 19 / PixelRatio.getFontScale(),
     letterSpacing: 0,
-    lineHeight:19,
+    lineHeight: 19,
     padding: 14,
   },
   bottom: {
@@ -224,8 +201,4 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: PixelRatio.roundToNearestPixel(0),
   },
-  footerImage: {
-    height: PixelRatio.roundToNearestPixel(50), 
-    width: PixelRatio.roundToNearestPixel(83)
-  }
-})
+});
