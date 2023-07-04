@@ -8,10 +8,13 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
@@ -30,6 +33,8 @@ import com.usabilla.sdk.ubform.UbConstants;
 import com.usabilla.sdk.ubform.Usabilla;
 import com.usabilla.sdk.ubform.sdk.form.FormClient;
 import com.usabilla.sdk.ubform.sdk.entity.FeedbackResult;
+import com.usabilla.sdk.ubform.sdk.form.FormType;
+import com.usabilla.sdk.ubform.utils.ClosingFormData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,8 +57,8 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     private Usabilla usabilla = Usabilla.INSTANCE;
     private Fragment form;
 
-    private WritableMap getResult(Intent intent, String feedbackResultType) {
-        final FeedbackResult res = intent.getParcelableExtra(feedbackResultType);
+
+    private WritableMap getResult(FeedbackResult res) {
         final WritableMap result = Arguments.createMap();
         result.putInt(KEY_RATING, res.getRating());
         result.putInt(KEY_ABANDONED_PAGE_INDEX, res.getAbandonedPageIndex());
@@ -61,10 +66,10 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
         return result;
     }
 
-    private BroadcastReceiver closingFormReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final WritableMap result = getResult(intent, FeedbackResult.INTENT_FEEDBACK_RESULT);
+    private final Observer<ClosingFormData> closingObserver = closingFormData -> {
+        if (closingFormData.getFormType().equals(FormType.PASSIVE_FEEDBACK)) {
+            // The passive feedback form needs to be closed and the feedback result is returned
+            final WritableMap result = getResult(closingFormData.getFeedbackResult());
             final Activity activity = getCurrentActivity();
             if (activity instanceof FragmentActivity) {
                 FragmentManager supportFragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
@@ -77,16 +82,13 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
                 return;
             }
             Log.e(LOG_TAG, "Android activity null when removing form fragment");
-        }
-    };
-
-    private BroadcastReceiver closingCampaignReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final WritableMap result = getResult(intent, FeedbackResult.INTENT_FEEDBACK_RESULT_CAMPAIGN);
+        } else if (closingFormData.getFormType().equals(FormType.CAMPAIGN)) {
+            // The campaign feedback form has been closed and the feedback result is returned
+            final WritableMap result = getResult(closingFormData.getFeedbackResult());
             emitReactEvent(getReactApplicationContext(), "UBCampaignDidClose", result);
         }
     };
+
 
     /**
      * Called via the index.js to handle back press
@@ -282,14 +284,12 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
 
     @Override
     public void onHostResume() {
-        LocalBroadcastManager.getInstance(getReactApplicationContext()).registerReceiver(closingFormReceiver, new IntentFilter(UbConstants.INTENT_CLOSE_FORM));
-        LocalBroadcastManager.getInstance(getReactApplicationContext()).registerReceiver(closingCampaignReceiver, new IntentFilter(UbConstants.INTENT_CLOSE_CAMPAIGN));
+        final AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
+        Usabilla.INSTANCE.getClosingData().observe((LifecycleOwner) activity, closingObserver);
     }
 
     @Override
     public void onHostPause() {
-        LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(closingFormReceiver);
-        LocalBroadcastManager.getInstance(getReactApplicationContext()).unregisterReceiver(closingCampaignReceiver);
     }
 
     @Override
