@@ -81,6 +81,12 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -118,6 +124,7 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
