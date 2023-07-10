@@ -4,7 +4,7 @@
 # Usabilla for Apps - React Native
 
 Usabilla for Apps allows you to collect feedback from your users with great ease and flexibility.
-This React Native bridge to the Native Usabilla SDK allows you to load passive feedback forms and submit results from a React Native app. This release uses the Usabilla SDK for ios v6.5+ and android v7.+ .
+This React Native bridge to the Native Usabilla SDK allows you to load passive feedback forms and submit results from a React Native app. This release uses the Usabilla SDK for ios v6.5+ and android v8.+ .
 This React Native bridge supports React Native app builds with version `0.61.5` that contains Auto-Linking. For React Native versions without Auto-Linking, please follow these steps.
 
 - [Usabilla for Apps - React Native](#usabilla-for-apps---react-native)
@@ -75,8 +75,9 @@ You can start using the Usabilla for React Native module in your app by requirin
 ### Android
 
 1. Make sure that your `MainActivity.java` extends `ReactFragmentActivity`
-2. In case of compilation problems in Android Studio, set the `compileSdkVersion` in the app module `build.gradle` to `26`
-3. You can start using the Usabilla for React Native module in your app by requiring:
+2. In case of compilation problems in Android Studio, set the `compileSdkVersion` in the app module `build.gradle` to `33`
+3. React-native module will support Android OS version 6 and above
+4. You can start using the Usabilla for React Native module in your app by requiring:
 
 `const usabilla = require('usabilla-react-native')`
 
@@ -85,17 +86,20 @@ You can start using the Usabilla for React Native module in your app by requirin
 
 ![](./images/Android1.png)
 
-2. Udate **build.gradle** to use
-	`buildToolsVersion = "30.0.2"`
-	`compileSdkVersion = 31`
-	`targetSdkVersion = 31`
-	`classpath("com.android.tools.build:gradle:7.1.2")`
+2. Update **build.gradle** to use
+	`buildToolsVersion = "30.0.3"`
+	`compileSdkVersion = 33`
+	`targetSdkVersion = 33`
+    `minSdkVersion = 23`  
+	`classpath("com.android.tools.build:gradle:7.3.1")`
 
 ![](./images/Android2.png)
 
 3. Explicitly declare the `android:exported=”true”` attribute in the **AndroidManifest**.
 
 ![](./images/Android3.png)
+
+**Note : Android sdk v8.+ has been migrated from localbroadcast to livedate or lifeccyle observer implementation**
 
 ## Campaigns
 
@@ -118,6 +122,8 @@ It is possible to target a campaign to more than one app (e.g. iOS Production Ap
 To run campaigns in your app, you should first start by initializing the SDK and define the App ID that is generated in [Usabilla](https://app.usabilla.com/member/live/apps/campaigns/add):
 
 `usabilla.initialize("YOUR_APP_ID")`
+
+For Android - wait for UsabillaReadyCallback and once `isUBInitialised` returns true then usabilla methods for forms and campaigns can be called. 
 
 This call loads and updates all your campaigns locally and you can start targeting them by sending events from your app.
 
@@ -150,7 +156,7 @@ Currently we are supporting these lifecycle / system events :
  - `EXIT` : Define as when the app is entering to the background
  - `CRASH` : Define as when the app is crashed ( terminated due to an unexpected behaviour)
 
-**Note : SDK will not listen to any Default / System events, until it has been initialised and it is recommended to initialise only once. In order to make this work properly, SDK has to be initialize using `FlutterUsabilla.initialize` at the earliest possibility, preferably in the initState method:**
+**Note : SDK will not listen to any Default / System events, until it has been initialised and it is recommended to initialise only once. In order to make this work properly, SDK has to be initialize using `initialize` at the earliest possibility**
 
 To get some additional information about the response left by your user, you have the option to use the [`callback`](#campaign-submission-callback)  method. This is a listener that listens in to the moment a Campaign with standard events is closed. 
 
