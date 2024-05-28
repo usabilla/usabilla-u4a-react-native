@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C57AB339209886E500C8C295 /* Usabilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E2234520234DA7006A570D /* Usabilla.framework */; };
 		C5E2234320234D76006A570D /* ReactNativeUsabilla.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E2234220234D76006A570D /* ReactNativeUsabilla.m */; };
 		F203323E24116C1400FFE87E /* UsabillaBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F203323D24116C1400FFE87E /* UsabillaBridge.swift */; };
 /* End PBXBuildFile section */
@@ -27,7 +26,6 @@
 /* Begin PBXFileReference section */
 		C5E223312023452C006A570D /* libReactNativeUsabilla.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReactNativeUsabilla.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5E2234220234D76006A570D /* ReactNativeUsabilla.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeUsabilla.m; sourceTree = "<group>"; };
-		C5E2234520234DA7006A570D /* Usabilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Usabilla.framework; sourceTree = "<group>"; };
 		C5E2234720234DC1006A570D /* ReactNativeUsabilla-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactNativeUsabilla-Bridging-Header.h"; sourceTree = "<group>"; };
 		F203323D24116C1400FFE87E /* UsabillaBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsabillaBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -37,7 +35,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C57AB339209886E500C8C295 /* Usabilla.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +71,6 @@
 		C5E2234420234DA7006A570D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C5E2234520234DA7006A570D /* Usabilla.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -266,7 +262,7 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/**",
 					"$(SRCROOT)/../../React/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -295,7 +291,7 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/**",
 					"$(SRCROOT)/../../React/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
