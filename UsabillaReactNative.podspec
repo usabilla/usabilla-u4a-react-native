@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   
   s.vendored_frameworks = 'Usabilla.xcframework'
   s.source_files = "ios/**/*.{h,m,swift}"
-  s.ios.resource_bundle = { 'Usabilla' => 'Usabilla.xcframework/PrivacyInfo.xcprivacy' }
+  s.ios.resource_bundle = { 'UsabillaPrivacyResources' => 'Usabilla.xcframework/PrivacyInfo.xcprivacy' }
   s.module_name = 'UsabillaReactNative'
 
   s.dependency 'React'
