@@ -20,9 +20,9 @@ import usabilla from 'usabilla-react-native';
 
 /// Usabilla Configuration
 // Replace appId with your usabilla app id.
-const appId = 'c16fde48-2d98-42eb-afcc-fa93626552ec';//"YOUR_APP_ID_HERE"
+const appId = "YOUR_APP_ID_HERE"
 // Replace FormId with your usabilla form id.
-const formId = '62eb7feac0e5bc32565870d3';//"YOUR_FORM_ID_HERE"
+const formId = "YOUR_FORM_ID_HERE"
 // Replace custom variable with your usabilla custom variable created for targeting specific Campaign..
 const customVars = { feature_flag: true };
 
@@ -53,7 +53,28 @@ export default class App extends Component<Props, State> {
   }
 
   requestFormWithDefaultScreenshot() {
-    usabilla.loadFeedbackForm(formId);
+    
+    const footerImage = 'footer';
+    const selectedEmoticonImages = [
+    'cat_hate',
+    'cat_sad',
+    'cat_neutral',
+    'cat_smile',
+    'cat_love'
+  ];
+  
+  const unselectedEmoticonImages = [
+    'emoticon_hate',
+    'emoticon_sad',
+    'emoticon_neutral',
+    'emoticon_smile',
+    'emoticon_love'
+  ];
+    usabilla.loadFeedbackForm(formId, selectedEmoticonImages);
+
+    // Uncomment the line below to load the form with a screenshot of the current view.
+    //usabilla.loadFeedbackFormWithCurrentViewScreenshot(formId, selectedEmoticonImages, unselectedEmoticonImages);
+    console.log("successfull loading loadFeedbackFormWithCustomEmoticons: ");
   }
   render() {
     return (

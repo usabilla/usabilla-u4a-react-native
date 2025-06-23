@@ -51,18 +51,66 @@ class UsabillaBridge: RCTEventEmitter {
         Usabilla.localizedStringFile = localizedStringFile
     }
 
-    @objc(loadFeedbackForm:)
-    func loadFeedbackForm(formID: String) {
-        Usabilla.loadFeedbackForm(formID)
-    }
+    @objc(loadFeedbackForm:selectedEmoticonImages:unselectedEmoticonImages:)
+    func loadFeedbackForm(formID: String,
+        selectedEmoticonImages: [String]?,
+        unselectedEmoticonImages: [String]?) {
 
-    @objc(loadFeedbackFormWithCurrentViewScreenshot:)
-    func loadFeedbackFormWithCurrentViewScreenshot(formID: String) {
-        if let rootVC = UIApplication.shared.windows.first?.rootViewController {
-            let screenshot = self.takeScreenshot(view: rootVC.view)
-            Usabilla.loadFeedbackForm(formID, screenshot: screenshot)
+        let usabillaTheme = createTheme(selectedEmoticonImages: selectedEmoticonImages,
+                                                     unselectedEmoticonImages: unselectedEmoticonImages)
+        if let theme = usabillaTheme {
+            Usabilla.loadFeedbackForm(formID,
+                                  screenshot: nil,
+                                  theme: theme)
+        } else {
+            Usabilla.loadFeedbackForm(formID,
+                                  screenshot: nil)
         }
     }
+
+    @objc(loadFeedbackFormWithCurrentViewScreenshot:selectedEmoticonImages:unselectedEmoticonImages:)
+    func loadFeedbackFormWithCurrentViewScreenshot(formID: String,
+        selectedEmoticonImages: [String]?,
+        unselectedEmoticonImages: [String]?) {
+        if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+            let screenshot = self.takeScreenshot(view: rootVC.view)
+
+            let usabillaTheme = createTheme(selectedEmoticonImages: selectedEmoticonImages,
+                                                     unselectedEmoticonImages: unselectedEmoticonImages)
+            if let theme = usabillaTheme {
+                Usabilla.loadFeedbackForm(formID,
+                                    screenshot: screenshot,
+                                    theme: theme)
+            } else {
+                Usabilla.loadFeedbackForm(formID,
+                                    screenshot: screenshot)
+            }
+
+        }
+    }
+
+    /**
+     * Creates a UsabillaTheme with custom selected and unselected emoticon images.
+     * @param selectedEmoticonImages Array of enabled emoticon image names (optional, nullable).
+     * @param unselectedEmoticonImages Array of disabled emoticon image names (optional, nullable).
+     * @return UsabillaTheme instance with custom emoticons.
+     */
+
+    func createTheme(selectedEmoticonImages: [String]?, unselectedEmoticonImages: [String]?) -> UsabillaTheme? {
+
+        // Convert image names to UIImage
+        let enabledImages = selectedEmoticonImages?.compactMap { UIImage(named: $0) }
+        let disabledImages = unselectedEmoticonImages?.compactMap { UIImage(named: $0) }
+
+        if (enabledImages?.isEmpty ?? true) && (disabledImages?.isEmpty ?? true) {
+            return nil
+            }
+        var theme = UsabillaTheme()
+        theme.images.enabledEmoticons = enabledImages!
+        theme.images.disabledEmoticons = disabledImages
+        return theme  
+
+     }
 
     func takeScreenshot(view: UIView) -> UIImage {
         return Usabilla.takeScreenshot(view)!
@@ -150,5 +198,9 @@ extension UsabillaBridge: UsabillaDelegate {
         formNavigationController = nil
         sendEvent(withName: "UBCampaignDidClose", body: ["result": rnResult, "isRedirectToAppStoreEnabled": isRedirectToAppStoreEnabled])
     }
+
+    
 }
+
+
 

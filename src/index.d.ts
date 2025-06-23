@@ -7,8 +7,8 @@ declare module 'usabilla-react-native' {
     setDefaultNavigationButtonsVisibility: (visible: boolean) => void;
     loadLocalizedStringFile: (localizedStringFile: string) => void;
     localizedStringFile: (formId: string) => void;
-    loadFeedbackForm: (formId: string) => void;
-    loadFeedbackFormWithCurrentViewScreenshot: (formId: string) => void;
+    loadFeedbackForm: (formId: string, selectedEmoticonImages?: string[], unselectedEmoticonImages?: string[]) => void;
+    loadFeedbackFormWithCurrentViewScreenshot: (formId: string, selectedEmoticonImages?: string[], unselectedEmoticonImages?: string[]) => void;
     preloadFeedbackForms: (formIds: string[]) => void;
     removeCachedForms: () => void;
     sendEvent: (event: string) => void;

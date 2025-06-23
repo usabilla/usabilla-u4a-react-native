@@ -28,6 +28,7 @@ This React Native bridge supports React Native app builds with version `0.61.5` 
   - [Masking Private Identifiable Information](#masking-private-identifiable-information)
   - [Custom Variables](#custom-variables)
   - [Localization](#localization)
+  - [Custom Emoticons Rating](#custom-emoticons-rating)
   - [Installation steps for React Native without Auto-Linking](#installation-steps-for-react-native-without-auto-linking)
     - [Android](#android-1)
     - [iOS](#ios-1)
@@ -451,6 +452,59 @@ This file also includes all the accessibility labels read when VoiceOver is enab
 To read more about localisation in ios [follow here](https://github.com/usabilla/usabilla-u4a-ios-swift-sdk#localization)
 
 To read more about localisation in android [follow here](https://github.com/usabilla/usabilla-u4a-android-sdk#localization)
+
+### Custom Emoticons Rating
+It is possible to use custom images instead of the one provided in the SDK.
+
+To do so, you must provide a list (or two, depending on what you want to achieve) of five images that will be used instead of the Usabilla's default emoticons.
+The first element of the array should be the lowest or leftmost item, while the 5th element will be the highest or rightmost.
+At the moment, the SDK does not perform any check to make sure the lists are valid.
+
+#### Provide only the selected version
+You can provide only one list containing the selected version of the icons.
+
+The images will be displayed with an alpha value of 0.5 when unselected, and with an alpha value of 1 when selected.
+
+
+```swift
+const selectedEmoticonImages = [
+    'cat_hate',
+    'cat_sad',
+    'cat_neutral',
+    'cat_smile',
+    'cat_love'
+  ];
+usabilla.loadFeedbackForm(formId, selectedEmoticonImages);
+OR
+usabilla.loadFeedbackFormWithCurrentViewScreenshot(formId, selectedEmoticonImages);
+
+```
+
+#### Provide both the selected and unselected version
+You can provide two lists containing the selected and the unselected version of the icons.
+
+The icons drawable will be selected from one of the two lists according to its state.
+
+```swift
+const selectedEmoticonImages = [
+    'cat_hate',
+    'cat_sad',
+    'cat_neutral',
+    'cat_smile',
+    'cat_love'
+  ];
+  
+  const unselectedEmoticonImages = [
+    'emoticon_hate',
+    'emoticon_sad',
+    'emoticon_neutral',
+    'emoticon_smile',
+    'emoticon_love'
+  ];
+usabilla.loadFeedbackForm(formId, selectedEmoticonImages, );
+OR
+usabilla.loadFeedbackFormWithCurrentViewScreenshot(formId, selectedEmoticonImages, unselectedEmoticonImages);
+```
 
 ## Installation steps for React Native without Auto-Linking
 
