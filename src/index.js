@@ -59,18 +59,22 @@ export default {
     /**
      * This method will load the feedback with no screenshot attachement
      * @param {String} formId : feedback form Id
+     * @param selectedEmoticonImages Array of enabled emoticon images names (optional, nullable).
+     * @param unselectedEmoticonImages Array of disabled emoticon images names(optional, nullable).
      */
-    loadFeedbackForm(formId) {
-        return rnUsabilla.loadFeedbackForm(formId)
+    loadFeedbackForm(formId, selectedEmoticonImages, unselectedEmoticonImages) {
+        return rnUsabilla.loadFeedbackForm(formId, selectedEmoticonImages, unselectedEmoticonImages)
     },
     
     /**
      * This method will load the feedback form and attach 
      * the current view screenshot to it.
      * @param {String} formId : feedback form Id
+     * @param selectedEmoticonImages Array of enabled emoticon images names (optional, nullable).
+     * @param unselectedEmoticonImages Array of disabled emoticon images names(optional, nullable).
      */
-    loadFeedbackFormWithCurrentViewScreenshot(formId) {
-        return rnUsabilla.loadFeedbackFormWithCurrentViewScreenshot(formId)
+    loadFeedbackFormWithCurrentViewScreenshot(formId, selectedEmoticonImages, unselectedEmoticonImages) {
+        return rnUsabilla.loadFeedbackFormWithCurrentViewScreenshot(formId, selectedEmoticonImages, unselectedEmoticonImages)
     },
     
     /**
@@ -82,7 +86,7 @@ export default {
     preloadFeedbackForms(formIds) {
         return rnUsabilla.preloadFeedbackForms(formIds)
     },
-    
+
     removeCachedForms() {
         return rnUsabilla.removeCachedForms()
     },
