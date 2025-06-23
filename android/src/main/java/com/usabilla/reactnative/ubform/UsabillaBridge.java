@@ -35,6 +35,10 @@ import com.usabilla.sdk.ubform.sdk.form.FormClient;
 import com.usabilla.sdk.ubform.sdk.entity.FeedbackResult;
 import com.usabilla.sdk.ubform.sdk.form.FormType;
 import com.usabilla.sdk.ubform.utils.ClosingFormData;
+import android.graphics.drawable.Drawable;
+import androidx.core.content.ContextCompat;
+import com.usabilla.sdk.ubform.sdk.form.model.UbImages;
+import com.usabilla.sdk.ubform.sdk.form.model.UsabillaTheme;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -152,23 +156,37 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
      * Called via the index.js to load a passive feedback form
      *
      * @param formId Id of the form desired to be loaded
+     * @param selectedEmoticonImages Array of enabled emoticon images (optional, nullable ).
+     * @param unselectedEmoticonImages Array of disabled emoticon images (optional, nullable).
      */
     @ReactMethod
-    public void loadFeedbackForm(@NonNull final String formId) {
-        usabilla.loadFeedbackForm(formId, this);
+    public void loadFeedbackForm(
+        @NonNull final String formId,
+        @Nullable final ReadableArray selectedEmoticonImages,
+        @Nullable final ReadableArray unselectedEmoticonImages 
+        ) {
+        usabilla.loadFeedbackForm(formId, null, 
+        createTheme(selectedEmoticonImages, unselectedEmoticonImages), this);
     }
 
     /**
      * Method called via the index.js to load a passive feedback form with a screenshot attached showing the current screen
      *
      * @param formId Id of the form desired to be loaded
+     * @param selectedEmoticonImages Array of enabled emoticon images (optional, nullable ).
+     * @param unselectedEmoticonImages Array of disabled emoticon images (optional, nullable).
+
      */
     @ReactMethod
-    public void loadFeedbackFormWithCurrentViewScreenshot(@NonNull final String formId) {
+    public void loadFeedbackFormWithCurrentViewScreenshot(
+        @NonNull final String formId,
+        @Nullable final ReadableArray selectedEmoticonImages,
+        @Nullable final ReadableArray unselectedEmoticonImages
+        ) {
         final Activity activity = getCurrentActivity();
         if (activity != null) {
             final Bitmap screenshot = usabilla.takeScreenshot(activity);
-            usabilla.loadFeedbackForm(formId, screenshot, this);
+            usabilla.loadFeedbackForm(formId, screenshot, createTheme(selectedEmoticonImages, unselectedEmoticonImages), this);
             return;
         }
         Log.e(LOG_TAG, "Loading feedback form not possible. Android activity is null");
@@ -341,5 +359,63 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
         final WritableMap result = Arguments.createMap();
         result.putBoolean(KEY_SUCCESS_FLAG, true);
         emitReactEvent(getReactApplicationContext(), "isUBInitialised", result);
+    }
+
+    /**
+     * Creates a UsabillaTheme with custom enabled and disabled emoticon images.
+     *
+     * @param selectedEmoticonImages Array of enabled emoticon image names (optional, nullable).
+     * @param unselectedEmoticonImages Array of disabled emoticon image names (optional, nullable).
+     * @return UsabillaTheme instance with custom emoticons
+     */
+    private UsabillaTheme createTheme( @Nullable final ReadableArray selectedEmoticonImages, 
+    @Nullable final ReadableArray unselectedEmoticonImages) 
+    {
+        if ((selectedEmoticonImages == null || selectedEmoticonImages.size() == 0) 
+        && (unselectedEmoticonImages == null || unselectedEmoticonImages.size() == 0) ) {
+            return null;
+            }
+        // Convert ReadableArray to List<Integer>
+        final Activity activity = getCurrentActivity();
+        if (activity == null) {
+            Log.e(LOG_TAG, "Loading feedback form with custom emoticons not possible. Android activity is null");
+            return null;
+        }
+        Context context = getReactApplicationContext();
+        List<Integer> selectedResIds = new ArrayList<>(); ;
+        List<Integer> unselectedResIds = new ArrayList<>(); ;
+        if (selectedEmoticonImages != null && selectedEmoticonImages.size() != 0)
+        {  
+            try {
+                for (int i = 0; i < selectedEmoticonImages.size(); i++) {
+                    String imageName = selectedEmoticonImages.getString(i);
+                    int resId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+                    if (resId != 0) {
+                        selectedResIds.add(resId);
+                    }
+                }
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Error while processing enabled emoticon images: " + e.getMessage());
+            }
+        }
+
+        if (unselectedEmoticonImages != null && unselectedEmoticonImages.size() != 0) 
+        {
+            try {              
+                for (int i = 0; i < unselectedEmoticonImages.size(); i++) {
+                    String imageName = unselectedEmoticonImages.getString(i);
+                    int resId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+                    if (resId != 0) {
+                        unselectedResIds.add(resId);
+                    }
+                }
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Error while processing disabled emoticon images: " + e.getMessage());
+            }
+        }
+
+        UbImages ubimages = new UbImages(selectedResIds, unselectedResIds, null, null);
+        UsabillaTheme theme = new UsabillaTheme(null, ubimages);
+        return theme;
     }
 }
