@@ -463,7 +463,7 @@ At the moment, the SDK does not perform any check to make sure the lists are val
 #### Provide only the selected version
 You can provide only one list containing the selected version of the icons.
 
-The images will be displayed with an alpha value of 0.5 when unselected, and with an alpha value of 1 when selected.
+The images will be displayed with an alpha value of **0.5** when unselected, and with an alpha value of **1** when selected.
 
 
 ```swift
