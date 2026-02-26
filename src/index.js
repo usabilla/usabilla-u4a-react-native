@@ -1,44 +1,64 @@
-import { NativeEventEmitter, NativeModules, Platform, DeviceEventEmitter } from 'react-native';
-const rnUsabilla = NativeModules.UsabillaBridge;
-const usabillaEventEmitter = (Platform.OS == 'android') ? DeviceEventEmitter : new NativeEventEmitter(rnUsabilla);
+import { NativeEventEmitter, Platform, DeviceEventEmitter } from 'react-native';
+import NativeUsabillaBridge from './NativeUsabillaBridge';
 
-export default {
-    
+/**
+ * Usabilla React Native JS API
+ * @see types in index.d.ts
+ */
+const rnUsabilla = NativeUsabillaBridge;
+const usabillaEventEmitter = Platform.OS === 'android'
+    ? DeviceEventEmitter
+    : new NativeEventEmitter(rnUsabilla);
+
+const UsabillaReactNative = {
+    /**
+     * Initialize Usabilla SDK
+     * @param {string} appId
+     * @returns {Promise<void>|void}
+     */
     initialize(appId) {
-        if (Platform.OS == 'android') {
+        if (Platform.OS === 'android') {
             usabillaEventEmitter.addListener(
                 'UBFormNotFoundFragmentActivity',
-                () => console.log("The Activity does not extend FragmentActivity and cannot call getSupportFragmentManager()")
-            )
+                () => console.log('The Activity does not extend FragmentActivity and cannot call getSupportFragmentManager()')
+            );
         }
-        return rnUsabilla.initialize(appId)
+        return rnUsabilla.initialize(appId);
     },
 
-    setDebugEnabled(debugEnabled){
-        return rnUsabilla.setDebugEnabled(debugEnabled)
+    setDebugEnabled(debugEnabled) {
+        return rnUsabilla.setDebugEnabled(debugEnabled);
     },
 
     onBackPressed() {
-        if (Platform.OS == 'android') {
-            return rnUsabilla.onBackPressed()
+        if (Platform.OS === 'android') {
+            return rnUsabilla.onBackPressed();
         } else {
             console.warn('onBackPressed is not available for iOS');
-            return true
+            return true;
         }
     },
 
-    areNavigationButtonsVisible() {
-        if (Platform.OS == 'android') {
-            return rnUsabilla.areNavigationButtonsVisible()
+    /**
+     * Returns a Promise<boolean> on Android (TurboModules/new arch), or boolean (old arch, discouraged).
+     * Always use as async/await for forward compatibility.
+     */
+    async areNavigationButtonsVisible() {
+        if (Platform.OS === 'android') {
+            if (typeof rnUsabilla.areNavigationButtonsVisible === 'function') {
+                return await rnUsabilla.areNavigationButtonsVisible();
+            } else if (typeof rnUsabilla.areNavigationButtonsVisibleSync === 'function') {
+                return rnUsabilla.areNavigationButtonsVisibleSync();
+            }
         } else {
             console.warn('areNavigationButtonsVisible is not available for iOS');
-            return true
+            return true;
         }
     },
     
     setDefaultNavigationButtonsVisibility(visible) {
-        if (Platform.OS == 'android') {
-            return rnUsabilla.setDefaultNavigationButtonsVisibility(visible)
+        if (Platform.OS === 'android') {
+            return rnUsabilla.setDefaultNavigationButtonsVisibility(visible);
         } else {
             console.warn('setDefaultNavigationButtonsVisibility is not available for iOS');
         }
@@ -49,8 +69,8 @@ export default {
      * @param {String} localizedStringFile : custom string file name
      */
     loadLocalizedStringFile(localizedStringFile) {
-        if (Platform.OS == 'ios') {
-            return rnUsabilla.loadLocalizedStringFile(localizedStringFile)
+        if (Platform.OS === 'ios') {
+            return rnUsabilla.loadLocalizedStringFile(localizedStringFile);
         } else {
             console.warn('loadLocalizedStringFile is not available for android');
         }
@@ -63,7 +83,7 @@ export default {
      * @param unselectedEmoticonImages Array of disabled emoticon images names(optional, nullable).
      */
     loadFeedbackForm(formId, selectedEmoticonImages, unselectedEmoticonImages) {
-        return rnUsabilla.loadFeedbackForm(formId, selectedEmoticonImages, unselectedEmoticonImages)
+        return rnUsabilla.loadFeedbackForm(formId, selectedEmoticonImages, unselectedEmoticonImages);
     },
     
     /**
@@ -74,7 +94,7 @@ export default {
      * @param unselectedEmoticonImages Array of disabled emoticon images names(optional, nullable).
      */
     loadFeedbackFormWithCurrentViewScreenshot(formId, selectedEmoticonImages, unselectedEmoticonImages) {
-        return rnUsabilla.loadFeedbackFormWithCurrentViewScreenshot(formId, selectedEmoticonImages, unselectedEmoticonImages)
+        return rnUsabilla.loadFeedbackFormWithCurrentViewScreenshot(formId, selectedEmoticonImages, unselectedEmoticonImages);
     },
     
     /**
@@ -84,69 +104,81 @@ export default {
      */
 
     preloadFeedbackForms(formIds) {
-        return rnUsabilla.preloadFeedbackForms(formIds)
+        return rnUsabilla.preloadFeedbackForms(formIds);
     },
 
     removeCachedForms() {
-        return rnUsabilla.removeCachedForms()
+        return rnUsabilla.removeCachedForms();
     },
 
     sendEvent(event) {
-        return rnUsabilla.sendEvent(event)
+        return rnUsabilla.sendEvent(event);
     },
     
     resetCampaignData(callback) {
-        if (Platform.OS == 'android') {
-            return rnUsabilla.resetCampaignData()
+        if (Platform.OS === 'android') {
+            return rnUsabilla.resetCampaignData();
         } else {
             if (callback) {
-            return rnUsabilla.resetCampaignData(callback)
-                
+                return rnUsabilla.resetCampaignData(callback);
             }
-            return rnUsabilla.resetCampaignData(()=> {
-                console.log("Campaign data is successfully reset!")
-            })
+            return rnUsabilla.resetCampaignData(() => {
+                console.log('Campaign data is successfully reset!');
+            });
         }
     },
     
     setCustomVariables(customVariables) {
-        return rnUsabilla.setCustomVariables(customVariables)
+        return rnUsabilla.setCustomVariables(customVariables);
     },
     
     setFormDidLoadSuccessfully(callback) {
-        return usabillaEventEmitter.addListener('UBFormLoadingSucceeded', callback)
+        return usabillaEventEmitter.addListener('UBFormLoadingSucceeded', callback);
     },
     
     setFormDidFailLoading(callback) {
-        usabillaEventEmitter.addListener('UBFormLoadingFailed', callback)
+        return usabillaEventEmitter.addListener('UBFormLoadingFailed', callback);
     },
     
     setFormDidClose(callback) {
-        usabillaEventEmitter.addListener('UBFormDidClose', callback)
+        return usabillaEventEmitter.addListener('UBFormDidClose', callback);
     },
     
     setCampaignDidClose(callback) {
-        usabillaEventEmitter.addListener('UBCampaignDidClose', callback)
+        return usabillaEventEmitter.addListener('UBCampaignDidClose', callback);
     },
     
-    dismiss() {
-        rnUsabilla.dismiss()
+    /**
+     * Dismisses the form. Returns a Promise<boolean> on Android (TurboModules/new arch), or boolean (old arch, discouraged).
+     * Always use as async/await for forward compatibility.
+     */
+    async dismiss() {
+        if (Platform.OS === 'android') {
+            if (typeof rnUsabilla.dismiss === 'function') {
+                return await rnUsabilla.dismiss();
+            } else if (typeof rnUsabilla.dismissSync === 'function') {
+                return rnUsabilla.dismissSync();
+            }
+        } else {
+            rnUsabilla.dismiss();
+        }
     },
     
     setDataMasking(masks, character) {
-        rnUsabilla.setDataMasking(masks, character)
+        rnUsabilla.setDataMasking(masks, character);
     },
     
     getDefaultDataMasks() {
-        return rnUsabilla.DEFAULT_DATA_MASKS
+        return rnUsabilla.DEFAULT_DATA_MASKS;
     },
     
     isUBInitialised(callback) {
-        if (Platform.OS == 'android') {
-            usabillaEventEmitter.addListener('isUBInitialised', callback)
+        if (Platform.OS === 'android') {
+            return usabillaEventEmitter.addListener('isUBInitialised', callback);
         } else {
             console.warn('isUBInitialised is not available for iOS');
         }
     }
+};
 
-  };
+export default UsabillaReactNative;

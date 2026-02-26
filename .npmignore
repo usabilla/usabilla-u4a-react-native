@@ -10,5 +10,23 @@ android/local.properties
 
 ios/.DS_Store
 
-build/
+node_modules/
+android/build/
+android/app/build/
+ios/build/
 UsabillaSampleApp/
+*.log
+*.tgz
+.DS_Store
+.env*
+coverage/
+dist/
+build/
+*.tsbuildinfo
+*.pid
+*.seed
+*.pid.lock
+.cache/
+logs/
+*.tgz
+*.tgz
