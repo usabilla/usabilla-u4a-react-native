@@ -115,8 +115,8 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
         }
     }
 
-    @ReactMethod
-    public String mainButtonTextArg = "mainButtonText";
+    // Field for main button text argument key (not a React method)
+    public static final String mainButtonTextArg = "mainButtonText";
 
     public UsabillaBridge(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -203,13 +203,6 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     /**
      * Called via the index.js to see if the navigation buttons are visible
      */
-    // Synchronous method for TurboModules
-    @ReactMethod(isBlockingSynchronousMethod = true)
-    public boolean areNavigationButtonsVisibleSync() {
-        return usabilla.getDefaultNavigationButtonsVisibility();
-    }
-
-    // New architecture: async method for TurboModules
     @ReactMethod
     public void areNavigationButtonsVisible(com.facebook.react.bridge.Promise promise) {
         try {
@@ -277,18 +270,6 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     /**
      * Called via the index.js to remove from the view the Usabilla form
      */
-    // Synchronous method for TurboModules
-    @ReactMethod(isBlockingSynchronousMethod = true)
-    public boolean dismissSync() {
-        final Activity activity = getCurrentActivity();
-        if (activity != null) {
-            return usabilla.dismiss(activity.getBaseContext());
-        }
-        Log.e(LOG_TAG, "Dismissing the Usabilla form is not possible. Android activity is null");
-        return false;
-    }
-
-    // New architecture: async method for TurboModules
     @ReactMethod
     public void dismiss(com.facebook.react.bridge.Promise promise) {
         final Activity activity = getCurrentActivity();
