@@ -9,8 +9,7 @@ export interface UsabillaBridgeSpec extends TurboModule {
   initialize(appId: string): Promise<void> | void;
   setDebugEnabled(debugEnabled: boolean): void;
   onBackPressed(): boolean | void;
-  areNavigationButtonsVisible?(): Promise<boolean>;
-  areNavigationButtonsVisibleSync?(): boolean;
+  areNavigationButtonsVisible(): Promise<boolean>;
   setDefaultNavigationButtonsVisibility(visible: boolean): void;
   loadLocalizedStringFile?(localizedStringFile: string): void;
   loadFeedbackForm(formId: string, selectedEmoticonImages?: string[], unselectedEmoticonImages?: string[]): void;
@@ -20,8 +19,7 @@ export interface UsabillaBridgeSpec extends TurboModule {
   sendEvent(event: string): void;
   resetCampaignData(callback?: (...args: any[]) => any): void;
   setCustomVariables(customVariables: any): void;
-  dismiss?(): Promise<boolean>;
-  dismissSync?(): boolean;
+  dismiss(): Promise<boolean>;
   setDataMasking?(masks?: string[], character?: string): void;
   getDefaultDataMasks?(): string[];
   isUBInitialised?(callback: (...args: any[]) => any): void;

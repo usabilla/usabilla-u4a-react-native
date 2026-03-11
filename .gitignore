@@ -5,10 +5,13 @@
 android/.DS_Store
 ios/.DS_Store
 android/.project
+*.bak
 
 ## Build generated
 build/
 android/build/
+android/.gradle/
+android/.settings/
 DerivedData/
 
 ## Various settings
@@ -25,3 +28,4 @@ xcuserdata/
 *node_modules/
 *Pods/
 *Podfile.lock
+UsabillaSampleApp/package-lock.json

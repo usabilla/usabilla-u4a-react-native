@@ -40,16 +40,12 @@ const UsabillaReactNative = {
     },
 
     /**
-     * Returns a Promise<boolean> on Android (TurboModules/new arch), or boolean (old arch, discouraged).
-     * Always use as async/await for forward compatibility.
+     * Returns a Promise<boolean> on Android.
+     * Always use as async/await.
      */
     async areNavigationButtonsVisible() {
         if (Platform.OS === 'android') {
-            if (typeof rnUsabilla.areNavigationButtonsVisible === 'function') {
-                return await rnUsabilla.areNavigationButtonsVisible();
-            } else if (typeof rnUsabilla.areNavigationButtonsVisibleSync === 'function') {
-                return rnUsabilla.areNavigationButtonsVisibleSync();
-            }
+            return await rnUsabilla.areNavigationButtonsVisible();
         } else {
             console.warn('areNavigationButtonsVisible is not available for iOS');
             return true;
@@ -149,16 +145,12 @@ const UsabillaReactNative = {
     },
     
     /**
-     * Dismisses the form. Returns a Promise<boolean> on Android (TurboModules/new arch), or boolean (old arch, discouraged).
-     * Always use as async/await for forward compatibility.
+     * Dismisses the form. Returns a Promise<boolean> on Android.
+     * Always use as async/await.
      */
     async dismiss() {
         if (Platform.OS === 'android') {
-            if (typeof rnUsabilla.dismiss === 'function') {
-                return await rnUsabilla.dismiss();
-            } else if (typeof rnUsabilla.dismissSync === 'function') {
-                return rnUsabilla.dismissSync();
-            }
+            return await rnUsabilla.dismiss();
         } else {
             rnUsabilla.dismiss();
         }
