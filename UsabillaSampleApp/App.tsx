@@ -20,9 +20,9 @@ import usabilla from 'usabilla-react-native';
 
 /// Usabilla Configuration
 // Replace appId with your usabilla app id.
-const appId = "YOUR_APP_ID_HERE"
+const appId = "c16fde48-2d98-42eb-afcc-fa93626552ec"
 // Replace FormId with your usabilla form id.
-const formId = "YOUR_FORM_ID_HERE"
+const formId = "6980ad1a18c29a39a7324b06"
 // Replace custom variable with your usabilla custom variable created for targeting specific Campaign..
 const customVars = { feature_flag: true };
 
