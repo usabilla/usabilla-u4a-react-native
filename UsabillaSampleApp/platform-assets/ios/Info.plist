@@ -59,9 +59,9 @@
 	<string>To be able to capture screenshots</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>MiloOT-Bold.otf</string>
-		<string>MiloOT-Medi.otf</string>
-		<string>MiloOT-Text.otf</string>
+		<string>Inter-Bold.otf</string>
+		<string>Inter-Medium.otf</string>
+		<string>Inter-Regular.otf</string>
 	</array>
 </dict>
 </plist>
