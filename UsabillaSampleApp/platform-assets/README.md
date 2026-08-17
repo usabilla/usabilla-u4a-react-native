@@ -64,7 +64,7 @@ platform-assets/
 
 **Info.plist** (1 file)
 - App configuration including:
-  - `UIAppFonts` - Custom font references (Inter fonts)
+  - `UIAppFonts` - Custom font references (National2 fonts)
   - `CFBundleDisplayName` - App display name
   - `UISupportedInterfaceOrientations` - Portrait/landscape
   - `UIStatusBarStyle` - Status bar appearance

@@ -59,9 +59,9 @@
 	<string>To be able to capture screenshots</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Inter-Bold.otf</string>
-		<string>Inter-Medium.otf</string>
-		<string>Inter-Regular.otf</string>
+		<string>bold.woff2</string>
+		<string>medium.woff2</string>
+		<string>regular.woff2</string>
 	</array>
 </dict>
 </plist>
