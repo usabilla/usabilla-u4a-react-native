@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -40,6 +39,7 @@ import androidx.core.content.ContextCompat;
 import com.usabilla.sdk.ubform.sdk.form.model.UbImages;
 import com.usabilla.sdk.ubform.sdk.form.model.UsabillaTheme;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +60,8 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
 
     private Usabilla usabilla = Usabilla.INSTANCE;
     private Fragment form;
+    private WeakReference<LifecycleOwner> closingObserverOwner = new WeakReference<>(null);
+    private ClosingFormData lastClosingFormData;
 
 
     private WritableMap getResult(FeedbackResult res) {
@@ -71,6 +73,11 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
     }
 
     private final Observer<ClosingFormData> closingObserver = closingFormData -> {
+        // LiveData re-delivers its last value when the observer is bound to a new LifecycleOwner
+        if (closingFormData == lastClosingFormData) {
+            return;
+        }
+        lastClosingFormData = closingFormData;
         if (closingFormData.getFormType().equals(FormType.PASSIVE_FEEDBACK)) {
             // The passive feedback form needs to be closed and the feedback result is returned
             final WritableMap result = getResult(closingFormData.getFeedbackResult());
@@ -313,8 +320,16 @@ public class UsabillaBridge extends ReactContextBaseJavaModule implements Usabil
 
     @Override
     public void onHostResume() {
-        final AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
-        Usabilla.INSTANCE.getClosingData().observe((LifecycleOwner) activity, closingObserver);
+        final Activity activity = getCurrentActivity();
+        if (!(activity instanceof LifecycleOwner) || activity == closingObserverOwner.get()) {
+            return;
+        }
+        // LiveData throws if the same observer is bound to a second LifecycleOwner,
+        // which happens when more than one host activity is alive at the same time.
+        final LifecycleOwner owner = (LifecycleOwner) activity;
+        Usabilla.INSTANCE.getClosingData().removeObserver(closingObserver);
+        Usabilla.INSTANCE.getClosingData().observe(owner, closingObserver);
+        closingObserverOwner = new WeakReference<>(owner);
     }
 
     @Override
